@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import down from '../assets/down.png'
+import profileuser from '../assets/profileuser.png'
+import { UserContext } from '../Contexts/UserContext'
 
 const Navbar = () => {
+  const {user} = useContext(UserContext)
   return (
     <div>
         <header className='px-2 flex justify-between'>
@@ -29,8 +32,23 @@ const Navbar = () => {
             <div className="flex gap-2 items-center py-2 px-4">
             <div className='font-main text-[20px] px-2'>language</div>
             <div className='font-main text-[20px] px-4'>Favourite</div>
-
-            <span className='text-pink font-main text-[20px]'>Log in </span>
+            
+            { user ? (
+              <>
+                { user && (
+                  <Link className='items-center'>
+                    <img src={profileuser} className=' w-[25px]' />
+                    <div className='text-xs'>
+                    {user.name}
+                    </div>
+                  </Link>
+                )}
+              </>
+            ) : (
+              <>
+                <Link to={'/Login'} className='text-pink font-main text-[20px]'>Log in </Link>
+              </>
+            )}
             </div>
         </header>
         <div className='border '></div>

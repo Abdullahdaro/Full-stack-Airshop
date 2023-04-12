@@ -2,11 +2,18 @@ import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Navbar } from './components'
 import { Login, RegisterPage } from './pages'
+import axios from 'axios'
+import { UserContextProvider } from './Contexts/UserContext'
+
+
+axios.defaults.baseURL= "http://localhost:4000"
+axios.defaults.withCredentials = true;
 
 function App() {
 
   return (
     <div className="App">
+      <UserContextProvider>
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -15,6 +22,7 @@ function App() {
             <Route path="/register" element={(<RegisterPage/>)} />
         </Routes>
       </BrowserRouter>
+      </UserContextProvider>
     </div>
   )
 }
