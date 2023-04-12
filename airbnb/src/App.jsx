@@ -1,7 +1,7 @@
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Navbar } from './components'
-import { Login, RegisterPage } from './pages'
+import { Login, RegisterPage, Profile } from './pages'
 import axios from 'axios'
 import { UserContextProvider } from './Contexts/UserContext'
 
@@ -20,6 +20,7 @@ function App() {
             <Route path='/' element={('Element')} />
             <Route path="/Login" element={(<Login/>)} />
             <Route path="/register" element={(<RegisterPage/>)} />
+            <Route path='/profile' element={(<Profile />)} />
         </Routes>
       </BrowserRouter>
       </UserContextProvider>

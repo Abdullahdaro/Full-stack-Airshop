@@ -56,10 +56,9 @@ app.post('/login', async (req,res) => {
       jwt.sign({
         email:userDoc.email,
         id:userDoc._id,
-        name:userDoc.name,
       }, jwtSecret, {}, (err,token) => {
         if (err) throw err;
-        res.cookie('token', token, { path: '/profile' }).json(userDoc);
+        res.cookie('token', token).json(userDoc);
       })
     } else {
       res.status(422).json('pass not ok');
@@ -73,9 +72,10 @@ app.get('/profile', (req, res) => {
   console.log(req.cookies)
   const {token} = req.cookies;
   if (token) {
-    jwt.verify(token, jwtSecret, {}, (err, user) => {
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
       if (err) throw err; 
-        res.json(user);
+      const {name,email,_id} = await UserModel.findById(userData.id);
+      res.json({name,email,_id});
     }); 
   } else {
     res.json(null)

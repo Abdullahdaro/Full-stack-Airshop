@@ -11,10 +11,10 @@ const Navbar = () => {
     <div>
         <header className='px-2 flex justify-between'>
             {/* logo */}
-            <a href="" className="flex items-center">
+            <Link to={'/'} className="flex items-center">
                 <img src={logo} className='h-25 w-[25px]' />
                 <span className='font-main text-xl'>Airdrop clothes</span>
-            </a>
+            </Link>
             {/* middle */}
             <div className='flex gap-2 py-2 px-2  shadow-gray-300 '>
               <div className='font-main text-[24px] px-8 flex items-center gap-2'>
@@ -36,7 +36,7 @@ const Navbar = () => {
             { user ? (
               <>
                 { user && (
-                  <Link className='items-center'>
+                  <Link to={'/profile'} className='items-center'>
                     <img src={profileuser} className=' w-[25px]' />
                     <div className='text-xs'>
                     {user.name}
