@@ -1,3 +1,5 @@
 export {default as Login } from './Login'
 export {default as RegisterPage } from './RegisterPage'
 export {default as Profile} from './Profile'
+export {default as LikedPage} from './LikedPage'
+export {default as MyStorePage} from './MyStorePage'
