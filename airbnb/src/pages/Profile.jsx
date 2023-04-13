@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import { UserContext } from '../Contexts/UserContext'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 
 const Profile = () => {
     const {ready, user} = useContext(UserContext)
@@ -12,6 +12,9 @@ const Profile = () => {
     if ( ready && !user ) {
         return <Navigate to={'/login'} />
     }
+
+    const {subpage} = useParams();
+    
   return (
     <div>acount page for {user?.name} </div>
   )
