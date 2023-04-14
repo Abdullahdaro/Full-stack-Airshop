@@ -2,9 +2,14 @@ import mongoose from "mongoose";
 
 const ClothesSchema = new mongoose.Schema({
     title: String, 
-    color: String, 
+    colors: String, 
+    price: Number,
     photos: [String], 
     description: String, 
-    perks: [String],
-    
+    Material: String,
+    Sizes: String,
+    Type: String, 
+    Season: String,
+    Serial: Number, 
+    Composition: String, 
 })
