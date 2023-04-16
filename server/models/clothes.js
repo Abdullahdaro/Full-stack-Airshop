@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const ClothesSchema = new mongoose.Schema({
+    owner:{type:mongoose.Schema.Types.ObjectId, ref: 'User'},
     title: String, 
     colors: String, 
     price: Number,

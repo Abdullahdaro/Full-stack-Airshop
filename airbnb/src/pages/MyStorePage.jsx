@@ -1,8 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const MyStorePage = () => {
   return (
-    <div>MyStorePage</div>
+    <div>
+      <Link className='justify-ceneter items-center' to={'/profile/mystore/add'}> 
+        Add a new product
+      </Link>
+      <div>
+        my store
+      </div>
+    </div>
   )
 }
 

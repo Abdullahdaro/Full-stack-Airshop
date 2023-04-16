@@ -81,18 +81,14 @@ const Navbar = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link to='/liked-posts' onClick={() => setShowMenu(false)} className='block px-4 py-2 hover:bg-gray-100'>
+                        <Link to='/profile/liked' onClick={() => setShowMenu(false)} className='block px-4 py-2 hover:bg-gray-100'>
                           Liked Posts
                         </Link>
                       </li>
                       <li>
-                        <Link to='/my-store' onClick={() => setShowMenu(false)} className='block px-4 py-2 hover:bg-gray-100'>
+                        <Link to='/profile/mystore' onClick={() => setShowMenu(false)} className='block px-4 py-2 hover:bg-gray-100'>
                           My Store
                         </Link>
-                      </li>
-                      <li>
-                        <button to='/my-store' onClick={() => setShowMenu(false)} className='block px-4 border hover:bg-gray-100'>
-                        </button>
                       </li>
                       <li>
                         <div to='/my-store' onClick={() => setShowMenu(false)} className='block px-4 py-2 hover:bg-gray-100'>
