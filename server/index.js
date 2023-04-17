@@ -6,6 +6,10 @@ import bcrypt from 'bcryptjs'
 import UserModel from './models/user.js'
 import jwt from "jsonwebtoken";
 import cookieParser from 'cookie-parser';
+import multer from 'multer';
+import { fileURLToPath } from 'url';
+import path, { dirname } from 'path';
+import fs from 'fs';
 
 dotenv.config();
 
@@ -14,9 +18,12 @@ const app = express();
 
 const bcryptSalt = bcrypt.genSaltSync(10)
 const jwtSecret = 'fasefraw4r5r3wq45wdfgw34twdfg';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 app.use(express.json());
 app.use(cookieParser('test'))
+app.use('/uploads', express.static(path.join(__dirname+ '/uploads')));
 app.use(cors({
   credentials: true,
   origin: 'http://127.0.0.1:5173'
@@ -69,7 +76,6 @@ app.post('/login', async (req,res) => {
 });
 
 app.get('/profile', (req, res) => {
-  console.log(req.cookies)
   const {token} = req.cookies;
   if (token) {
     jwt.verify(token, jwtSecret, {}, async (err, userData) => {
@@ -85,6 +91,11 @@ app.get('/profile', (req, res) => {
 app.post('/logout', (req,res) => {
   res.cookie('token', '' ).json(true);
 })
+
+const photoMiddleware = multer({dest: 'uploads'});
+app.post('/upload', photoMiddleware.array('photos', 10), (req, res) => {
+  res.json(req.files);
+}) 
 
 app.listen(4000);
 
