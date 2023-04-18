@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { SketchPicker } from 'react-color';
 
-export default function ColorPicker() {
+export default function ColorPicker(props) {
   const [colors, setColors] = useState([]);
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const pickerRef = useRef(null);
@@ -31,13 +31,26 @@ export default function ColorPicker() {
     };
   }, []);
 
+  useEffect(() => {
+    if (props.onColorChange) {
+      props.onColorChange(colors[0]);
+    }
+  }, [colors, props.onColorChange]);
+
   return (
     <div>
       <h2>Colors</h2>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <div
-          style={{ backgroundColor: colors[0], height: 40, cursor: 'pointer' }}
-          className='border rounded-full w-full'
+          style={{
+            backgroundColor: colors[0],
+            height: 40,
+            border: '1px solid black',
+            cursor: 'pointer',
+            borderRadius: '50%',
+            boxShadow: '0px 0px 3px rgba(0,0,0,0.5)',
+          }}
+          className='w-full'
           onClick={handlePickerToggle}
         />
         {isPickerOpen && (
@@ -65,5 +78,4 @@ export default function ColorPicker() {
         </div>
       </div>
     </div>
-  );
-}
+  )}

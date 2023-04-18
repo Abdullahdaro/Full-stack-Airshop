@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import bcrypt from 'bcryptjs'
 import UserModel from './models/user.js'
+import Product from './models/clothes.js'
 import jwt from "jsonwebtoken";
 import cookieParser from 'cookie-parser';
 import multer from 'multer';
@@ -96,6 +97,31 @@ const photoMiddleware = multer({dest: 'uploads'});
 app.post('/upload', photoMiddleware.array('photos', 10), (req, res) => {
   res.json(req.files);
 }) 
+
+app.post('/products', (req, res) => {
+  const {token} = req.cookies;
+  const {
+    addedPhotos, title, serialNumber, price, colors, description, materil
+            , age
+            , sex
+            , type
+            , season
+            , size
+  } = req.body; 
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err; 
+    const productDoc = await Product.create({
+      owner: userData.id,
+      addedPhotos, title, serialNumber, price, colors, description, materil
+            , age
+            , sex
+            , type
+            , season
+            , size
+      });
+      res.json(productDoc)
+    })
+})
 
 app.listen(4000);
 

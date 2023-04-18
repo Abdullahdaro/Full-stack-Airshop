@@ -1,15 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios'
 import Image from './Image'
-import ColorPicker from './colorPicker';
+import { SketchPicker } from 'react-color';
+import { useNavigate } from 'react-router-dom';
 
 const Form = () => {
     const [addedPhotos, setAddedPhotos] = useState([])
-    const [photoLink, setPhotoLink] = useState('')
     const [title, setTitle] = useState('')
     const [serialNumber, setSerialNumber] = useState('')
     const [price, setPrice] = useState('')
     const [colors, setColors] = useState([]);
+    const [isPickerOpen, setIsPickerOpen] = useState(false);
     const [description, setDescription] = useState('')
     const [materil, setMateril] = useState('')
     const [age, setAge] = useState('')
@@ -18,6 +19,38 @@ const Form = () => {
     const [season, setSeason] = useState('')
     const [size, setSize] = useState('')
     const [selectedFiles, setSelectedFiles] = useState([]);
+    const [selectedColor, setSelectedColor] = useState('');
+
+    const navTo = useNavigate()
+
+  function handleColorChange(color) {
+    setSelectedColor(color);
+  }
+
+    const pickerRef = useRef(null);
+    function handleColorChange(color) {
+        if (colors.length >= 5) {
+            return
+        }
+        setColors((prevColors) => [...prevColors, color.hex]);
+      }
+      function handleColorRemove(colorIndex) {
+        setColors((prevColors) => prevColors.filter((_, i) => i !== colorIndex));
+      }
+      function handlePickerToggle() {
+        setIsPickerOpen((prevState) => !prevState);
+      }
+      function handleOutsideClick(event) {
+        if (pickerRef.current && !pickerRef.current.contains(event.target)) {
+          setIsPickerOpen(false);
+        }
+      }
+      useEffect(() => {
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => {
+          document.removeEventListener('mousedown', handleOutsideClick);
+        };
+      }, []);
 
     function handleFileUpload(files) {
         // TODO: Upload the selected files to a server or process them in some other way
@@ -61,10 +94,23 @@ const Form = () => {
         
     }
 
+    async function addNewPlace (e) {
+        e.preventDefault();
+        await axios.post('/products', {
+            addedPhotos, title, serialNumber, price, colors, description, materil
+            , age
+            , sex
+            , type
+            , season
+            , size
+        })
+        navTo('/profile/mystore')
+    }
+
 
   return (
     <div className='flex m-8 items-center justify-center'>
-        <form action="">
+        <form onSubmit={addNewPlace}>
             <div className='p-9 w-[100%] border rounded-md'>
 
             <div onDrop={handleDrop}
@@ -118,17 +164,17 @@ const Form = () => {
                 </div>
                 <div>
                     <h2>Serial Number</h2>
-                    <input className='border rounded-md w-full'
+                    <input className='border rounded-full h-10 w-full pl-3 placeholder-gray-400 ' 
                     value={serialNumber}
                     onChange={e=> setSerialNumber(e.target.value)}
-                    type='text' placeholder='S00001'></input>
+                    type='number' placeholder='S00001'></input>
                 </div>
                 <div>
                     <h2>Prices</h2>
-                    <input className='border rounded-md w-full' 
+                    <input className='border rounded-full h-10 w-full pl-3 placeholder-gray-400 ' 
                     value={price}
                     onChange={e=> setPrice(e.target.value)}
-                    type='text' 
+                    type='number' 
                     placeholder='$'></input>
                 </div>
                 <div>
@@ -148,7 +194,40 @@ const Form = () => {
 
                 <div className="grid grid-cols-2 gap-4 mt-4">
                     <div >
-                        <ColorPicker />
+                        <h2>Main color</h2>
+                        <div style={{ display: '', alignItems: 'center' }}>
+                            <div
+                            style={{ backgroundColor: colors[0], width: 20, height: 20, cursor: 'pointer' }}
+                            onClick={handlePickerToggle}
+                            className='border'
+                            />
+                            {isPickerOpen && (
+                            <div style={{ position: 'absolute', zIndex: 1 }} ref={pickerRef}>
+                                <SketchPicker onChangeComplete={handleColorChange} />
+                                <button onClick={handlePickerToggle}>Save</button>
+                            </div>
+                            )}
+                            
+                            <div className=''>
+                                More Colors: <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                                                    {colors.slice(1).map((color, i) => (
+                                                        <div
+                                                        key={i}
+                                                        style={{
+                                                            backgroundColor: color,
+                                                            width: 20,
+                                                            height: 20,
+                                                            marginRight: 5,
+                                                            marginBottom: 5,
+                                                            borderRadius: 2,
+                                                            cursor: 'pointer',
+                                                        }}
+                                                        onClick={() => handleColorRemove(i + 1)}
+                                                        />
+                                                    ))}
+                                                    </div>
+                            </div>
+                        </div>
                     </div>
                     <div>
                         <p>Age</p>
@@ -166,35 +245,54 @@ const Form = () => {
                     </div>
                     <div>
                         <p>Sex</p>
-                        <input className='border rounded-md w-full' 
-                        value={sex}
-                        onChange={e=> setSex(e.target.value)}
-                        type="text" placeholder='choose the age to choose' />
+                        <select
+                            className='block h-14 rounded-md  w-full'
+                            value={sex}
+                            onChange={e => setSex(e.target.value)}
+                        >
+                            <option value=''>Choose a sex</option>
+                            <option value='men'>Men</option>
+                            <option value='women'>Women</option>
+                            <option value='uniSex'>UniSex</option>
+                        </select>
                     </div>
                     <div>
                         <p>Type</p>
-                        <input className='border rounded-md w-full' 
-                        value={type}
-                        onChange={e=> setType(e.target.value)}
-                        type="text" placeholder='choose the age to choose' />
+                        <select
+                            className='block h-14 rounded-md  w-full'
+                            value={type}
+                            onChange={e => setType(e.target.value)}
+                        >
+                            <option value=''>Choose a type</option>
+                            <option value='men'>Men</option>
+                            <option value='women'>Women</option>
+                            <option value='uniSex'>UniSex</option>
+                        </select>
                     </div>
                     <div>
                         <p>Season</p>
-                        <input className='border rounded-md w-full' 
-                        value={season}
-                        onChange={e=> setSeason(e.target.value)}
-                        type="text" placeholder='choose the age to choose' />
+                        <select
+                            className='block h-14 rounded-md  w-full'
+                            value={season}
+                            onChange={e => setSeason(e.target.value)}
+                        >
+                            <option value=''>Choose a season </option>
+                            <option value='summer'>Summer</option>
+                            <option value='winter'>Winter</option>
+                            <option value='spring'>Spring</option>
+                            <option value='autumn'>Autumn</option>
+                        </select>
                     </div>
                     <div>
-                        <p>Size</p>
+                        <p>Sizes</p>
                         <input className='border rounded-md w-full' 
                         value={size}
                         onChange={e=> setSize(e.target.value)}
-                        type="text" placeholder='choose the age to choose' />
+                        type="text" placeholder='S,M,M,L,Xl' />
                     </div>
                 </div>
-                <button>Add to the store</button>
             </div>
+            <button>Add to the store</button>
         </form>
     </div>
   )}
