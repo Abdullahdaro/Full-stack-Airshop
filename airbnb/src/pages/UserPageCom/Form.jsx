@@ -2,9 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios'
 import Image from './Image'
 import { SketchPicker } from 'react-color';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Form = () => {
+    const {id} = useParams();
     const [addedPhotos, setAddedPhotos] = useState([])
     const [title, setTitle] = useState('')
     const [serialNumber, setSerialNumber] = useState('')
@@ -12,7 +13,7 @@ const Form = () => {
     const [colors, setColors] = useState([]);
     const [isPickerOpen, setIsPickerOpen] = useState(false);
     const [description, setDescription] = useState('')
-    const [materil, setMateril] = useState('')
+    const [material, setMaterial] = useState('')
     const [age, setAge] = useState('')
     const [sex, setSex] = useState('')
     const [type, setType] = useState('')
@@ -20,12 +21,31 @@ const Form = () => {
     const [size, setSize] = useState('')
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [selectedColor, setSelectedColor] = useState('');
-
     const navTo = useNavigate()
+    useEffect(() => {
+        if (!id) {
+            return;
+        }
+        axios.post('/products/'+id).then(response => {
+            const {data} = response;
+            setAddedPhotos(data.photos)
+            setTitle(data.title)
+            setSerialNumber(data.serialNumber)
+            setPrice(data.price)
+            setColors(data.colors)
+            setDescription(data.description)
+            setMaterial(data.materil)
+            setAge(data.age)
+            setSex(data.sex)
+            setType(data.type)
+            setSeason(data.season)
+            setSize(data.size)
+        })
+    }, [])
 
-  function handleColorChange(color) {
-    setSelectedColor(color);
-  }
+    function handleColorChange(color) {
+        setSelectedColor(color);
+    }
 
     const pickerRef = useRef(null);
     function handleColorChange(color) {
@@ -53,23 +73,19 @@ const Form = () => {
       }, []);
 
     function handleFileUpload(files) {
-        // TODO: Upload the selected files to a server or process them in some other way
-        // make an API call to upload the files to the server
         const data = new FormData();
         for (let i = 0; i < files.length; i++) {
         data.append("photos", files[i]);
         }
-        axios.post('/upload', data , {
-        method: 'POST',
-        body: data
-        })
+        axios.post('/upload' , data, {
+            headers: {'Content-type':'multipart/form-data'}
+          })
         .then(response => {
             const {data:filenames} = response;
             setAddedPhotos(prev => {
-                return[...prev, ...filenames]
+                return[...prev, ...filenames];
             })
         })
-        .then(data => console.log(data))
         .catch(error => console.log(error));
     }
 
@@ -91,20 +107,40 @@ const Form = () => {
     }
 
     function selecAsMainPhoto(ev, filename) {
-        
+        ev.preventDefault();
+        setAddedPhotos([filename,...addedPhotos.filter(photo => photo !== filename)]);
     }
 
+    console.log(addedPhotos)
+    
     async function addNewPlace (e) {
         e.preventDefault();
-        await axios.post('/products', {
-            addedPhotos, title, serialNumber, price, colors, description, materil
-            , age
-            , sex
-            , type
-            , season
-            , size
-        })
-        navTo('/profile/mystore')
+        const photoNames = addedPhotos.map(photo => photo.filename);
+        console.log(photoNames)
+        if (id) {
+            await axios.put('/products', { id,
+                photoNames, title, serialNumber, price, colors, description, material
+                , age
+                , sex
+                , type
+                , season
+                , size
+            })
+            navTo('/profile/mystore')
+
+        } else {
+            // add a new place 
+            await axios.post('/products', {
+                photoNames, title, serialNumber, price, colors, description, material
+                , age
+                , sex
+                , type
+                , season
+                , size
+            })
+            navTo('/profile/mystore')
+        }
+        
     }
 
 
@@ -133,7 +169,7 @@ const Form = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                     </svg>
                     </button>
-                    <button onClick={ev => selectAsMainPhoto(ev,link)} className="cursor-pointer absolute bottom-1 left-1 text-white bg-black bg-opacity-50 rounded-2xl py-2 px-3">
+                    <button onClick={ev => selecAsMainPhoto(ev,link)} className="cursor-pointer absolute bottom-1 left-1 text-white bg-black bg-opacity-50 rounded-2xl py-2 px-3">
                     {link === addedPhotos[0] && (
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                         <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
@@ -180,8 +216,8 @@ const Form = () => {
                 <div>
                     <p>Material</p>
                     <input className='border rounded-md w-full' 
-                    value={materil}
-                    onChange={e=> setMateril(e.target.value)}
+                    value={material}
+                    onChange={e=> setMaterial(e.target.value)}
                     type="text" placeholder='50% fiber, 40 koton, 10 plastic' />
                 </div>
                 <div>

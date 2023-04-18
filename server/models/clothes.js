@@ -5,12 +5,13 @@ const ClothesSchema = new mongoose.Schema({
     title: String, 
     colors: [{ type: String }] ,
     price: Number,
-    photos: [String], 
+    photos: [{type: String}], 
     description: String, 
     material: String,
-    sizes: String,
+    size: String,
     type: String, 
     season: String,
+    sex:String,
     serialNumber: Number, 
 })
 

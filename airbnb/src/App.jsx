@@ -26,6 +26,7 @@ function App() {
             <Route path='/profile/liked' element={(<LikedPage />)} />
             <Route path='/profile/mystore' element={(<MyStorePage />)} />
             <Route path='/profile/mystore/add' element={(<Form />)} />
+            <Route path='/profile/products/:id' element={(<Form />)} />
         </Routes>
       </BrowserRouter>
       </UserContextProvider>

@@ -94,35 +94,87 @@ app.post('/logout', (req,res) => {
 })
 
 const photoMiddleware = multer({dest: 'uploads'});
-app.post('/upload', photoMiddleware.array('photos', 10), (req, res) => {
+app.post('/upload', photoMiddleware.array('photos', 7), (req, res) => {
   res.json(req.files);
 }) 
 
 app.post('/products', (req, res) => {
   const {token} = req.cookies;
   const {
-    addedPhotos, title, serialNumber, price, colors, description, materil
-            , age
-            , sex
-            , type
-            , season
-            , size
+    photoNames, 
+    title, 
+    serialNumber, 
+    price, 
+    colors, 
+    description, 
+    material
+    , age
+    , sex
+    , type
+    , season
+    , size
   } = req.body; 
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
     if (err) throw err; 
     const productDoc = await Product.create({
       owner: userData.id,
-      addedPhotos, title, serialNumber, price, colors, description, materil
-            , age
-            , sex
-            , type
-            , season
-            , size
+      photos:photoNames, 
+      title, 
+      serialNumber, 
+      price, colors, 
+      description, 
+      material, age, sex, type
+      , season
+      , size
       });
       res.json(productDoc)
     })
 })
 
+app.get('/products', (req,res) => {
+  const {token} = req.cookies;
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    const {id} = userData;
+    res.json( await Product.find({owner:id}))
+  });
+});
+
+app.post('/products/:id', async (req,res) => {
+  const {id} = req.params;
+  res.json(await Product.findById(id))
+})
+
+app.put('/products', async (req,res) => {
+  const {token} = req.cookies;
+  const {
+    id,
+      photos:photoNames, title, 
+      serialNumber, 
+      price, colors, 
+      description, 
+      material, age, sex, type
+            , season
+            , size
+  } = req.body;
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err;
+    const productDoc = await Product.findById(id);
+    if (userData.id === productDoc.owner.toString()) {
+      productDoc.set({
+        id,
+      photos:photoNames, title, 
+      serialNumber, 
+      price, colors, 
+      description, 
+      material, age, sex, type
+            , season
+            , size
+      });
+      await productDoc.save();
+      res.json('ok');
+    }
+  });
+});
 app.listen(4000);
 
 // zrLgmAk6Mb2Zy579
