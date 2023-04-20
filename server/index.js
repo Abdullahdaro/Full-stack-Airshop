@@ -190,6 +190,11 @@ app.put('/products', async (req,res) => {
 app.get('/homeproducts', async (req,res) => {
   res.json( await Product.find() )
 })
+
+app.get('/product/:id', async(req,res) => {
+  const {id} = req.params;
+  res.json(await Product.findById(id))
+})
 app.listen(4000);
 
 // zrLgmAk6Mb2Zy579
