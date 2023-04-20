@@ -30,7 +30,6 @@ app.use(cors({
   origin: 'http://127.0.0.1:5173'
 }))
 
-console.log()
 mongoose.connect(process.env.REACT_APP_CONNECTION_URL)
 
 app.get('/test', (req, res) => {
@@ -94,14 +93,26 @@ app.post('/logout', (req,res) => {
 })
 
 const photoMiddleware = multer({dest: 'uploads'});
-app.post('/upload', photoMiddleware.array('photos', 7), (req, res) => {
-  res.json(req.files);
+app.post('/upload', photoMiddleware.array('photos', 100), (req, res) => {
+  const uploadedFiles = []; 
+  for (let i= 0; i< req.files.length; i++) {
+    const {path, originalname} = req.files[i];
+    const parts = originalname.split('.');
+    const ext = parts[parts.length - 1 ] 
+    console.log(path)
+    console.log(originalname)
+    const newPath = path + '.' + ext
+    fs.renameSync(path, newPath);
+    uploadedFiles.push(newPath.replace('uploads\\',''))
+  }
+  console.log(uploadedFiles);
+  res.json(uploadedFiles);
 }) 
 
 app.post('/products', (req, res) => {
   const {token} = req.cookies;
   const {
-    photoNames, 
+    addedPhotos, 
     title, 
     serialNumber, 
     price, 
@@ -118,7 +129,7 @@ app.post('/products', (req, res) => {
     if (err) throw err; 
     const productDoc = await Product.create({
       owner: userData.id,
-      photos:photoNames, 
+      photos:addedPhotos, 
       title, 
       serialNumber, 
       price, colors, 
@@ -148,7 +159,7 @@ app.put('/products', async (req,res) => {
   const {token} = req.cookies;
   const {
     id,
-      photos:photoNames, title, 
+      addedPhotos, title, 
       serialNumber, 
       price, colors, 
       description, 
@@ -161,8 +172,8 @@ app.put('/products', async (req,res) => {
     const productDoc = await Product.findById(id);
     if (userData.id === productDoc.owner.toString()) {
       productDoc.set({
-        id,
-      photos:photoNames, title, 
+      id,
+      photos:addedPhotos, title, 
       serialNumber, 
       price, colors, 
       description, 
@@ -175,6 +186,10 @@ app.put('/products', async (req,res) => {
     }
   });
 });
+
+app.get('/homeproducts', async (req,res) => {
+  res.json( await Product.find() )
+})
 app.listen(4000);
 
 // zrLgmAk6Mb2Zy579
