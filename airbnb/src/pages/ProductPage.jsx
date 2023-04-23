@@ -10,7 +10,7 @@ const ProductPage = () => {
         if (!id) {
             return 
         }
-        axios.get(`/product/${id}`).then(response => {
+        axios.get(`/products/${id}`).then(response => {
             setProduct(response.data)
         })
     }, [id])

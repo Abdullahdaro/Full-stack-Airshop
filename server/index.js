@@ -36,165 +36,178 @@ app.get('/test', (req, res) => {
   res.json('test ok');
 });
 
-app.post('/register', async (req,res) => {
-  const {name, email, password} = req.body;
-  try {
-    const oldUser = await UserModel.findOne({ email });
-    if (oldUser) return res.status(400).json({ message: "User already exists" });
 
-    const user = await UserModel.create({
-      name,
-      email,
-      password: bcrypt.hashSync(password, bcryptSalt),
-    })
-    res.json(user)
-  } catch (error) {
-    res.status(422).json({ message: "Something went wrong" });
-  }
-  
-});
+//profile 
+      app.post('/register', async (req,res) => {
+        const {name, email, password} = req.body;
+        try {
+          const oldUser = await UserModel.findOne({ email });
+          if (oldUser) return res.status(400).json({ message: "User already exists" });
+          const user = await UserModel.create({
+            name,
+            email,
+            password: bcrypt.hashSync(password, bcryptSalt),
+          })
+          res.json(user)
+        } catch (error) {
+          res.status(422).json({ message: "Something went wrong" });
+        }
+        
+      });
 
-app.post('/login', async (req,res) => {
-  const {email,password} = req.body;
-  const userDoc = await UserModel.findOne({email});
-  if (userDoc) {
-    const passOk = bcrypt.compareSync(password, userDoc.password);
-    if (passOk) {
-      jwt.sign({
-        email:userDoc.email,
-        id:userDoc._id,
-      }, jwtSecret, {}, (err,token) => {
-        if (err) throw err;
-        res.cookie('token', token).json(userDoc);
+      app.post('/login', async (req,res) => {
+        const {email,password} = req.body;
+        const userDoc = await UserModel.findOne({email});
+        if (userDoc) {
+          const passOk = bcrypt.compareSync(password, userDoc.password);
+          if (passOk) {
+            jwt.sign({
+              email:userDoc.email,
+              id:userDoc._id,
+            }, jwtSecret, {}, (err,token) => {
+              if (err) throw err;
+              res.cookie('token', token).json(userDoc);
+            })
+          } else {
+            res.status(422).json('pass not ok');
+          }
+        } else {
+          res.json('not found');
+        }
+      });
+
+      app.get('/profile', (req, res) => {
+        const {token} = req.cookies;
+        if (token) {
+          jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+            if (err) throw err; 
+            const {name,email,_id} = await UserModel.findById(userData.id);
+            res.json({name,email,_id});
+          }); 
+        } else {
+          res.json(null)
+        }
       })
-    } else {
-      res.status(422).json('pass not ok');
-    }
-  } else {
-    res.json('not found');
-  }
-});
 
-app.get('/profile', (req, res) => {
-  const {token} = req.cookies;
-  if (token) {
-    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-      if (err) throw err; 
-      const {name,email,_id} = await UserModel.findById(userData.id);
-      res.json({name,email,_id});
-    }); 
-  } else {
-    res.json(null)
-  }
-})
+      app.post('/logout', (req,res) => {
+        res.cookie('token', '' ).json(true);
+      })
 
-app.post('/logout', (req,res) => {
-  res.cookie('token', '' ).json(true);
-})
 
-const photoMiddleware = multer({dest: 'uploads'});
-app.post('/upload', photoMiddleware.array('photos', 100), (req, res) => {
-  const uploadedFiles = []; 
-  for (let i= 0; i< req.files.length; i++) {
-    const {path, originalname} = req.files[i];
-    const parts = originalname.split('.');
-    const ext = parts[parts.length - 1 ] 
-    console.log(path)
-    console.log(originalname)
-    const newPath = path + '.' + ext
-    fs.renameSync(path, newPath);
-    uploadedFiles.push(newPath.replace('uploads\\',''))
-  }
-  console.log(uploadedFiles);
-  res.json(uploadedFiles);
-}) 
+      // upload products
+      const photoMiddleware = multer({dest: 'uploads'});
+      app.post('/upload', photoMiddleware.array('photos', 100), (req, res) => {
+        const uploadedFiles = []; 
+        for (let i= 0; i< req.files.length; i++) {
+          const {path, originalname} = req.files[i];
+          const parts = originalname.split('.');
+          const ext = parts[parts.length - 1 ] 
+          const newPath = path + '.' + ext
+          fs.renameSync(path, newPath);
+          uploadedFiles.push(newPath.replace('uploads\\',''))
+        }
+        console.log(uploadedFiles);
+        res.json(uploadedFiles);
+      }) 
 
-app.post('/products', (req, res) => {
-  const {token} = req.cookies;
-  const {
-    addedPhotos, 
-    title, 
-    serialNumber, 
-    price, 
-    colors, 
-    description, 
-    material
-    , age
-    , sex
-    , type
-    , season
-    , size
-  } = req.body; 
-  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-    if (err) throw err; 
-    const productDoc = await Product.create({
-      owner: userData.id,
-      photos:addedPhotos, 
-      title, 
-      serialNumber, 
-      price, colors, 
-      description, 
-      material, age, sex, type
-      , season
-      , size
-      });
-      res.json(productDoc)
-    })
-})
-
-app.get('/products', (req,res) => {
-  const {token} = req.cookies;
-  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-    const {id} = userData;
-    res.json( await Product.find({owner:id}))
-  });
-});
-
-app.post('/products/:id', async (req,res) => {
-  const {id} = req.params;
-  res.json(await Product.findById(id))
-})
-
-app.put('/products', async (req,res) => {
-  const {token} = req.cookies;
-  const {
-    id,
-      addedPhotos, title, 
-      serialNumber, 
-      price, colors, 
-      description, 
-      material, age, sex, type
+      app.post('/products', (req, res) => {
+        const {token} = req.cookies;
+        const {
+          addedPhotos, 
+          title, 
+          serialNumber, 
+          price, 
+          colors, 
+          description, 
+          material
+          , age
+          , sex
+          , type
+          , season
+          , size
+        } = req.body; 
+        jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+          if (err) throw err; 
+          const productDoc = await Product.create({
+            owner: userData.id,
+            photos:addedPhotos, 
+            title, 
+            serialNumber, 
+            price, colors, 
+            description, 
+            material, age, sex, type
             , season
             , size
-  } = req.body;
-  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-    if (err) throw err;
-    const productDoc = await Product.findById(id);
-    if (userData.id === productDoc.owner.toString()) {
-      productDoc.set({
-      id,
-      photos:addedPhotos, title, 
-      serialNumber, 
-      price, colors, 
-      description, 
-      material, age, sex, type
-            , season
-            , size
+            });
+            res.json(productDoc)
+          })
+      })
+
+      app.get('/products', (req,res) => {
+        const {token} = req.cookies;
+        jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+          const {id} = userData;
+          res.json( await Product.find({owner:id}))
+        });
       });
-      await productDoc.save();
-      res.json('ok');
-    }
-  });
-});
 
-app.get('/homeproducts', async (req,res) => {
-  res.json( await Product.find() )
-})
+      app.get('/products/:id', async (req,res) => {
+        const {id} = req.params;
+        res.json(await Product.findById(id))
+      })
 
-app.get('/product/:id', async(req,res) => {
-  const {id} = req.params;
-  res.json(await Product.findById(id))
-})
+      app.put('/products', async (req,res) => {
+        const {token} = req.cookies;
+        const {
+          id,
+            addedPhotos, title, 
+            serialNumber, 
+            price, colors, 
+            description, 
+            material, age, sex, type
+                  , season
+                  , size
+        } = req.body;
+        jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+          if (err) throw err;
+          const productDoc = await Product.findById(id);
+          if (userData.id === productDoc.owner.toString()) {
+            productDoc.set({
+            id,
+            photos:addedPhotos, title, 
+            serialNumber, 
+            price, colors, 
+            description, 
+            material, age, sex, type
+                  , season
+                  , size
+            });
+            await productDoc.save();
+            res.json('ok');
+          }
+        });
+      });
+
+
+// homepage products 
+      app.get('/homeproducts', async (req,res) => {
+        res.json( await Product.find() )
+      })
+
+      app.get('/product/:id', async(req,res) => {
+        const {id} = req.params;
+        res.json(await Product.findById(id))
+      })
+
+
+// filters 
+      app.get('/products/:sex', async (req, res) => {
+        const {sex} = req.params;
+        const products = await Product.find({sex});
+        res.json(products);
+      });
+
+
 app.listen(4000);
 
 // zrLgmAk6Mb2Zy579

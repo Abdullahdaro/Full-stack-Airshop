@@ -12,8 +12,8 @@ module.exports = {
         pink: "#FF9D9D",
       },
       fontFamily: {
-        'main': ['FZYaoTi'],
-        "second": ["Red Hat Display"]
+        'main': ['FZYaoTi', 'Helvetica', 'Arial', 'sans-serif'],
+        'second': ['Red Hat Display', 'Roboto', 'Arial', 'sans-serif'],
       },
       fontSize: {
         '25': '25px'

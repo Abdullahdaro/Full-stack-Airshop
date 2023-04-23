@@ -105,7 +105,7 @@ const Navbar = () => {
               )}
             </div>
         </header>
-        <div className='border '></div>
+        <div className='border border-black '></div>
     </div>
   )
 }
