@@ -22,17 +22,40 @@ const ProductPage = () => {
             }
         })
     }, [id])
-    console.log(id)
     console.log(product)
 
     if (!product) return ''
 
-    const { title } = product;
+    const { title} = product;
 
   return (
     <div>
-      <h1>{title}</h1>
       {owner && <p>Owner: {owner.name}</p>}
+      {owner && <p>Owner: {owner.photo} </p>}
+      
+      <div className='flex'>
+        <div className='m-4 gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-col-3'>
+          <div className="relative w-[50%]">
+            {product.photos?.[0] && (
+              <img src={'http://localhost:4000/uploads/'+product.photos?.[0]} 
+                className='object-cover w-full h-full aspect-w-1 aspect-h-1 ' />
+            )}
+          </div>
+          {product.photos?.[0] && (
+            <img src={'http://localhost:4000/uploads/'+product.photos[1]} />
+          )}
+          {product.photos?.[0] && (
+            <img src={'http://localhost:4000/uploads/'+product.photos[2]} />
+          )}
+          {product.photos?.[0] && (
+            <img src={'http://localhost:4000/uploads/'+product.photos[3]} />
+          )}
+        </div>
+        <div className='w-[50%] m-4'>
+          <h1>{title}</h1>
+        </div>
+      </div>
+     
     </div>
   );
 }
