@@ -14,20 +14,20 @@ function App() {
   return (
     <div className="App">
       <UserContextProvider>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-            <Route path='/' element={(<HomePage />)} />
-            <Route path="/Login" element={(<Login/>)} />
-            <Route path="/register" element={(<RegisterPage/>)} />
-            <Route path='/profile' element={(<Profile />)} />
-            <Route path='/profile/liked' element={(<LikedPage />)} />
-            <Route path='/profile/mystore' element={(<MyStorePage />)} />
-            <Route path='/profile/mystore/add' element={(<Form />)} />
-            <Route path='/profile/products/:id' element={(<Form />)} />
-            <Route path='/product/:id' element={(<ProductPage/>)} />
-        </Routes>
-      </BrowserRouter>
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+              <Route path='/' element={(<HomePage />)} />
+              <Route path="/Login" element={(<Login/>)} />
+              <Route path="/register" element={(<RegisterPage/>)} />
+              <Route path='/profile' element={(<Profile />)} />
+              <Route path='/profile/liked' element={(<LikedPage />)} />
+              <Route path='/profile/mystore' element={(<MyStorePage />)} />
+              <Route path='/profile/mystore/add' element={(<Form />)} />
+              <Route path='/profile/products/:id' element={(<Form />)} />
+              <Route path='/product/:id' element={(<ProductPage/>)} />
+          </Routes>
+        </BrowserRouter>
       </UserContextProvider>
     </div>
   )

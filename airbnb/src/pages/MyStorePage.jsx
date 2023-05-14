@@ -4,9 +4,17 @@ import axios from 'axios';
 
 const MyStorePage = () => {
   const [products, setProducts ] = useState([]);
+  const [token, setToken] = useState('');
   useEffect(() => {
-    axios.get('/products').then(({data}) => {
+    axios.get('/products', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).then((data) => {
       setProducts(data);
+    })
+    .catch(err => {
+      console.log(err);
     })
   }, []);
 

@@ -14,7 +14,6 @@ import fs from 'fs';
 
 dotenv.config();
 
-
 const app = express();
 
 const bcryptSalt = bcrypt.genSaltSync(10)
@@ -23,7 +22,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 app.use(express.json());
-app.use(cookieParser('test'))
+app.use(cookieParser())
 app.use('/uploads', express.static(path.join(__dirname+ '/uploads')));
 app.use(cors({
   credentials: true,
@@ -66,7 +65,10 @@ app.get('/test', (req, res) => {
               id:userDoc._id,
             }, jwtSecret, {}, (err,token) => {
               if (err) throw err;
-              res.cookie('token', token).json(userDoc);
+              res.cookie('token', token, {
+                sameSite: 'none',
+                secure: true
+              }).json(userDoc);
             })
           } else {
             res.status(422).json('pass not ok');
@@ -146,8 +148,13 @@ app.get('/test', (req, res) => {
       app.get('/products', (req,res) => {
         const {token} = req.cookies;
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-          const {id} = userData;
-          res.json( await Product.find({owner:id}))
+          if (err) {
+            // Handle the error condition, such as invalid token or verification failure
+            console.error(err);
+            return res.status(401).json({ error: 'Unauthorized' });
+          }
+          const { id } = userData || {}; // Provide an empty object as default value
+          res.json(await Product.find({ owner: id }));
         });
       });
 
