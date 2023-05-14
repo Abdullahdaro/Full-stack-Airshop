@@ -51,18 +51,17 @@ const Navbar = () => {
               <div className='font-main text-[24px] px-8 flex items-center gap-2'>
                 City
                 <img src={down} className='w-[10px] h-[10px] mt-2' />
-
               </div>
-              <div className="border-l border-gray-300"></div>
+              {/* <div className="border-l border-gray-300"></div>
               <div className='font-main text-[24px] px-8 flex items-center gap-2'>
                 Season
                 <img src={down} className='w-[10px] h-[10px] mt-2' />
-              </div>
+              </div> */}
             </div>
             {/* last */}
             <div className="flex gap-2 items-center py-2 px-4">
-            <div className='font-main text-[20px] px-2'>language</div>
-            <div className='font-main text-[20px] px-4'>Favourite</div>
+            <div className='text-main text-[20px] px-0'>language</div>
+            <div className='text-main text-[20px] px-6'>Favourite</div>
             
             {user ? (
                 <div className='relative' ref={userMenuRef}>
@@ -71,7 +70,7 @@ const Navbar = () => {
                     className='items-center focus:outline-none'
                   >
                     <img src={profileuser} className='w-[25px]' />
-                    <div className='text-xs'>{user.name}</div>
+                    <div className='text-xs text-pink font-main'>{user.name}</div>
                   </button>
                   {showMenu && (
                     <ul className='absolute top-8 right-0 z-50 w-40 bg-white rounded-md shadow-lg py-1'>

@@ -13,7 +13,7 @@ module.exports = {
       },
       fontFamily: {
         'main': ['FZYaoTi', 'Helvetica', 'Arial', 'sans-serif'],
-        'second': ['Red Hat Display', 'Roboto', 'Arial', 'sans-serif'],
+        'second': ['Red Hat Display', 'sans-serif'],
       },
       fontSize: {
         '25': '25px'
