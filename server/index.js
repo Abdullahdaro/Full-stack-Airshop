@@ -153,7 +153,7 @@ app.get('/test', (req, res) => {
             console.error(err);
             return res.status(401).json({ error: 'Unauthorized' });
           }
-          const { id } = userData || {}; // Provide an empty object as default value
+          const { id } = userData // Provide an empty object as default value
           res.json(await Product.find({ owner: id }));
         });
       });

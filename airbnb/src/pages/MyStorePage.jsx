@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
+import Product from '../../../server/models/clothes';
 
 const MyStorePage = () => {
   const [products, setProducts ] = useState([]);
-  const [token, setToken] = useState('');
   useEffect(() => {
-    axios.get('/products', {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    }).then((data) => {
-      setProducts(data);
+    axios.get('/products').then(({data}) => {
+      setProducts(data)
+      console.log(products);
     })
     .catch(err => {
       console.log(err);
     })
   }, []);
+
 
   return (
     <div>

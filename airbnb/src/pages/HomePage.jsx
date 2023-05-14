@@ -7,7 +7,7 @@ const HomePage = () => {
 
   useEffect(()=> {
     axios.get('/homeproducts').then(response => {
-      setProducts([...response.data,...response.data,...response.data,...response.data,])
+      setProducts([...response.data, ...response.data ])
     })
   }, []);
 
