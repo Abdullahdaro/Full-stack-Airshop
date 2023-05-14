@@ -206,6 +206,11 @@ app.get('/test', (req, res) => {
         res.json(await Product.findById(id))
       })
 
+      app.get('/owners/:id', async(req,res) => {
+        const {id} = req.params;
+        res.json(await UserModel.findById(id))
+      })
+
 
 // filters 
       app.get('/products/:sex', async (req, res) => {
