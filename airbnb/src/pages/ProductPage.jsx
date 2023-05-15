@@ -1,5 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom'
 
 const ProductPage = () => {
@@ -29,7 +32,7 @@ const ProductPage = () => {
     const { title, price, colors, decription, material, age, sex, type, season, size, serialNumber } = product;
 
   return (
-    <div>
+    <div className=''>
       <div className='flex ml-4 mt-2 font-main text-2xl leading-10'>
         {owner && <p>{owner.photo} </p>}
         {owner && <p>{owner.name}Shop</p>}
@@ -46,20 +49,19 @@ const ProductPage = () => {
             </div>
           ))}
         </div>
-        <div className='w-[25%] m-4'>
-          <div>
-            <h1>{title}</h1>
-            <button></button>
-
+        <div className='w-[25%] m-4 relative bg-gray-100 p-2 rounded-2xl'>
+          <div className='flex justify-between mb-12 mt-4'>
+            <h1 className='font-second text-2xl'>{title}</h1>
+            <button className='w-20 text-2xl'><FontAwesomeIcon icon={faRegularHeart} /></button>
           </div>
-          <h2>Price: {price}$</h2>
-          <h2>{colors}</h2>
-          <div>
-{/*             <h1>Description</h1>
-            <h2>{decription}</h2> */}
+          <h2 className='font-second text-xl mb-12'>Price: {price}$</h2>
+          <div className='mb-4'>
+            <h2>Colors:</h2>
+            {colors.map((color, index) => (
+              <div key={index} className='rounded-full' style={{ backgroundColor: color, width: '20px', height: '20px' }}></div>
+            ))}
           </div>
-          <div>
-{/*             <h2>Material: {material} </h2> */}
+          <div className='gap-2'>
             <h2>Age: {age}</h2>
             <h2>ٍSex: {sex}</h2>
             <h2>Type: {type}</h2>
