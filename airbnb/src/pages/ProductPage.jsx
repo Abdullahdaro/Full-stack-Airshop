@@ -30,9 +30,10 @@ const ProductPage = () => {
 
   return (
     <div>
-      {owner && <p>Owner: {owner.name}</p>}
-      {owner && <p>Owner: {owner.photo} </p>}
-      
+      <div className='flex ml-4 mt-2 font-main text-2xl leading-10'>
+        {owner && <p>{owner.photo} </p>}
+        {owner && <p>{owner.name}Shop</p>}
+      </div>
       <div className='flex'>
         <div className="m-4 gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-[80%] ">
           {product.photos?.length && product.photos.map((photo, index) => (
@@ -46,7 +47,11 @@ const ProductPage = () => {
           ))}
         </div>
         <div className='w-[25%] m-4'>
-          <h1>{title}</h1>
+          <div>
+            <h1>{title}</h1>
+            <button></button>
+
+          </div>
           <h2>Price: {price}$</h2>
           <h2>{colors}</h2>
           <div>
