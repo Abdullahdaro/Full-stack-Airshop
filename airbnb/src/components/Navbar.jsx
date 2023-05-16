@@ -40,26 +40,26 @@ const Navbar = () => {
   
   return (
     <div>
-        <header className='px-2 flex justify-between'>
+        <header className=' flex justify-between'>
             {/* logo */}
             <Link to={'/'} className="flex items-center">
                 <img src={logo} className='h-25 w-[25px]' />
                 <span className='font-main text-xl'>Airdrop clothes</span>
             </Link>
             {/* middle */}
-            <div className='flex gap-2 py-2 px-2  shadow-gray-300 '>
+            <div className='flex py-2  shadow-gray-300 '>
+              <div className='font-main text-[24px] px-8 flex items-center gap-2'>
+                Country
+                <img src={down} className='w-[10px] h-[10px] mt-2' />
+              </div>
+              <div className="border-l border-gray-300"></div>
               <div className='font-main text-[24px] px-8 flex items-center gap-2'>
                 City
                 <img src={down} className='w-[10px] h-[10px] mt-2' />
               </div>
-              {/* <div className="border-l border-gray-300"></div>
-              <div className='font-main text-[24px] px-8 flex items-center gap-2'>
-                Season
-                <img src={down} className='w-[10px] h-[10px] mt-2' />
-              </div> */}
             </div>
             {/* last */}
-            <div className="flex gap-2 items-center py-2 px-4">
+            <div className="flex gap-2 items-center py-2 pr-2">
             <div className='text-main text-[20px] px-0'>language</div>
             <div className='text-main text-[20px] px-6'>Favourite</div>
             
@@ -98,8 +98,8 @@ const Navbar = () => {
                   )}
                 </div>
               ) : (
-                <Link to={'/login'} className='text-pink font-main text-[20px]'>
-                  Log in
+                <Link to={'/login'} className='text-pink font-main text-[16px] bg-secondary p-2 rounded-full'>
+                  Create your shop
                 </Link>
               )}
             </div>

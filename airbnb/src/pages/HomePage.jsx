@@ -24,7 +24,7 @@ const HomePage = () => {
 
   return (
   <div>
-    <div className='flex flex-row h-20 justify-between'>
+    <div className='flex flex-row justify-between'>
       <div className="flex flex-row w-[70%] font-second font-light text-base leading-6 items-center justify-center">
         <button onClick={() => handleFilter('men')}>Men</button>
         <button onClick={() => handleFilter('women')}>Women</button>
@@ -33,7 +33,7 @@ const HomePage = () => {
         <button onClick={() => handleFilter('shoes')}>Shoes</button>
         <button onClick={() => handleFilter('all')}>All</button>
       </div>
-      <div className='flex flex-row font-second font-light text-base leading-6 items-center justify-center gap-8 m-9'>
+      <div className='flex flex-row font-second font-light text-base leading-6 items-center justify-center gap-8 m-5'>
       <div class="font-normal font-light text-base leading-6 flex items-center justify-center relative">
         <span class="relative">
           What are you looking for?
