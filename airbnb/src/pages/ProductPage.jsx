@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons';
-import { useParams } from 'react-router-dom'
+import { useParams, Link  } from 'react-router-dom'
 
 const ProductPage = () => {
     const {id} = useParams(); 

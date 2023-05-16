@@ -164,10 +164,10 @@ app.get('/test', (req, res) => {
         res.json(await Product.findById(id))
       })
 
-      app.get('/owner/:id', async (req,res) => {
-        const ownerID = req.params.id;
-        res.json(await User.findById(ownerID))
-      })
+      app.get('/owner/:id', async (req, res) => {
+        const ownerId = req.params.id;
+        res.json(await User.findById(ownerId));
+      });
 
       app.put('/products', async (req,res) => {
         const {token} = req.cookies;
