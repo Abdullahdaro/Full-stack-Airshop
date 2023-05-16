@@ -11,6 +11,7 @@ import multer from 'multer';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import fs from 'fs';
+import User from './models/user.js';
 
 dotenv.config();
 
@@ -161,6 +162,11 @@ app.get('/test', (req, res) => {
       app.get('/products/:id', async (req,res) => {
         const {id} = req.params;
         res.json(await Product.findById(id))
+      })
+
+      app.get('/owner/:id', async (req,res) => {
+        const ownerID = req.params.id;
+        res.json(await User.findById(ownerID))
       })
 
       app.put('/products', async (req,res) => {

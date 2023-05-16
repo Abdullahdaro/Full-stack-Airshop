@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Navbar } from './components'
 import { Login, RegisterPage, Profile, MyStorePage, LikedPage,HomePage, ProductPage} from './pages'
 import { Form } from './pages/UserPageCom'
+import { ShopPage } from './pages/ShopsPage'
 import axios from 'axios'
 import { UserContextProvider } from './Contexts/UserContext'
 
@@ -26,6 +27,7 @@ function App() {
               <Route path='/profile/mystore/add' element={(<Form />)} />
               <Route path='/profile/products/:id' element={(<Form />)} />
               <Route path='/product/:id' element={(<ProductPage/>)} />
+              <Route path='/owner/:id' element={(<ShopPage/>)} />
           </Routes>
         </BrowserRouter>
       </UserContextProvider>

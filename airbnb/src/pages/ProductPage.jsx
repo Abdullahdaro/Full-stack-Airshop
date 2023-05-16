@@ -25,7 +25,6 @@ const ProductPage = () => {
             }
         })
     }, [id])
-    console.log(product)
 
     if (!product) return ''
 
@@ -34,10 +33,12 @@ const ProductPage = () => {
 
   return (
     <div className=''>
-      <div className='flex ml-4 mt-2 font-main text-2xl leading-10'>
+      {owner && (
+        <Link to={`/owner/${owner._id}`} className='flex ml-4 mt-2 font-main text-2xl leading-10'>
         {owner && <p>{owner.photo} </p>}
         {owner && <p>{owner.name}Shop</p>}
-      </div>
+      </Link>
+      )}
       <div className='flex '>
         <div className="my-4 ml-4 gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-[80%] ">
           {product.photos?.length && product.photos.map((photo, index) => (
