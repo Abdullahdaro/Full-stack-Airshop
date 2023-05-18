@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import Product from '../../../server/models/clothes';
+import { FaPlus } from 'react-icons/fa';
 
 const MyStorePage = () => {
   const [products, setProducts ] = useState([]);
@@ -18,19 +19,25 @@ const MyStorePage = () => {
 
   return (
     <div>
-      <Link className='justify-ceneter items-center' to={'/profile/mystore/add'}> 
-        Add a new product
-      </Link>
-      <div>
-        my store
+
+      <div className='p-4'>
+        <div className='font-main text-3xl p-2'>
+          My Store
+        </div>
+        <Link className="inline-flex items-center bg-gray-500 text-white py-2 px-4 rounded-full" to={'/profile/mystore/add'}> 
+          <span className="mr-4" >Add a new product</span> 
+          <FaPlus className="text-white text-base" />
+        </Link>
       </div>
-      <div className='m-4 justify-center gap-8 grid grid-cols-2 md:grid-cols-3 lg:grid-col-4'>
+      
+      <div className='m-4 justify-center gap-4 grid grid-cols-2 md:grid-cols-3 lg:grid-col-4'>
         {products.length > 0 && products.map((product, i ) =>(
           <Link to={'/profile/products/'+product._id} key={i}>
             <div className='bg-white flex flex-col'>
-              <div className='relative h-[550px]'>
+              <div className='relative h-[600px] w-[475px]'>
                 {product.photos.length > 0 && (
-                <img src={'http://localhost:4000/uploads/'+product.photos[0]} />
+                <img src={'http://localhost:4000/uploads/'+product.photos[0]}
+                className='object-cover w-full h-full aspect-w-1 aspect-h-1 border border-greay-400 '  />
                 )}
               </div>
             </div>

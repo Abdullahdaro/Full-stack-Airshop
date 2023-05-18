@@ -219,10 +219,6 @@ app.get('/test', (req, res) => {
           const owner = await User.findById(id);
           const ownerProducts = await Product.find({ owner: owner._id }).populate('owner');
       
-
-          console.log('Owner:', owner);
-          console.log('Owner Products:', ownerProducts);
-      
           res.json({ owner, ownerProducts });
         } catch (error) {
           console.error(error);
