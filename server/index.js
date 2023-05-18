@@ -164,11 +164,6 @@ app.get('/test', (req, res) => {
         res.json(await Product.findById(id))
       })
 
-      app.get('/owner/:id', async (req, res) => {
-        const ownerId = req.params.id;
-        res.json(await User.findById(ownerId));
-      });
-
       app.put('/products', async (req,res) => {
         const {token} = req.cookies;
         const {
@@ -217,12 +212,22 @@ app.get('/test', (req, res) => {
         res.json(await UserModel.findById(id))
       })
 
+      app.get('/owner/:id', async (req, res) => {
+        const { id } = req.params;
+      
+        try {
+          const owner = await User.findById(id);
+          const ownerProducts = await Product.find({ owner: owner._id }).populate('owner');
+      
 
-// filters 
-      app.get('/products/:sex', async (req, res) => {
-        const {sex} = req.params;
-        const products = await Product.find({sex});
-        res.json(products);
+          console.log('Owner:', owner);
+          console.log('Owner Products:', ownerProducts);
+      
+          res.json({ owner, ownerProducts });
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ error: 'Internal Server Error' });
+        }
       });
 
 

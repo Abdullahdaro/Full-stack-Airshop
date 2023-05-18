@@ -21,6 +21,7 @@ const ProductPage = () => {
               // Fetch the owner's data based on the owner ID
               axios.get(`/owners/${ownerId}`).then(ownerResponse => {
                 setOwner(ownerResponse.data);
+                console.log(ownerResponse.data)
               });
             }
         })
