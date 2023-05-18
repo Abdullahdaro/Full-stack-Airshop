@@ -7,8 +7,11 @@ const ShopPage = () => {
   const [shop, setShop] = useState(null);
   const [owner, setOwner] = useState(null);
   const [ownerProducts, setOwnerProducts] = useState([]);
+  const [sexFilter, setSexFilter] = useState('all');
+  const [newStylesFilter, setNewStylesFilter] = useState('all');
+  const [typeFilter, setTypeFilter] = useState('all');
+  const [seasonFilter, setSeasonFilter] = useState('all');
   const [filteredProducts, setFilteredProducts] = useState([]);
-
 
   useEffect(() => {
     if (!id) {
@@ -31,26 +34,42 @@ const ShopPage = () => {
     
   }, [id]);
 
-  const handleFilter = (type) => {
-    if (type === 'all') {
-      setFilteredProducts(ownerProducts); // Show all products
-    } else {
-      const filtered = ownerProducts.filter(product => product.type === type);
-      setFilteredProducts(filtered);
-    }
+  const handleFilter = () => {
+    const filtered = ownerProducts.filter(product => {
+      if (sexFilter !== 'all' && product.sex !== sexFilter) {
+        return false;
+      }
+      if (newStylesFilter !== 'all' && !product.newStyles.includes(newStylesFilter)) {
+        return false;
+      }
+      if (typeFilter !== 'all' && product.type !== typeFilter) {
+        return false;
+      }
+      if (seasonFilter !== 'all' && product.season !== seasonFilter) {
+        return false;
+      }
+      return true;
+    });
+
+    setFilteredProducts(filtered);
   };
+
+  useEffect(() => {
+    handleFilter();
+  }, [sexFilter, newStylesFilter, typeFilter, seasonFilter]);
+  
+  
 
 
   return (
     <div>
     <div className='flex flex-row justify-between'>
       <div className="flex flex-row w-[70%] font-second font-light text-base leading-6 items-center justify-center">
-        <button onClick={() => handleFilter('men')}>Men</button>
-        <button onClick={() => handleFilter('women')}>Women</button>
-        <button onClick={() => handleFilter('uniSex')}>UniSex</button>
-        <button onClick={() => handleFilter('children')}>Children</button>
-        <button onClick={() => handleFilter('shoes')}>Shoes</button>
-        <button onClick={() => handleFilter('all')}>All</button>
+        <button onClick={() => setSexFilter('men')}>Men</button>
+        <button onClick={() => setSexFilter('women')}>Women</button>
+        <button onClick={() => setSexFilter('uniSex')}>UniSex</button>
+        <button onClick={() => setSexFilter('children')}>Children</button>
+        <button onClick={() => setSexFilter('all')}>All</button>
       </div>
       <div className='flex flex-row font-second font-light text-base leading-6 items-center justify-center gap-8 m-5'>
       <div class="font-normal font-light text-base leading-6 flex items-center justify-center relative">
@@ -82,10 +101,10 @@ const ShopPage = () => {
           </div>
           <div className='flex flex-col gap-1'> 
             <span className='font-second font-semibold text-ms'>Season</span>
-            <span className='font-second text-xs'>Summer</span>
-            <span className='font-second text-xs'>Winter</span>
-            <span className='font-second text-xs'>Spring</span>
-            <span className='font-second text-xs'>See All</span>
+            <button onClick={() => setSeasonFilter('summer')}>Summer</button>
+            <button onClick={() => setSeasonFilter('winter')}>Winter</button>
+            <button onClick={() => setSeasonFilter('spring')}>Spring</button>
+            <button onClick={() => setSeasonFilter('all')}>All Seasons</button>
           </div>
         </div>
       </div>
