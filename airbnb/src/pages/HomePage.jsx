@@ -9,13 +9,13 @@ const HomePage = () => {
   useEffect(()=> {
     axios.get('/homeproducts').then(response => {
       setProducts([...response.data ])
-      setFilteredProducts([...response.data, ...response.data, ...response.data, ...response.data ]); 
+      setFilteredProducts([...response.data ]); 
     })
   }, []);
 
   const handleFilter = (type) => {
     if (type === 'all') {
-      setFilteredProducts(products); // Show all products
+      setFilteredProducts(products); 
     } else {
       const filtered = products.filter(product => product.type === type);
       setFilteredProducts(filtered);
