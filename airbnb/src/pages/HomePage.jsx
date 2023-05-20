@@ -70,7 +70,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <div className='m-7 gap-2 grid w-[95%] grid-cols-2 md:grid-cols-4 lg:grid-col-4'>
+      <div className='m-7 gap-2 grid w-[95%] sm: grid-cols-2 md:grid-cols-4 lg:grid-col-4'>
         {filteredProducts.length > 0 && filteredProducts.map(product => (
           <Link to={'/product/'+product._id} >
             <div className='bg-white flex flex-col'>
@@ -80,7 +80,7 @@ const HomePage = () => {
                       className='object-cover w-full h-full aspect-w-1 aspect-h-1 rounded-xl' />
                   )}
               </div>
-              <div className="pl-1 grow font-second">
+              <div className="pl-1 grow font-second pt-3">
                     <h2 className="text-2xl">{product.title}</h2>
                     <div className="text-xl">
                       <div className="gap-1 flex flex-col">
@@ -89,18 +89,18 @@ const HomePage = () => {
                         </span>
                         <div className='flex flex-col'>
                           <span className="text-xs">
-                            Sizes: {product.size}
+                            Sizes: {product.type}
                           </span>
                           <span className="text-xs">
                             Sizes: {product.size}
                           </span>
                         </div>
-                        <div className=' grid-cols-3 grid'>
+                        <div className=' grid-cols-2 grid'>
                           <span className="text-sm text-[#7F8086]">
-                            type: <span className='text-[#FE8B8B]'>{product.type}</span> 
+                            Gendar: <span className='text-[#FE8B8B]'>{product.sex}</span> 
                           </span>
                           <span className="text-sm text-[#7F8086]">
-                            kind: <span className='text-[#FE8B8B]'>{product.season}</span> 
+                            Kind: <span className='text-[#FE8B8B]'>{product.season}</span> 
                           </span>
                         </div>
                       </div>
