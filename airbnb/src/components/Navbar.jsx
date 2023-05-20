@@ -39,12 +39,12 @@ const Navbar = () => {
   }, []);
   
   return (
-    <div>
+    <div className=''>
         <header className=' flex justify-between'>
             {/* logo */}
             <Link to={'/'} className="flex items-center">
                 <img src={logo} className='h-25 w-[25px]' />
-                <span className='font-main text-xl'>Airdrop clothes</span>
+                <span className='font-second text-xl'>Air TopTan</span>
             </Link>
             {/* middle */}
             <div className='flex py-2  shadow-gray-300 '>
@@ -104,7 +104,7 @@ const Navbar = () => {
               )}
             </div>
         </header>
-        <div className='border border-black '></div>
+        <div className='border opacity-20 border-black '></div>
     </div>
   )
 }

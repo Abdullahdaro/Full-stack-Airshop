@@ -23,7 +23,7 @@ const HomePage = () => {
   };
 
   return (
-  <div>
+  <div className=''>
     <div className='flex flex-row justify-between'>
       <div className="flex flex-row w-[70%] font-second font-light text-base leading-6 items-center justify-center">
         <button onClick={() => handleFilter('men')}>Men</button>
@@ -34,7 +34,7 @@ const HomePage = () => {
         <button onClick={() => handleFilter('all')}>All</button>
       </div>
       <div className='flex flex-row font-second font-light text-base leading-6 items-center justify-center gap-8 m-5'>
-      <div class="font-normal font-light text-base leading-6 flex items-center justify-center relative">
+      <div class="font-normal text-base leading-6 flex items-center justify-center relative">
         <span class="relative">
           What are you looking for?
           <span class="absolute left-0 right-0 bottom-[-5px] h-[1px] bg-black"></span>
@@ -43,7 +43,7 @@ const HomePage = () => {
         <span className='font-red-hat-display font-light text-pink text-base text-[20px]'>Shape</span>
       </div>
     </div>
-    <div className='border border-black '></div>
+    <div className='border opacity-20 border-black '></div>
     <div className='flex'>
       <div className='w-[17%] p-8 '>
         <div className='flex flex-col gap-1 pb-10'> 
@@ -51,9 +51,11 @@ const HomePage = () => {
           <span className='font-second text-ms'>See All</span>
           <span className='font-second text-ms'>Lastest</span>
           <span className='font-second text-ms'>Discounts</span>
+          
         </div>
         <div className='flex flex-col gap-1'> 
-          <span className='text-main font-bold pb-1 text-2xl'>FILTER</span>
+        
+          <span className='text-main font-bold pb-1 text-2xl '>FILTER</span>
           <div className='flex flex-col gap-1 pb-3'> 
             <span className='font-second font-semibold text-ms'>STYLE</span>
             <span className='text-second text-xs'>Shoes</span>
@@ -61,6 +63,7 @@ const HomePage = () => {
             <span className='font-second text-xs'>Pants</span>
             <span className='font-second text-xs'>See All</span>
           </div>
+          <div className='border opacity-20 border-black mr-20 '></div>
           <div className='flex flex-col gap-1'> 
             <span className='font-second font-semibold text-ms'>Season</span>
             <span className='font-second text-xs'>Summer</span>
