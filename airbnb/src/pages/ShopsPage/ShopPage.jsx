@@ -112,17 +112,25 @@ if (!shop) {
             <span className='text-main font-bold pb-1 text-2xl'>FILTER</span>
             <div className='flex flex-col gap-1 pb-3'> 
               <span className='font-second font-semibold text-ms'>STYLE</span>
-              <span className='text-second text-xs'>Shoes</span>
-              <span className='font-second text-xs'>T shit</span>
-              <span className='font-second text-xs'>Pants</span>
-              <span className='font-second text-xs'>See All</span>
+              <span className='text-second font-main text-xs'>Shoes</span>
+              <span className='font-second font-main text-xs'>T shit</span>
+              <span className='font-second font-main text-xs'>Pants</span>
+              <span className='font-second font-main text-xs'>See All</span>
             </div>
-            <div className='flex flex-col gap-1'> 
+            <div className='flex flex-col gap-1'>
               <span className='font-second font-semibold text-ms'>Season</span>
-              <button onClick={() => setSeasonFilter('summer')}>Summer</button>
-              <button onClick={() => setSeasonFilter('winter')}>Winter</button>
-              <button onClick={() => setSeasonFilter('spring')}>Spring</button>
-              <button onClick={() => setSeasonFilter('all')}>All Seasons</button>
+              <button className='text-left font-main text-xs' onClick={() => setSeasonFilter('summer')}>
+                Summer
+              </button>
+              <button className='text-left font-main text-xs' onClick={() => setSeasonFilter('winter')}>
+                Winter
+              </button>
+              <button className='text-left font-main text-xs' onClick={() => setSeasonFilter('spring')}>
+                Spring
+              </button>
+              <button className='text-left font-main text-xs' onClick={() => setSeasonFilter('all')}>
+                All Seasons
+              </button>
             </div>
           </div>
         </div>
@@ -132,51 +140,47 @@ if (!shop) {
             Loading...
           </div>
         ) : (
-        <div className='m-7 gap-2 grid w-[95%] grid-cols-2 md:grid-cols-4 lg:grid-col-4'>
+        <div className='m-7 gap-2 grid w-[95%] sm:grid-cols-1 md:grid-cols-3 lg:grid-col-4'>
           {filteredProducts.length > 0 && filteredProducts .map(product => (
             <Link key={product._id} to={'/product/'+product._id} >
-              <div className='bg-white flex flex-col'>
-                <div className="relative h-[400px] w-[280px] ">
-                    {product.photos?.[0] && (
-                      <img src={'http://localhost:4000/uploads/'+product.photos?.[0]} 
-                        className='object-cover w-full h-full aspect-w-1 aspect-h-1 rounded-xl' />
-                    )}
+              <div className=' flex flex-col bg-gray-200 rounded-xl'>
+                <div className="relative h-[625px] w-full ">
+                  {product.photos?.[0] && (
+                    <img src={'http://localhost:4000/uploads/'+product.photos?.[0]} 
+                      className='object-cover w-full h-full aspect-w-1 aspect-h-1 rounded-xl' />
+                  )}
                 </div>
-                <div className="pl-1 grow font-second">
-                      <h2 className="text-2xl" key={product.title}>{product.title}</h2>
-                      <div className="text-xl">
-                        <div className="gap-1 flex flex-col">
-                          <span className="text-xs text-[#7F8086]" key={product.price} >
-                            Price: ${product.price}
-                          </span>
-                          <div className='flex flex-col'>
-                            <span className="text-xs" key={product.size}>
-                              Sizes: {product.size}
-                            </span>
-                            <span className="text-xs" key={product.sex}>
-                              Gendar: {product.sex}
-                            </span>
-                          </div>
-                          <div className=' grid-cols-3 grid init-flex'>
-                            <span className="text-sm text-[#7F8086]" key={product.type}>
-                              Type: <span className='text-[#FE8B8B]'>{product.type}</span> 
-                            </span>
-                            <span className="text-sm text-[#7F8086]" key={product.season}>
-                              Season: <span className='text-[#FE8B8B]'>{product.season}</span> 
-                            </span>
-                          </div>
-                        </div>
+                <div className="pl-1 grow font-second ">
+                  <h2 className="text-2xl" key={product.title}>{product.title}</h2>
+                  <div className="text-xl">
+                    <div className="gap-1 flex flex-col">
+                      <span className="text-xs text-[#7F8086]" key={product.price} >
+                        Price: ${product.price}
+                      </span>
+                      <div className='flex flex-col'>
+                        <span className="text-xs" key={product.size}>
+                          Sizes: {product.size}
+                        </span>
+                        <span className="text-xs" key={product.sex}>
+                          Gendar: {product.sex}
+                        </span>
                       </div>
+                      <div className=' grid-cols-2 grid init-flex'>
+                        <span className="text-sm text-[#7F8086]" key={product.type}>
+                          Type: <span className='text-[#FE8B8B]'>{product.type}</span> 
+                        </span>
+                        <span className="text-sm text-[#7F8086]" key={product.season}>
+                          Season: <span className='text-[#FE8B8B]'>{product.season}</span> 
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
+              </div>
             </Link>
           ))}
         </div>
-        )/* :(
-          <div className="flex items-center justify-center">
-            No products found.
-          </div>
-        ) */};
+        )};
       </div>
     </div>
     </>

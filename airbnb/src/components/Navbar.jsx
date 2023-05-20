@@ -99,7 +99,7 @@ const Navbar = () => {
                 </div>
               ) : (
                 <Link to={'/login'} className='text-pink font-main text-[16px] bg-secondary p-2 rounded-full'>
-                  Create your shop
+                  Log In
                 </Link>
               )}
             </div>

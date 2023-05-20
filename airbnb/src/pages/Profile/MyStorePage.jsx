@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
-import Product from '../../../server/models/clothes';
 import { FaPlus } from 'react-icons/fa';
 
 const MyStorePage = () => {
