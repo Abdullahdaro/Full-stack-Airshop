@@ -73,7 +73,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <div className='m-7 gap-2 grid w-[95%] sm: grid-cols-2 md:grid-cols-4 lg:grid-col-4'>
+      <div className='m-7 gap-2 grid w-[95%] sm:grid-cols-1 md:grid-cols-4 lg:grid-col-4'>
         {filteredProducts.length > 0 && filteredProducts.map(product => (
           <Link to={'/product/'+product._id} >
             <div className='bg-white flex flex-col'>

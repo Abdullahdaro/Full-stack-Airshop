@@ -79,6 +79,22 @@ app.get('/test', (req, res) => {
         }
       });
 
+      app.post('/googlelogin', (req, res) => {
+        // Extract the user details from the request body
+        const { result, token } = req.body;
+      
+        // Perform the server-side logic with the user details
+        // For example, you can save the data to a database or perform any other necessary operations
+      
+        // Send a response back to the client-side indicating the result
+        res.status(200).json({ message: 'Login successful' });
+      });
+      
+      // Start the server
+      app.listen(3000, () => {
+        console.log('Server is running on port 3000');
+      });
+
       app.get('/profile', (req, res) => {
         const {token} = req.cookies;
         if (token) {
