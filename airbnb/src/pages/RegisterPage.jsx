@@ -1,7 +1,9 @@
-import React, {useState } from 'react'
+import React, {useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from "axios";
 import { GoogleLogin } from 'react-google-login';
+import { gapi } from "gapi-script";
+import jwt_decode from 'jwt-decode';
 
 const RegisterPage = () => {
     const [name, setName] = useState("")
@@ -28,9 +30,29 @@ const RegisterPage = () => {
       // You can call the handleGoogleRegistration function mentioned in the previous response here
     };
 
+    useEffect(() => {
+      function start() {
+        gapi.client.init({
+          clientId: '720003670148-2rqupqrote7bc33kimqdq0a3lkq68ea3.apps.googleusercontent.com',
+          scope: 'email',
+        });
+      }
+  
+      gapi.load('client:auth2', start);
+    }, []);
+
     const googleSuccess = async (res) => {
-       console.log(res);  
-    }
+        const result = res?.profileObj; 
+        const token = res?.tokenId;
+
+        try {
+          await axios.post('/googlelogin', { result, token });
+          alert('Login successful');
+        } catch (error) {
+          alert('Login failed. Please try again later');
+          console.log('Error:', error);
+        }
+    };
 
     const googleFailure = (error) => {
       console.log(error);
@@ -44,7 +66,7 @@ const RegisterPage = () => {
           buttonText="Login with Google"
           onSuccess={googleSuccess}
           onFailure={googleFailure}
-          cookiePolicy={'single_host_origin'}
+          cookiePolicy='single_host_origin'
           render={renderProps => (
             <button onClick={renderProps.onClick} disabled={renderProps.disabled} className='bg-red-500 text-white px-4 py-2 rounded-md'>Login with Google</button>
           )}
