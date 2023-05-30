@@ -42,12 +42,16 @@ const RegisterPage = () => {
     }, []);
 
     const googleSuccess = async (res) => {
-        const result = res?.profileObj; 
+        const result = res?.profileObj?.email; 
+        const resultName = res?.profileObj?.givenName;
+        const resultEmail = res?.profileObj?.email;
+        const resultSurname = res?.profileObj?.familyName;
         const token = res?.tokenId;
 
         try {
-          await axios.post('/googlelogin', { result, token });
+          const response = await axios.post('/googlelogin', { result, token  }, { withCredentials: true });
           alert('Login successful');
+          console.log('Response:', response.data);
         } catch (error) {
           alert('Login failed. Please try again later');
           console.log('Error:', error);

@@ -12,7 +12,7 @@ import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import fs from 'fs';
 import User from './models/user.js';
-
+import passport from './passport.js';
 dotenv.config();
 
 const app = express();
@@ -24,10 +24,11 @@ const __dirname = dirname(__filename);
 
 app.use(express.json());
 app.use(cookieParser())
+app.use(passport.initialize());
 app.use('/uploads', express.static(path.join(__dirname+ '/uploads')));
 app.use(cors({
   credentials: true,
-  origin: 'https://34a7-46-197-1-226.ngrok-free.app'
+  origin: 'https://fa67-46-197-1-226.ngrok-free.app'
 }))
 
 mongoose.connect(process.env.REACT_APP_CONNECTION_URL)
@@ -64,7 +65,7 @@ app.get('/test', (req, res) => {
             jwt.sign({
               email:userDoc.email,
               id:userDoc._id,
-            }, jwtSecret, {}, (err,token) => {
+            }, jwtSecret, {expiresIn: '1h'}, (err,token) => {
               if (err) throw err;
               res.cookie('token', token, {
                 sameSite: 'none',
@@ -79,20 +80,56 @@ app.get('/test', (req, res) => {
         }
       });
 
-      app.post('/googlelogin', (req, res) => {
+      app.get(
+        '/googlelogin',
+        passport.authenticate('google', { scope: ['profile', 'email'] })
+      );
+      
+      // Google OAuth callback route
+      app.get(
+        '/auth/google/callback',
+        passport.authenticate('google', { failureRedirect: '/login' }),
+        (req, res) => {
+          // Redirect or respond as desired after successful authentication
+          res.redirect('/'); // Replace with the desired destination URL
+        }
+      );
+
+      app.post('/goo', async (req, res) => {
         // Extract the user details from the request body
-        const { result, token } = req.body;
+        const { resultName, resultEmail, resultSurname } = req.body;
+        // Check if this user already exists in our database
+        if ( !resultName || !resultEmail || !resultSurname ) {
+          return res.status(400).json({ message: 'Incomplete request data' });
+        }
+
+        
+        try {
+          const user = await User.create({
+            name: ` ${resultName} ` + ` ${resultSurname}`,
+            email: resultEmail,
+            password: '', // As this is a Google login, there's no need to store a password
+          });
       
-        // Perform the server-side logic with the user details
-        // For example, you can save the data to a database or perform any other necessary operations
+          const token = jwt.sign(
+            {
+              email: user.email,
+              userId: user._id, 
+            },
+            jwtSecret, 
+            { expiresIn: '1h' } // Specify the expiration time for the token
+          );
       
-        // Send a response back to the client-side indicating the result
-        res.status(200).json({ message: 'Login successful' });
-      });
-      
-      // Start the server
-      app.listen(3000, () => {
-        console.log('Server is running on port 3000');
+          res
+            .cookie('token', token, {
+              httpOnly: true,
+              sameSite: 'none',
+              secure: true,
+            })
+            .json(user);
+        } catch (error) {
+          res.status(422).json({ message: 'Something went wrong' });
+        }
       });
 
       app.get('/profile', (req, res) => {
