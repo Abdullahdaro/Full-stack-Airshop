@@ -13,6 +13,8 @@ import path, { dirname } from 'path';
 import fs from 'fs';
 import User from './models/user.js';
 import passport from './passport.js';
+import session from 'express-session';
+
 dotenv.config();
 
 const app = express();
@@ -21,15 +23,27 @@ const bcryptSalt = bcrypt.genSaltSync(10)
 const jwtSecret = 'fasefraw4r5r3wq45wdfgw34twdfg';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+app.use(
+  session({
+    secret: jwtSecret,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(cors({
+  credentials: true,
+  origin: 'https://fa67-46-197-1-226.ngrok-free.app',
+  // Add additional headers if required
+  allowedHeaders: 'Content-Type, Authorization',
+  methods: 'GET, POST, OPTIONS',
+}));
 
 app.use(express.json());
 app.use(cookieParser())
 app.use(passport.initialize());
+app.use(passport.session());
 app.use('/uploads', express.static(path.join(__dirname+ '/uploads')));
-app.use(cors({
-  credentials: true,
-  origin: 'https://fa67-46-197-1-226.ngrok-free.app'
-}))
+
 
 mongoose.connect(process.env.REACT_APP_CONNECTION_URL)
 
@@ -80,7 +94,14 @@ app.get('/test', (req, res) => {
         }
       });
 
-      app.get(
+      function ensureAuthenticated(req, res, next) {
+        if (req.isAuthenticated()) {
+          return next();
+        }
+        res.redirect('/login'); // or handle unauthorized access as desired
+      }
+
+      app.post(
         '/googlelogin',
         passport.authenticate('google', { scope: ['profile', 'email'] })
       );

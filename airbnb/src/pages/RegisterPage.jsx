@@ -5,6 +5,7 @@ import { GoogleLogin } from 'react-google-login';
 import { gapi } from "gapi-script";
 import jwt_decode from 'jwt-decode';
 
+
 const RegisterPage = () => {
     const [name, setName] = useState("")
     const [email, setEmail] = useState('')
@@ -49,12 +50,17 @@ const RegisterPage = () => {
         const token = res?.tokenId;
 
         try {
-          const response = await axios.post('/googlelogin', { result, token  }, { withCredentials: true });
-          alert('Login successful');
-          console.log('Response:', response.data);
+          axios.post('/googlelogin', { result, token }, { withCredentials: true })
+          .then((response) => {
+            alert('Login successful');
+            console.log('Response:', response.data);
+          })
+          .catch((error) => {
+            alert('Login failed. Please try again later');
+            console.log('Error:', error);
+          });
         } catch (error) {
           alert('Login failed. Please try again later');
-          console.log('Error:', error);
         }
     };
 
