@@ -42,26 +42,8 @@ const RegisterPage = () => {
       gapi.load('client:auth2', start);
     }, []);
 
-    const googleSuccess = async (res) => {
-        const result = res?.profileObj?.email; 
-        const resultName = res?.profileObj?.givenName;
-        const resultEmail = res?.profileObj?.email;
-        const resultSurname = res?.profileObj?.familyName;
-        const token = res?.tokenId;
-
-        try {
-          axios.post('/googlelogin', { result, token }, { withCredentials: true })
-          .then((response) => {
-            alert('Login successful');
-            console.log('Response:', response.data);
-          })
-          .catch((error) => {
-            alert('Login failed. Please try again later');
-            console.log('Error:', error);
-          });
-        } catch (error) {
-          alert('Login failed. Please try again later');
-        }
+    const googleSuccess =  () => {
+      window.open("http://localhost:4000/googlelogin", "_self");
     };
 
     const googleFailure = (error) => {
@@ -71,16 +53,12 @@ const RegisterPage = () => {
   return (
     <div className='mt-4'>
         <h1 className='text-4xl text-center mb-4'>Sign up</h1>
-        <GoogleLogin
-          clientId="720003670148-2rqupqrote7bc33kimqdq0a3lkq68ea3.apps.googleusercontent.com"
-          buttonText="Login with Google"
-          onSuccess={googleSuccess}
-          onFailure={googleFailure}
-          cookiePolicy='single_host_origin'
-          render={renderProps => (
-            <button onClick={renderProps.onClick} disabled={renderProps.disabled} className='bg-red-500 text-white px-4 py-2 rounded-md'>Login with Google</button>
-          )}
-        />
+        <div>
+        <div className="loginButton google" onClick={googleSuccess}>
+            <img  alt="" className="icon" />
+            Google
+          </div>
+        </div>
         <form onSubmit={registerUser} action="" className='max-w-md mx-auto '>
           <input type="text" placeholder='Your name' value={name} onChange={e => setName(e.target.value)} />
           <input type="email" placeholder='Your@email.com' value={email} onChange={ e => setEmail(e.target.value)}/>

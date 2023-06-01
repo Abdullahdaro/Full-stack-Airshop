@@ -1,7 +1,16 @@
 import passport from 'passport';
-import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import UserModel from './models/user.js'
+import GoogleStrategy from 'passport-google-oauth20';
+import UserModel from './models/user.js';
 
+
+// Serialize user data into a session
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 
 // Configure the Google Strategy
 passport.use(
@@ -11,24 +20,29 @@ passport.use(
       clientSecret: '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',
       callbackURL: '/auth/google/callback',
     },
-    (accessToken, refreshToken, profile, done) => {
-      UserModel.findOrCreate({ googleId: profile.id }, function (err, user) {
-        return cb(err, user);
+     (accessToken, refreshToken, profile, done) => {
+      UserModel.findOne({googleId: profile.id}).then((currentUser) => {
+        if(currentUser){
+            // already have this user
+            console.log('user is: ', currentUser);
+            done(null, currentUser);
+        } else {
+            // if not, create user in our db
+            new User({
+                googleId: profile.id,
+                username: profile.displayName,
+                thumbnail: profile._json.image.url
+            }).save().then((newUser) => {
+                console.log('created new user: ', newUser);
+                done(null, newUser);
+            });
+        }
       });
-      return done(null, profile);
     }
   )
 );
 
-// Serialize user data into a session
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
 
-passport.deserializeUser((id, done) => {
-  UserModel.findById(id, (err, user) => {
-    done(err, user);
-  });
-});
-  
+
+
 export default passport;

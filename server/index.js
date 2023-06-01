@@ -1,11 +1,11 @@
 import express from 'express';
 import cors from 'cors';
-import mongoose from 'mongoose'
-import dotenv from 'dotenv'
-import bcrypt from 'bcryptjs'
-import UserModel from './models/user.js'
-import Product from './models/clothes.js'
-import jwt from "jsonwebtoken";
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import bcrypt from 'bcryptjs';
+import UserModel from './models/user.js';
+import Product from './models/clothes.js';
+import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
 import multer from 'multer';
 import { fileURLToPath } from 'url';
@@ -19,38 +19,36 @@ dotenv.config();
 
 const app = express();
 
-const bcryptSalt = bcrypt.genSaltSync(10)
+const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = 'fasefraw4r5r3wq45wdfgw34twdfg';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-app.use(
-  session({
-    secret: jwtSecret,
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-app.use(cors({
-  credentials: true,
-  origin: 'https://fa67-46-197-1-226.ngrok-free.app',
-  // Add additional headers if required
-  allowedHeaders: 'Content-Type, Authorization',
-  methods: 'GET, POST, OPTIONS',
+app.use(session({
+  secret: jwtSecret,
+  resave: false,
+  saveUninitialized: false
 }));
 
+app.use(
+  cors({
+    credentials: true,
+    origin:  'http://localhost:5173', 
+    // Add additional headers if required
+    allowedHeaders: 'Content-Type, Authorization',
+    methods: 'GET, POST, OPTIONS',
+  })
+);
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/uploads', express.static(path.join(__dirname+ '/uploads')));
+app.use('/uploads', express.static(path.join(__dirname + '/uploads')));
 
-
-mongoose.connect(process.env.REACT_APP_CONNECTION_URL)
+mongoose.connect(process.env.REACT_APP_CONNECTION_URL);
 
 app.get('/test', (req, res) => {
   res.json('test ok');
 });
-
 
 //profile 
       app.post('/register', async (req,res) => {
@@ -94,14 +92,7 @@ app.get('/test', (req, res) => {
         }
       });
 
-      function ensureAuthenticated(req, res, next) {
-        if (req.isAuthenticated()) {
-          return next();
-        }
-        res.redirect('/login'); // or handle unauthorized access as desired
-      }
-
-      app.post(
+      app.get(
         '/googlelogin',
         passport.authenticate('google', { scope: ['profile', 'email'] })
       );
@@ -109,11 +100,21 @@ app.get('/test', (req, res) => {
       // Google OAuth callback route
       app.get(
         '/auth/google/callback',
-        passport.authenticate('google', { failureRedirect: '/login' }),
+        passport.authenticate('google', {
+          failureRedirect: '/login',
+          session: false
+        }),
         (req, res) => {
-          // Redirect or respond as desired after successful authentication
-          res.redirect('/'); // Replace with the desired destination URL
-        }
+          const payload = {
+            id: req.user.id
+          };
+      
+          jwt.sign(payload, jwtSecret, { expiresIn: '1h' }, (err, token) => {
+            const jwtToken = `Bearer ${token}`;
+      
+            res.redirect(`http://localhost:5173`)
+          });}
+
       );
 
       app.post('/goo', async (req, res) => {
@@ -182,8 +183,7 @@ app.get('/test', (req, res) => {
           const newPath = path + '.' + ext
           fs.renameSync(path, newPath);
           uploadedFiles.push(newPath.replace('uploads\\',''))
-        }
-        console.log(uploadedFiles);
+        };
         res.json(uploadedFiles);
       }) 
 
