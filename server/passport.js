@@ -21,17 +21,17 @@ passport.use(
       callbackURL: '/auth/google/callback',
     },
      (accessToken, refreshToken, profile, done) => {
-      UserModel.findOne({googleId: profile.id}).then((currentUser) => {
+      UserModel.findOne({id: profile.id}).then((currentUser) => {
         if(currentUser){
             // already have this user
             console.log('user is: ', currentUser);
             done(null, currentUser);
         } else {
             // if not, create user in our db
-            new User({
-                googleId: profile.id,
-                username: profile.displayName,
-                thumbnail: profile._json.image.url
+            new UserModel({
+                id: profile.id,
+                name: profile.displayName,
+                email: profile.emails[0].value,
             }).save().then((newUser) => {
                 console.log('created new user: ', newUser);
                 done(null, newUser);

@@ -3,7 +3,6 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
-import UserModel from './models/user.js';
 import Product from './models/clothes.js';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
@@ -11,7 +10,7 @@ import multer from 'multer';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import fs from 'fs';
-import User from './models/user.js';
+import UserModel from './models/user.js';
 import passport from './passport.js';
 import session from 'express-session';
 
@@ -106,66 +105,44 @@ app.get('/test', (req, res) => {
         }),
         (req, res) => {
           const payload = {
-            id: req.user.id
+            id: req.user.id,
+            email: req.user.email,
+            name: req.user.name, 
           };
-      
+
           jwt.sign(payload, jwtSecret, { expiresIn: '1h' }, (err, token) => {
             const jwtToken = `Bearer ${token}`;
+
+            res.cookie('token', token, { httpOnly: true });
       
             res.redirect(`http://localhost:5173`)
           });}
 
       );
 
-      app.post('/goo', async (req, res) => {
-        // Extract the user details from the request body
-        const { resultName, resultEmail, resultSurname } = req.body;
-        // Check if this user already exists in our database
-        if ( !resultName || !resultEmail || !resultSurname ) {
-          return res.status(400).json({ message: 'Incomplete request data' });
-        }
-
-        
-        try {
-          const user = await User.create({
-            name: ` ${resultName} ` + ` ${resultSurname}`,
-            email: resultEmail,
-            password: '', // As this is a Google login, there's no need to store a password
-          });
-      
-          const token = jwt.sign(
-            {
-              email: user.email,
-              userId: user._id, 
-            },
-            jwtSecret, 
-            { expiresIn: '1h' } // Specify the expiration time for the token
-          );
-      
-          res
-            .cookie('token', token, {
-              httpOnly: true,
-              sameSite: 'none',
-              secure: true,
-            })
-            .json(user);
-        } catch (error) {
-          res.status(422).json({ message: 'Something went wrong' });
-        }
-      });
-
       app.get('/profile', (req, res) => {
-        const {token} = req.cookies;
+        try {
+        const { token } = req.cookies;
         if (token) {
-          jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-            if (err) throw err; 
-            const {name,email,_id} = await UserModel.findById(userData.id);
-            res.json({name,email,_id});
-          }); 
+          jwt.verify(token, jwtSecret, {expiresIn: '1h'}, async (err, userData) => {
+            if (err) throw err;
+            
+            const user = await UserModel.findOne({ email: userData.email }); 
+            if (user) {
+              const { name, email, _id } = user;
+              res.json({ name, email, _id });
+            } else {
+              res.json(null);
+            } 
+          });
         } else {
-          res.json(null)
+          res.json(null);
         }
-      })
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+      });
 
       app.post('/logout', (req,res) => {
         res.cookie('token', '' ).json(true);
@@ -205,8 +182,14 @@ app.get('/test', (req, res) => {
         } = req.body; 
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
           if (err) throw err; 
+          const { email } = userData;
+
+          // Find the owner based on the ID
+          const owner = await UserModel.findOne({ email: email });
+          console.log(owner); 
+
           const productDoc = await Product.create({
-            owner: userData.id,
+            owner: owner._id,
             photos:addedPhotos, 
             title, 
             serialNumber, 
@@ -228,8 +211,20 @@ app.get('/test', (req, res) => {
             console.error(err);
             return res.status(401).json({ error: 'Unauthorized' });
           }
-          const { id } = userData // Provide an empty object as default value
-          res.json(await Product.find({ owner: id }));
+          const { email } = userData;
+
+          // Find the owner based on the ID
+          const owner = await UserModel.findOne({ email: email });
+          console.log(owner); 
+
+          if (owner) {
+            // Retrieve all the products made by the owner
+            const products = await Product.find({ owner: owner._id });
+
+            res.json(products);
+          } else {
+            res.json(null);
+          } 
         });
       });
 
@@ -290,7 +285,7 @@ app.get('/test', (req, res) => {
         const { id } = req.params;
       
         try {
-          const owner = await User.findById(id);
+          const owner = await UserModel.findById(id);
           const ownerProducts = await Product.find({ owner: owner._id }).populate('owner');
       
           res.json({ owner, ownerProducts });
@@ -304,3 +299,41 @@ app.get('/test', (req, res) => {
 app.listen(4000);
 
 // zrLgmAk6Mb2Zy579
+
+//
+/* app.post('/goo', async (req, res) => {
+  // Extract the user details from the request body
+  const { resultName, resultEmail, resultSurname } = req.body;
+  // Check if this user already exists in our database
+  if ( !resultName || !resultEmail || !resultSurname ) {
+    return res.status(400).json({ message: 'Incomplete request data' });
+  }
+
+  
+  try {
+    const user = await User.create({
+      name: ` ${resultName} ` + ` ${resultSurname}`,
+      email: resultEmail,
+      password: '', // As this is a Google login, there's no need to store a password
+    });
+
+    const token = jwt.sign(
+      {
+        email: user.email,
+        userId: user._id, 
+      },
+      jwtSecret, 
+      { expiresIn: '1h' } // Specify the expiration time for the token
+    );
+
+    res
+      .cookie('token', token, {
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true,
+      })
+      .json(user);
+  } catch (error) {
+    res.status(422).json({ message: 'Something went wrong' });
+  }
+}); */
