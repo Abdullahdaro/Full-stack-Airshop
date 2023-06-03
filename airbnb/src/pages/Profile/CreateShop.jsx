@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom';
 import Image from '../UserPageCom/Image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingBag } from '@fortawesome/free-solid-svg-icons';
+
 
 const CreateShop = () => {
     const {id} = useParams();
@@ -94,13 +97,14 @@ const CreateShop = () => {
 
   return (
     <div>
-        <div className='flex m-8 items-center justify-center'>
+        <div className='flex w-full '>
             <form onSubmit={createMyShop}>
-                <div className='p-9 w-[100%] border rounded-md'>
+
+                <div className='p-9 w-[100%] flex '>
                     {/* Upload Photos */}
                     <div onDrop={handleDrop}
                         onDragOver={(event) => event.preventDefault()}
-                        className='p-14 flex-col bg-[#A9A9A9] flex border rounded-md border-dashed justify-center items-center'>
+                        className='p- flex-col bg-[#A9A9A9] flex border rounded-full border-dashed justify-center items-center'>
                         <p>Drag and drop your product's photos here</p>
                         <div className='flex'>
                             <span>Or,</span>
@@ -139,23 +143,27 @@ const CreateShop = () => {
                             <li key={index}>{file.name}</li>
                         ))}
                     </ul>
-                    {/* What we should enter */} 
-                    <div className='flex justify-center items-center'>
-                        <h2 className='text-2xl font-second font-semibold '>Name:</h2>
-                        <p></p>
-                        <input className='w-full border-none hover:border-gray-400 hover:h-10 focus:border-gray-400'
-                        onChange={e=> setTitle(e.target.value)}
-                        type='text' 
-                        placeholder='The name of your shop'></input>
-                    </div>
+                    {/* What we should enter */}
+                    <div>
+                        <div className='flex justify-center items-center'>
+                            <FontAwesomeIcon icon={faShoppingBag} />
+                            <h2 className='text-2xl font-second font-semibold '>Name:</h2>
+                            <p></p>
+                            <input className='w-full border-none hover:border-gray-400 hover:h-10 focus:border-gray-400'
+                            onChange={e=> setTitle(e.target.value)}
+                            type='text' 
+                            placeholder='The name of your shop'></input>
+                        </div>
 
-                    <div className='flex justify-center items-center'>
-                        <h2 className='text-2xl font-second font-semibold'>Description</h2>
-                        <input className='border rounded-md w-full' 
-                        value={description}
-                        onChange={e=> setDescription(e.target.value)}
-                        type="text" placeholder='Write about your product' />
-                    </div>
+                        <div className='flex justify-center items-center'>
+                            <h2 className='text-2xl font-second font-semibold'>Description</h2>
+                            <input className='border rounded-md w-full' 
+                            value={description}
+                            onChange={e=> setDescription(e.target.value)}
+                            type="text" placeholder='Write about your product' />
+                        </div>
+                    </div> 
+                    
                 </div>
                 <button>Create My Store </button>
             </form>
