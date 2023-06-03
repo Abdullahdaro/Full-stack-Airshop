@@ -97,18 +97,18 @@ const CreateShop = () => {
 
   return (
     <div>
-        <div className='flex w-full '>
+        <div className='flex w-full p-4 '>
             <form onSubmit={createMyShop}>
 
-                <div className='p-9 w-[100%] flex '>
+                <div className='p-9 w-[100%] flex h-screen justify-center'>
                     {/* Upload Photos */}
                     <div onDrop={handleDrop}
                         onDragOver={(event) => event.preventDefault()}
-                        className='p- flex-col bg-[#A9A9A9] flex border rounded-full border-dashed justify-center items-center'>
-                        <p>Drag and drop your product's photos here</p>
+                        className='p- flex-col w-[50%] h-[300px] flex rounded-full border-dashed justify-center items-center'>
+                        <p>Drag and drop your logo's here</p>
                         <div className='flex'>
                             <span>Or,</span>
-                            <label className='justify-start block w-full text-left cursor-pointer'>
+                            <label className='justify-start bg-[#A9A9A9] block w-full text-left cursor-pointer underline hover:bg-pink'>
                                 <input className='hidden' type="file" multiple onChange={handleInputChange} />
                                 Browse to upload
                             </label>
@@ -144,7 +144,11 @@ const CreateShop = () => {
                         ))}
                     </ul>
                     {/* What we should enter */}
-                    <div>
+                    <div className='pl-10'>
+                        <div>
+                            <h2 className='text-2xl font-second font-bold'>Your shop</h2>
+                            <p>The information you share will be used across Air Toptan to help other clients and sellers get to know you better. Learn more</p>
+                        </div>
                         <div className='flex justify-center items-center'>
                             <FontAwesomeIcon icon={faShoppingBag} />
                             <h2 className='text-2xl font-second font-semibold '>Name:</h2>
