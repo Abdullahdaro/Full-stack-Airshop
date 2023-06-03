@@ -9,7 +9,7 @@ module.exports = {
       colors: {
         primary: "#222222",
         secondary: "#FAFAFA",
-        pink: "#FF9D9D",
+        pink: "#FF3D3D",
       },
       fontFamily: {
         'main': ['FZYaoTi', 'Helvetica', 'Arial', 'sans-serif'],

@@ -190,7 +190,6 @@ app.get('/test', (req, res) => {
 
           // Find the owner based on the ID
           const owner = await UserModel.findOne({ email: email });
-          console.log(owner); 
 
           const productDoc = await Product.create({
             owner: owner._id,
@@ -219,7 +218,6 @@ app.get('/test', (req, res) => {
 
           // Find the owner based on the ID
           const owner = await UserModel.findOne({ email: email });
-          console.log(owner); 
 
           if (owner) {
             // Retrieve all the products made by the owner
