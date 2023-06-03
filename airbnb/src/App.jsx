@@ -2,7 +2,7 @@ import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Navbar } from './components'
 import { Login, RegisterPage, HomePage, ProductPage} from './pages'
-import {LikedPage, Profile, MyStorePage,} from './pages/Profile'
+import {LikedPage, Profile, MyStorePage, CreateShop} from './pages/Profile'
 import { Form } from './pages/UserPageCom'
 import { ShopPage } from './pages/ShopsPage'
 import axios from 'axios'
@@ -29,6 +29,7 @@ function App() {
                 <Route path='/profile/products/:id' element={(<Form />)} />
                 <Route path='/product/:id' element={(<ProductPage/>)} />
                 <Route path='/owner/:id' element={(<ShopPage/>)} />
+                <Route path='/shop' element={(<CreateShop/>)} />
             </Routes>  
         </BrowserRouter>
       </UserContextProvider>

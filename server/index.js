@@ -3,14 +3,18 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
+
 import Product from './models/clothes.js';
+import Shops from './models/shops.js';
+import UserModel from './models/user.js';
+
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
 import multer from 'multer';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import fs from 'fs';
-import UserModel from './models/user.js';
+
 import passport from './passport.js';
 import session from 'express-session';
 

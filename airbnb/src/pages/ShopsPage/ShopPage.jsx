@@ -113,9 +113,9 @@ if (!shop) {
             <div className='flex flex-col gap-1 pb-3'> 
               <span className='font-second font-semibold text-ms'>STYLE</span>
               <span className='text-second font-main text-xs'>Shoes</span>
-              <span className='font-second font-main text-xs'>T shit</span>
-              <span className='font-second font-main text-xs'>Pants</span>
-              <span className='font-second font-main text-xs'>See All</span>
+              <span className='font-second text-xs'>T shit</span>
+              <span className='font-second text-xs'>Pants</span>
+              <span className='font-second text-xs'>See All</span>
             </div>
             <div className='flex flex-col gap-1'>
               <span className='font-second font-semibold text-ms'>Season</span>

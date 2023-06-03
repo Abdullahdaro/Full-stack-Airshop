@@ -60,9 +60,9 @@ const Profile = () => {
           <span className='font-red-hat-display font-semibold text-2xl leading-10 text-black '>My Shop</span>
           <div className='inline-flex'>
             <button className=' bg-white rounded-full py-4 justify-start flex'>
-              <span className='box-border border inline-flex px-4 py-2 font-second border-black rounded-full items-center'>
+              <Link to={'/shop'} className='box-border border inline-flex px-4 py-2 font-second border-black rounded-full items-center'>
                 Create shop
-              </span>
+              </Link>
             </button>
             <button className=' bg-white rounded-full py-4 justify-start flex'>
               <span className='box-border border inline-flex px-4 py-2 font-second border-black rounded-full items-center'>
