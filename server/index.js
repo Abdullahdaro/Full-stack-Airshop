@@ -110,7 +110,7 @@ app.get('/test', (req, res) => {
             name: req.user.name, 
           };
 
-          jwt.sign(payload, jwtSecret, { expiresIn: '1h' }, (err, token) => {
+          jwt.sign(payload, jwtSecret, {}, (err, token) => {
             const jwtToken = `Bearer ${token}`;
 
             res.cookie('token', token, { httpOnly: true });
@@ -124,7 +124,7 @@ app.get('/test', (req, res) => {
         try {
         const { token } = req.cookies;
         if (token) {
-          jwt.verify(token, jwtSecret, {expiresIn: '1h'}, async (err, userData) => {
+          jwt.verify(token, jwtSecret, {}, async (err, userData) => {
             if (err) throw err;
             
             const user = await UserModel.findOne({ email: userData.email }); 
