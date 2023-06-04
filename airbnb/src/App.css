@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+  .animate-hover:hover {
+    animation: beat 1s infinite;
+  }
+
+  .bg-slate-100:hover {
+    background-color: #D3D3D3; /* Change this to your desired hover background color */
+  }
+  
+  .bg-slate-100:hover > .fa-icon {
+    animation: beat 1s infinite;
+  }
+  @keyframes beat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+
+
+  
+
 input[type="text"], input[type="password"],input[type="email"] {
     @apply w-full border my-2 py-2 px-3 rounded-full;
 }

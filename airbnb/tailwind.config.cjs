@@ -4,6 +4,7 @@ module.exports = {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  
   theme: {
     extend: {
       colors: {
@@ -16,9 +17,15 @@ module.exports = {
         'second': ['Red Hat Display', 'sans-serif'],
       },
       fontSize: {
-        '25': '25px'
+        '25': '25px',
+        '50': '50px',
+        '60': '60px',
+        
+
       },
     },
   },
   plugins: [],
+
+  
 }
