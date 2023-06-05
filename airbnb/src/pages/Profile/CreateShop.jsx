@@ -4,7 +4,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Image from '../UserPageCom/Image';
 import profileuser from '../../assets/profileuser.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingBag, faLanguage, faArrowRight, faPhoneVolume, faLocationDot, faMountainCity, faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {faGlobe,  faShoppingBag,faImage, faLanguage, faArrowRight, faPhoneVolume, faLocationDot, faMountainCity, faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
+import { faInstagram, faFacebook, faTwitter } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faInstagram);
+library.add(faTwitter);
+library.add(faFacebook);
 
 const CreateShop = () => {
     const {id} = useParams();
@@ -105,42 +111,30 @@ const CreateShop = () => {
     <div>
         <div className='flex w-full p-4 '>
             <form onSubmit={createMyShop}>
-                <div className='p-10 flex w-full sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 '>
-                    <div className=' w-[70%]  '>
+                <div className='p-10 flex w-full sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 ml-10 '>
+                    <div className='  '>
                         <div className='flex flex-col'>
+                            {addedPhotos.length > 0 ? addedPhotos.map(link => (
+                                <div className=" h-80 w-80 flex relative" key={link}>
+                                    <Image className="rounded-full  object-cover" src={link} alt=""/>
+                                </div>
+                            )) : (<img src={profileuser} className='w-80 h-80' /> )}
+                            
                             <div onDrop={handleDrop}
                                 onDragOver={(event) => event.preventDefault()}
-                                className='p- flex-col h-[300px] flex rounded-full border-dashed justify-center items-center'>
-                                <p>Drag and drop your logo's here</p>
-                                <div className='flex'>s
-                                    <span>Or,</span>
-                                    <label className='justify-start bg-[#A9A9A9] block w-full text-left cursor-pointer underline hover:bg-pink'>
+                                className='flex-col flex justify-center items-center'>
+                                    <label className='justify-start p-2 pr-3 shadow-md bg-white rounded-full block text-left cursor-pointer hover:'>
                                         <input className='hidden' type="file" multiple onChange={handleInputChange} />
+                                        <h2 className='font-semibold '>
+                                        <FontAwesomeIcon icon={faImage} beat className='px-2 ' />
                                         Browse to upload
+                                        </h2> 
                                     </label>
-                                </div>
                             </div>
                         </div>
-                        {/* Show photos */}
-                        {addedPhotos.length > 0 && addedPhotos.map(link => (
-                            <div className=" h-32 flex relative" key={link}>
-                                <Image className="rounded-2xl object-cover" src={link} alt=""/>
-                                <button onClick={ev => removePhoto(ev,link)} className="cursor-pointer absolute bottom-1 right-1 text-white bg-black bg-opacity-50 rounded-2xl py-2 px-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                    </svg>
-                                </button>
-                            </div>
-                        ))}
-
-                        <ul>
-                            {selectedFiles.map((file, index) => (
-                                <li key={index}>{file.name}</li>
-                            ))}
-                        </ul>
                     </div>
                         {/* What we should enter */}
-                    <div className='pl-10'>
+                    <div className='pl-10 ml-10'>
                         <div>
                             <h2 className='text-3xl font-second font-bold'>Your shop</h2>
                             <p className=''>The information you share will be used across Air Toptan to help other clients and sellers get to know you better. Learn more</p>
@@ -226,6 +220,54 @@ const CreateShop = () => {
                             type="text" placeholder='Write about your product' />
                         </div>
                         <div className='border  px-48 mx-4'></div>
+                        <div className='flex sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full'>
+                            <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
+                                <FontAwesomeIcon  icon={faGlobe}  className='hover:text-2xl p-2 font-second font-semibold' />
+                                <h2 className='text-xl font-second whitespace-nowrap  '>Website:</h2>
+                                <input className='w-full border-none hover:bg-slate-100'
+                                onChange={e=> setWebsite(e.target.value)}
+                                type='text' 
+                                placeholder='Istanbul'></input>
+                                <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
+                            </div>
+                            <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
+                                <FontAwesomeIcon icon={faInstagram} className='hover:text-2xl p-2 font-second font-semibold' />
+                                <h2 className='text-xl font-second whitespace-nowrap'>Instagram:</h2>
+                                <input className='w-full border-none hover:bg-slate-100'
+                                onChange={e=> setInstagram(e.target.value)}
+                                type='text' 
+                                placeholder='Turkey'></input>
+                                <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
+                            </div>
+                        </div>
+                        <div className='flex justify-center grid-col-2'>
+                            <div className='border  px-48 mx-4'></div>
+                            <div className='border  px-48 mx-4'></div>
+                        </div>
+                        <div className='flex sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full'>
+                            <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
+                                <FontAwesomeIcon  icon={faFacebook}  className='hover:text-2xl p-2 font-second font-semibold' />
+                                <h2 className='text-xl font-second whitespace-nowrap  '>Facebook:</h2>
+                                <input className='w-full border-none hover:bg-slate-100'
+                                onChange={e=> setFacebook(e.target.value)}
+                                type='text' 
+                                placeholder='Istanbul'></input>
+                                <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
+                            </div>
+                            <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
+                                <FontAwesomeIcon icon={faTwitter} className='hover:text-2xl p-2 font-second font-semibold' />
+                                <h2 className='text-xl font-second whitespace-nowrap'>Twitter:</h2>
+                                <input className='w-full border-none hover:bg-slate-100'
+                                onChange={e=> setTwitter(e.target.value)}
+                                type='text' 
+                                placeholder='Turkey'></input>
+                                <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
+                            </div>
+                        </div>
+                        <div className='flex justify-center grid-col-2'>
+                            <div className='border  px-48 mx-4'></div>
+                            <div className='border  px-48 mx-4'></div>
+                        </div>
                     </div>      
                 </div>
                 <button>Create My Store </button>

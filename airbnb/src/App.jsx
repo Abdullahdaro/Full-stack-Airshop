@@ -17,7 +17,8 @@ function App() {
     <div className="App">
       <UserContextProvider>
         <BrowserRouter>
-            <Navbar/>
+        <div className='bg-[#FAFAFA]'>
+        <Navbar />
             <Routes>
                 <Route path='/' element={(<HomePage />)} />
                 <Route path="/Login" element={(<Login/>)} />
@@ -31,6 +32,8 @@ function App() {
                 <Route path='/owner/:id' element={(<ShopPage/>)} />
                 <Route path='/shop' element={(<CreateShop/>)} />
             </Routes>  
+        </div>
+            
         </BrowserRouter>
       </UserContextProvider>
     </div>
