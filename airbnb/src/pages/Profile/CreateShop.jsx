@@ -6,7 +6,7 @@ import profileuser from '../../assets/profileuser.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {faGlobe,  faShoppingBag,faImage, faLanguage, faArrowRight, faPhoneVolume, faLocationDot, faMountainCity, faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
-import { faInstagram, faFacebook, faTwitter } from '@fortawesome/free-solid-svg-icons';
+import { faInstagram, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 library.add(faInstagram);
 library.add(faTwitter);
