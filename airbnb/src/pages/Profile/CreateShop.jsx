@@ -227,7 +227,7 @@ const CreateShop = () => {
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setWebsite(e.target.value)}
                                 type='text' 
-                                placeholder='Istanbul'></input>
+                                placeholder='your-website.com/'></input>
                                 <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
@@ -236,7 +236,7 @@ const CreateShop = () => {
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setInstagram(e.target.value)}
                                 type='text' 
-                                placeholder='Turkey'></input>
+                                placeholder='instagram.com/'></input>
                                 <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                         </div>
@@ -251,7 +251,7 @@ const CreateShop = () => {
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setFacebook(e.target.value)}
                                 type='text' 
-                                placeholder='Istanbul'></input>
+                                placeholder='facebook.com/'></input>
                                 <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
@@ -260,7 +260,7 @@ const CreateShop = () => {
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setTwitter(e.target.value)}
                                 type='text' 
-                                placeholder='Turkey'></input>
+                                placeholder='twitter.com/'></input>
                                 <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                         </div>
