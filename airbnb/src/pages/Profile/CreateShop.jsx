@@ -5,12 +5,10 @@ import Image from '../UserPageCom/Image';
 import profileuser from '../../assets/profileuser.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import {faGlobe,  faShoppingBag,faImage, faLanguage, faArrowRight, faPhoneVolume, faLocationDot, faMountainCity, faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
+import {faGlobe,  faShoppingBag,faImage, faLanguage,faEnvelope, faArrowRight, faPhoneVolume, faLocationDot, faMountainCity, faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
-library.add(faInstagram);
-library.add(faTwitter);
-library.add(faFacebook);
+
 
 const CreateShop = () => {
     const {id} = useParams();
@@ -50,6 +48,7 @@ const CreateShop = () => {
             setCountry(data.country)
             setNumber(data.number)
             setEmail(data.email)
+            setWebsite(data.website)
             setWebsite(data.website)
             setInstagram(data.instagram)
             setFacebook(data.facebook)
@@ -91,7 +90,7 @@ const CreateShop = () => {
         e.preventDefault();
         if (id) {
             await axios.put('/shops', { id,
-                addedPhotos, title, address, description, city, country, number, email, website, instagram, facebook, twitter, youtube
+                addedPhotos, title, address, description, city, country, number, email, website, instagram, facebook, twitter, youtube, language
             })
             navTo('/profile/mystore')
         } else {
@@ -175,12 +174,12 @@ const CreateShop = () => {
                                 <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
-                                <FontAwesomeIcon icon={faLocationDot} className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap  '>Address:</h2>
+                                <FontAwesomeIcon icon={faEnvelope} className='hover:text-2xl p-2 font-second font-semibold' />
+                                <h2 className='text-xl font-second whitespace-nowrap  '>Email:</h2>
                                 <input className='w-full border-none hover:bg-slate-100'
-                                onChange={e=> setNumber(e.target.value)}
+                                onChange={e=> setEmail(e.target.value)}
                                 type='text' 
-                                placeholder='Street, No:0/0'></input>
+                                placeholder='shop.email@shop.com'></input>
                                 <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                         </div>
@@ -228,7 +227,6 @@ const CreateShop = () => {
                                 onChange={e=> setWebsite(e.target.value)}
                                 type='text' 
                                 placeholder='your-website.com/'></input>
-                                <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon icon={faInstagram} className='hover:text-2xl p-2 font-second font-semibold' />
@@ -237,7 +235,6 @@ const CreateShop = () => {
                                 onChange={e=> setInstagram(e.target.value)}
                                 type='text' 
                                 placeholder='instagram.com/'></input>
-                                <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                         </div>
                         <div className='flex justify-center grid-col-2'>
@@ -252,7 +249,6 @@ const CreateShop = () => {
                                 onChange={e=> setFacebook(e.target.value)}
                                 type='text' 
                                 placeholder='facebook.com/'></input>
-                                <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon icon={faTwitter} className='hover:text-2xl p-2 font-second font-semibold' />
@@ -261,7 +257,7 @@ const CreateShop = () => {
                                 onChange={e=> setTwitter(e.target.value)}
                                 type='text' 
                                 placeholder='twitter.com/'></input>
-                                <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
+                               
                             </div>
                         </div>
                         <div className='flex justify-center grid-col-2'>
@@ -270,7 +266,13 @@ const CreateShop = () => {
                         </div>
                     </div>      
                 </div>
-                <button>Create My Store </button>
+                <div className='absolute pb-3 right-0 '>
+                    <button className='px-4 py-2 shadow-md bg-pink font-semibold cursor-pointer'>
+                        <span className=' text-white shadow-md px-4 py-2 rounded-full'>
+                            Create My Store
+                        </span>
+                    </button>
+                </div>
             </form>
          </div>
     </div>

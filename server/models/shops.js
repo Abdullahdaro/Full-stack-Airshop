@@ -14,7 +14,6 @@ const ShopesSchema = new mongoose.Schema({
     instagram: String,
     facebook: String,
     twitter: String,
-    youtube: String,
     products: [{type: mongoose.Schema.Types.ObjectId, ref: 'Product'}],
 
 })
