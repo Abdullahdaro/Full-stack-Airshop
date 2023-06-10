@@ -47,22 +47,21 @@ const Navbar = () => {
                 <span className='font-second text-xl'>Air TopTan</span>
             </Link>
             {/* middle */}
-            <div className='flex py-2  shadow-gray-300 '>
-              <div className='font-main text-[24px] px-8 flex items-center gap-2'>
+            <div className='flex shadow-gray-300 '>
+              <div className='font-main text-[18px] px-8 flex items-center gap-2'>
                 Country
-                <img src={down} className='w-[10px] h-[10px] mt-2' />
+                <img src={down} className='w-[8px] h-[8px]' />
               </div>
               <div className="border-l border-gray-300"></div>
-              <div className='font-main text-[24px] px-8 flex items-center gap-2'>
+              <div className='font-main text-[18px] px-8 flex items-center gap-2'>
                 City
-                <img src={down} className='w-[10px] h-[10px] mt-2' />
+                <img src={down} className='w-[8px] h-[8px]' />
               </div>
             </div>
             {/* last */}
             <div className="flex gap-2 items-center py-2 pr-2">
-            <div className='text-main text-[20px] px-0'>language</div>
-            <div className='text-main text-[20px] px-6'>Favourite</div>
-            
+            <div className='text-main text-[16px] px-6'>language</div>
+           
             {user ? (
                 <div className='relative' ref={userMenuRef}>
                   <button
@@ -79,16 +78,23 @@ const Navbar = () => {
                           Profile
                         </Link>
                       </li>
+                      <div className='border opacity-20 border-black '></div>
                       <li>
                         <Link to='/profile/liked' onClick={() => setShowMenu(false)} className='block px-4 py-2 hover:bg-gray-100'>
                           Liked Posts
                         </Link>
                       </li>
                       <li>
-                        <Link to='/profile/mystore' onClick={() => setShowMenu(false)} className='block px-4 py-2 hover:bg-gray-100'>
-                          My Store
+                        <Link to='/profile/liked' onClick={() => setShowMenu(false)} className='block px-4 py-2 hover:bg-gray-100'>
+                          Places I've been
                         </Link>
                       </li>
+                      <li>
+                        <Link to='/profile/mystore' onClick={() => setShowMenu(false)} className='block px-4 py-2 hover:bg-gray-100'>
+                          My Store 
+                        </Link>
+                      </li>
+                      <div className='border opacity-20 border-black '></div>
                       <li>
                         <div to='/my-store' onClick={() => setShowMenu(false)} className='block px-4 py-2 hover:bg-gray-100'>
                           <button onClick={logout} className='justify-start block w-full text-left'>Log out</button>

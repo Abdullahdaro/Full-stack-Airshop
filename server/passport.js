@@ -1,7 +1,9 @@
 import passport from 'passport';
 import GoogleStrategy from 'passport-google-oauth20';
 import UserModel from './models/user.js';
-
+import dotenv from 'dotenv';
+dotenv.config();
+const { REACT_APP_GOOGLE_ID, REACT_APP_GOOGLE_SECRET } = process.env;
 
 // Serialize user data into a session
 passport.serializeUser(function(user, done) {
@@ -16,8 +18,8 @@ passport.deserializeUser(function(user, done) {
 passport.use(
   new GoogleStrategy(
     {
-      clientID: '720003670148-2rqupqrote7bc33kimqdq0a3lkq68ea3.apps.googleusercontent.com',
-      clientSecret: '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',
+      clientID: REACT_APP_GOOGLE_ID,
+      clientSecret: REACT_APP_GOOGLE_SECRET,
       callbackURL: '/auth/google/callback',
     },
      (accessToken, refreshToken, profile, done) => {

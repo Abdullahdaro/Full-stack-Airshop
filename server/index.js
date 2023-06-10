@@ -170,19 +170,7 @@ app.get('/test', (req, res) => {
 
       app.post('/products', (req, res) => {
         const {token} = req.cookies;
-        const {
-          addedPhotos, 
-          title, 
-          serialNumber, 
-          price, 
-          colors, 
-          description, 
-          material
-          , age
-          , sex
-          , type
-          , season
-          , size
+        const { addedPhotos,  title,  serialNumber,  price,  colors,  description,  material , age , sex , type , season , size
         } = req.body; 
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
           if (err) throw err; 
@@ -190,18 +178,7 @@ app.get('/test', (req, res) => {
 
           // Find the owner based on the ID
           const owner = await UserModel.findOne({ email: email });
-
-          const productDoc = await Product.create({
-            owner: owner._id,
-            photos:addedPhotos, 
-            title, 
-            serialNumber, 
-            price, colors, 
-            description, 
-            material, age, sex, type
-            , season
-            , size
-            });
+          const productDoc = await Product.create({ owner: owner._id, photos:addedPhotos, title, serialNumber, price, colors, description, material, age, sex, type, season, size });
             res.json(productDoc)
           })
       })
@@ -238,29 +215,12 @@ app.get('/test', (req, res) => {
       app.put('/products', async (req,res) => {
         const {token} = req.cookies;
         const {
-          id,
-            addedPhotos, title, 
-            serialNumber, 
-            price, colors, 
-            description, 
-            material, age, sex, type
-                  , season
-                  , size
-        } = req.body;
+          id, addedPhotos, title,  serialNumber,   price, colors,  description,  material, age, sex, type , season , size } = req.body;
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
           if (err) throw err;
           const productDoc = await Product.findById(id);
           if (userData.id === productDoc.owner.toString()) {
-            productDoc.set({
-            id,
-            photos:addedPhotos, title, 
-            serialNumber, 
-            price, colors, 
-            description, 
-            material, age, sex, type
-                  , season
-                  , size
-            });
+            productDoc.set({ id, addedPhotos, title,  serialNumber,   price, colors,  description,  material, age, sex, type , season , size });
             await productDoc.save();
             res.json('ok');
           }
@@ -299,43 +259,3 @@ app.get('/test', (req, res) => {
 
 
 app.listen(4000);
-
-// zrLgmAk6Mb2Zy579
-
-//
-/* app.post('/goo', async (req, res) => {
-  // Extract the user details from the request body
-  const { resultName, resultEmail, resultSurname } = req.body;
-  // Check if this user already exists in our database
-  if ( !resultName || !resultEmail || !resultSurname ) {
-    return res.status(400).json({ message: 'Incomplete request data' });
-  }
-
-  
-  try {
-    const user = await User.create({
-      name: ` ${resultName} ` + ` ${resultSurname}`,
-      email: resultEmail,
-      password: '', // As this is a Google login, there's no need to store a password
-    });
-
-    const token = jwt.sign(
-      {
-        email: user.email,
-        userId: user._id, 
-      },
-      jwtSecret, 
-      { expiresIn: '1h' } // Specify the expiration time for the token
-    );
-
-    res
-      .cookie('token', token, {
-        httpOnly: true,
-        sameSite: 'none',
-        secure: true,
-      })
-      .json(user);
-  } catch (error) {
-    res.status(422).json({ message: 'Something went wrong' });
-  }
-}); */

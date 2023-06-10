@@ -95,20 +95,15 @@ const CreateShop = () => {
             navTo('/profile/mystore')
         } else {
             // add a new place 
-            await axios.post('/products', {
-                addedPhotos, title, serialNumber, price, colors, description, material
-                , age
-                , sex
-                , type
-                , season
-                , size
+            await axios.post('/shops', {
+                addedPhotos, title, address, description, city, country, number, email, website, instagram, facebook, twitter, youtube, language
             })
             navTo('/profile/mystore')
         }}
 
   return (
-    <div>
-        <div className='flex w-full p-4 '>
+    <div className='flex justify-center'>
+        <div className='flex p-4 '>
             <form onSubmit={createMyShop}>
                 <div className='p-10 flex w-full sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 ml-10 '>
                     <div className='  '>
@@ -264,14 +259,14 @@ const CreateShop = () => {
                             <div className='border  px-48 mx-4'></div>
                             <div className='border  px-48 mx-4'></div>
                         </div>
-                    </div>      
-                </div>
-                <div className='absolute pb-3 right-0 '>
-                    <button className='px-4 py-2 shadow-md bg-pink font-semibold cursor-pointer'>
-                        <span className=' text-white shadow-md px-4 py-2 rounded-full'>
-                            Create My Store
-                        </span>
-                    </button>
+                        <div className='p-3 relative '>
+                            <button className='px-4 justify-end flex py-2 font-semibold cursor-pointer'>
+                                <span className=' text-white shadow-md px-4 py-2 bg-pink rounded-full'>
+                                    Create My Store
+                                </span>
+                            </button>
+                        </div>
+                    </div>             
                 </div>
             </form>
          </div>
