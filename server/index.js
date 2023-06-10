@@ -95,6 +95,7 @@ app.get('/test', (req, res) => {
         }
       });
 
+// google login route
       app.get(
         '/googlelogin',
         passport.authenticate('google', { scope: ['profile', 'email'] })
@@ -124,6 +125,7 @@ app.get('/test', (req, res) => {
 
       );
 
+      // having a token in the cookie, we can get the user data
       app.get('/profile', (req, res) => {
         try {
         const { token } = req.cookies;
@@ -147,13 +149,13 @@ app.get('/test', (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
       }
       });
-
+      
+// logout
       app.post('/logout', (req,res) => {
         res.cookie('token', '' ).json(true);
       })
 
-
-      // upload products
+// upload photoes
       const photoMiddleware = multer({dest: 'uploads'});
       app.post('/upload', photoMiddleware.array('photos', 100), (req, res) => {
         const uploadedFiles = []; 
@@ -168,6 +170,44 @@ app.get('/test', (req, res) => {
         res.json(uploadedFiles);
       }) 
 
+// create a store 
+      app.post('/shops', (req, res) => {
+        const {token} = req.cookies;
+        const { addedPhotos, title, address, description, city, country, number, email, website, instagram, facebook, twitter, youtube, language } = req.body;
+        jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+          if (err) throw err;
+          const { email } = userData;
+
+          // Find the owner based on the ID
+          const owner = await UserModel.findOne({ email: email });
+          const shopDoc = await Shops.create({ owner: owner._id, photos:addedPhotos, title, address, description, city, country, number, email, website, instagram, facebook, twitter, youtube, language });
+            res.json(shopDoc)
+          })
+      })
+
+      app.get('/shops', (req,res) => {
+        const {token} = req.cookies;
+        jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+          if (err) throw err;
+          const { email } = userData;
+          const owner = await UserModel.findOne({ email: email });
+          const shopDoc = await Shops.find({ owner: owner._id });
+          res.json(shopDoc)
+        })
+      })
+
+      app.get('/shops/:id', (req,res) => {
+        const {token} = req.cookies;
+        jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+          if (err) throw err;
+          const { email } = userData;
+          const owner = await UserModel.findOne({ email: email });
+          const shopDoc = await Shops.findOne({ owner: owner._id, _id: req.params.id });
+          res.json(shopDoc)
+        })
+      })
+
+// products
       app.post('/products', (req, res) => {
         const {token} = req.cookies;
         const { addedPhotos,  title,  serialNumber,  price,  colors,  description,  material , age , sex , type , season , size

@@ -83,14 +83,14 @@ if (!shop) {
     <div>
       <div className='flex flex-row justify-between'>
         <div className="flex flex-row w-[70%] font-second font-light text-base leading-6 items-center justify-center">
+          <button  onClick={() => setSexFilter('men')}>Men</button>
           <button  onClick={() => setSexFilter('women')}>Women</button>
           <button  onClick={() => setSexFilter('uniSex')}>UniSex</button>
           <button  onClick={() => setSexFilter('children')}>Children</button>
-          <button  onClick={() => setSexFilter('men')}>Men</button>
           <button  onClick={() => setSexFilter('all')}>All</button>
         </div>
         <div className='flex flex-row font-second font-light text-base leading-6 items-center justify-center gap-8 m-5'>
-        <div class="font-normal font-light text-base leading-6 flex items-center justify-center relative">
+        <div class="font-light text-base leading-6 flex items-center justify-center relative">
           <span class="relative">
             What are you looking for?
             <span class="absolute left-0 right-0 bottom-[-5px] h-[1px] bg-black"></span>
@@ -99,7 +99,7 @@ if (!shop) {
           <span className='font-red-hat-display font-light text-pink text-base text-[20px]'>Shape</span>
         </div>
       </div>
-      <div className='border border-black '></div>
+      <div className='border border-black opacity-20 '></div>
       <div className='flex'>
         <div className='w-[17%] p-8 '>
           <div className='flex flex-col gap-1 pb-10'> 
