@@ -119,13 +119,12 @@ app.get('/test', (req, res) => {
             const jwtToken = `Bearer ${token}`;
 
             res.cookie('token', token, { httpOnly: true });
-      
             res.redirect(`http://localhost:5173`)
           });}
 
       );
 
-      // having a token in the cookie, we can get the user data
+// having a token in the cookie, we can get the user data
       app.get('/profile', (req, res) => {
         try {
         const { token } = req.cookies;
@@ -266,7 +265,6 @@ app.get('/test', (req, res) => {
           }
         });
       });
-
 
 // homepage products 
       app.get('/homeproducts', async (req,res) => {
