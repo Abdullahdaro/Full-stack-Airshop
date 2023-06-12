@@ -58,14 +58,6 @@ const ShopPage = () => {
     handleFilter();
   }, [sexFilter, newStylesFilter, typeFilter, seasonFilter, ownerProducts]);
 
-/*   useEffect(() => {
-    if (ownerProducts.length > 0) {
-      handleFilter();
-    }
-  }, [sexFilter, newStylesFilter, typeFilter, seasonFilter]);
-
-  
- */
 if (!shop) {
     return null;
   } 
