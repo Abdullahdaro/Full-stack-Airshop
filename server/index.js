@@ -193,7 +193,7 @@ app.get('/test', (req, res) => {
           const shopDoc = await Shops.find({ owner: owner._id });
           res.json(shopDoc)
         })
-      })
+      })  
 
       app.get('/shops/:id', (req,res) => {
         const {token} = req.cookies;
