@@ -10,10 +10,10 @@ module.exports = {
       colors: {
         primary: "#222222",
         secondary: "#FAFAFA",
-        pink: "#FF3D3D",
+        pink: "#F76E6E",
       },
       fontFamily: {
-        'main': ['FZYaoTi', 'Helvetica', 'Arial', 'sans-serif'],
+        'main': ['Segoe UI', 'sans-serif'],
         'second': ['Red Hat Display', 'sans-serif'],
       },
       fontSize: {

@@ -104,13 +104,13 @@ const Navbar = () => {
                   )}
                 </div>
               ) : (
-                <Link to={'/login'} className='text-pink font-main text-[16px] bg-secondary p-2 rounded-full'>
+                <Link to={'/login'} className='text-pink font-main font-bold text-[16px] bg-secondary p-2 rounded-full'>
                   Log In
                 </Link>
               )}
             </div>
         </header>
-        <div className='border opacity-20 border-black '></div>
+        <div className='border font-main opacity-20 border-black '></div>
     </div>
   )
 }
