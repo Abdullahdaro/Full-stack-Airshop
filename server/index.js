@@ -192,6 +192,7 @@ app.get('/test', (req, res) => {
           const owner = await UserModel.findOne({ email: email });
           const shopDoc = await Shops.find({ owner: owner._id });
           res.json(shopDoc)
+          console.log(shopDoc)
         })
       })  
 

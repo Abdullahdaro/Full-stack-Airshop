@@ -5,6 +5,18 @@ import { FaPlus } from 'react-icons/fa';
 
 const MyStorePage = () => {
   const [products, setProducts ] = useState([]);
+  const [shop, setShop] = useState(null);
+
+  useEffect(() => {
+    axios.get('/shops').then(({data}) => {
+      setShop(data)
+      console.log(shop);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }, []);
+
   useEffect(() => {
     axios.get('/products').then(({data}) => {
       setProducts(data)
