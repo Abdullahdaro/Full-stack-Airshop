@@ -80,7 +80,7 @@ app.get('/test', (req, res) => {
             jwt.sign({
               email:userDoc.email,
               id:userDoc._id,
-            }, jwtSecret, {expiresIn: '1h'}, (err,token) => {
+            }, jwtSecret, {}, (err,token) => {
               if (err) throw err;
               res.cookie('token', token, {
                 sameSite: 'none',
@@ -172,10 +172,15 @@ app.get('/test', (req, res) => {
 // create a store 
       app.post('/shops', (req, res) => {
         const {token} = req.cookies;
-        const { addedPhotos, title, address, description, city, country, number, email, website, instagram, facebook, twitter, youtube, language } = req.body;
+        const { addedPhotos, title, address, description, city, country, number, website, instagram, facebook, twitter, youtube, language } = req.body;
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
           if (err) throw err;
-          const { email } = userData;
+          const { id } = userData;
+          // cjek if the user already has a shop
+          const existingShop = await Shops.findOne({ owner: id });
+          if (existingShop) {
+            return res.status(400).json({ error: 'User already has a store.' });
+          }      
 
           // Find the owner based on the ID
           const owner = await UserModel.findOne({ email: email });
@@ -188,11 +193,10 @@ app.get('/test', (req, res) => {
         const {token} = req.cookies;
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
           if (err) throw err;
-          const { email } = userData;
+          const { id } = userData;
           const owner = await UserModel.findOne({ email: email });
           const shopDoc = await Shops.find({ owner: owner._id });
           res.json(shopDoc)
-          console.log(shopDoc)
         })
       })  
 
