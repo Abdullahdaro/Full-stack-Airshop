@@ -12,6 +12,10 @@ const userSchema = mongoose.Schema({
             ref: "Post Message",
         }
     ],
+    shop: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Shops'
+      },
 });
 
 const UserModel = mongoose.model("User", userSchema)
