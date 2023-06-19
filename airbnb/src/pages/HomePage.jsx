@@ -72,21 +72,37 @@ const HomePage = () => {
         <div className='flex flex-col gap-1'> 
         
           <span className='text-main font-bold pb-1 text-2xl '>FILTER</span>
-          <div className='flex flex-col gap-1 pb-3'> 
-            <span className='font-second font-semibold text-ms'>STYLE</span>
-            <span className='text-second text-xs'>Shoes</span>
-            <span className='font-second text-xs'>T shit</span>
-            <span className='font-second text-xs'>Pants</span>
-            <span className='font-second text-xs'>See All</span>
-          </div>
+          <div className='flex flex-col gap-1 mb-3'>
+              <span className='font-second font-semibold text-ms'>Season</span>
+              <button className='text-left font-main text-xs' onClick={() => setTypeFilter('t-shirt')}>
+                T-Short
+              </button>
+              <button className='text-left font-main text-xs' onClick={() => setTypeFilter('pant')}>
+                Pants
+              </button>
+              <button className='text-left font-main text-xs' onClick={() => setTypeFilter('shoes')}>
+                Shoes
+              </button>
+              <button className='text-left font-main text-xs' onClick={() => setTypeFilter('all')}>
+                All Seasons
+              </button>
+            </div>
           <div className='border opacity-20 border-black mr-20 '></div>
-          <div className='flex flex-col gap-1'> 
-            <span className='font-second font-semibold text-ms'>Season</span>
-            <span className='font-second text-xs'>Summer</span>
-            <span className='font-second text-xs'>Winter</span>
-            <span className='font-second text-xs'>Spring</span>
-            <span className='font-second text-xs'>See All</span>
-          </div>
+          <div className='flex flex-col gap-1'>
+              <span className='font-second font-semibold text-ms'>Season</span>
+              <button className='text-left font-main text-xs' onClick={() => setSeasonFilter('summer')}>
+                Summer
+              </button>
+              <button className='text-left font-main text-xs' onClick={() => setSeasonFilter('winter')}>
+                Winter
+              </button>
+              <button className='text-left font-main text-xs' onClick={() => setSeasonFilter('spring')}>
+                Spring
+              </button>
+              <button className='text-left font-main text-xs' onClick={() => setSeasonFilter('all')}>
+                All Seasons
+              </button>
+            </div>
         </div>
       </div>
       <div className='m-7 gap-2 grid w-[95%] sm:grid-cols-1 md:grid-cols-4 lg:grid-col-4'>
