@@ -193,7 +193,7 @@ app.get('/test', (req, res) => {
         const {token} = req.cookies;
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
           if (err) throw err;
-          const { id } = userData;
+          const { email } = userData;
           const owner = await UserModel.findOne({ email: email });
           const shopDoc = await Shops.find({ owner: owner._id });
           res.json(shopDoc)

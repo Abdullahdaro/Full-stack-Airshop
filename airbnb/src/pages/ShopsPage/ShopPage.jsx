@@ -88,13 +88,13 @@ if (!shop) {
             <span class="absolute left-0 right-0 bottom-[-5px] h-[1px] bg-black"></span>
           </span>
         </div>
-          <span className='font-red-hat-display font-light text-pink text-base text-[20px]'>Shape</span>
+          <span className='font-red-hat-display font-light text-pink text-base text-[20px]'>Search</span>
         </div>
       </div>
       <div className='border border-black opacity-20 '></div>
       <div className='flex'>
         <div className='w-[17%] p-8 '>
-          <div className='flex flex-col gap-1 pb-10'> 
+          <div className='flex flex-col gap-1 pb-10 '> 
             <span className='text-main font-bold text-2xl'>New Styles</span>
             <span className='font-second text-ms'>See All</span>
             <span className='font-second text-ms'>Lastest</span>
@@ -102,12 +102,20 @@ if (!shop) {
           </div>
           <div className='flex flex-col gap-1'> 
             <span className='text-main font-bold pb-1 text-2xl'>FILTER</span>
-            <div className='flex flex-col gap-1 pb-3'> 
-              <span className='font-second font-semibold text-ms'>STYLE</span>
-              <span className='text-second font-main text-xs'>Shoes</span>
-              <span className='font-second text-xs'>T shit</span>
-              <span className='font-second text-xs'>Pants</span>
-              <span className='font-second text-xs'>See All</span>
+            <div className='flex flex-col gap-1 mb-3'>
+              <span className='font-second font-semibold text-ms'>Season</span>
+              <button className='text-left font-main text-xs' onClick={() => setTypeFilter('t-shirt')}>
+                T-Short
+              </button>
+              <button className='text-left font-main text-xs' onClick={() => setTypeFilter('pant')}>
+                Pants
+              </button>
+              <button className='text-left font-main text-xs' onClick={() => setTypeFilter('shoes')}>
+                Shoes
+              </button>
+              <button className='text-left font-main text-xs' onClick={() => setTypeFilter('all')}>
+                All Seasons
+              </button>
             </div>
             <div className='flex flex-col gap-1'>
               <span className='font-second font-semibold text-ms'>Season</span>

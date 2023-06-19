@@ -45,8 +45,8 @@ const Profile = () => {
             About me:
           </span>
           <div className='inline-flex'>
-            <button className=' bg-white rounded-full py-4 justify-start flex'>
-              <span className='box-border border inline-flex px-4 py-2 font-second border-black rounded-full items-center'>
+            <button className=' rounded-full py-4 justify-start flex'>
+              <span className='box-border bg-white hover:bg-pink hover:text-white shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full items-center'>
                 Edit profile
               </span>
             </button>
@@ -59,13 +59,13 @@ const Profile = () => {
         <div className='flex flex-col'>
           <span className='font-red-hat-display font-semibold text-2xl leading-10 text-black '>My Shop</span>
           <div className='inline-flex'>
-            <button className=' bg-white rounded-full py-4 justify-start flex'>
-              <Link to={'/shop'} className='box-border border inline-flex px-4 py-2 font-second border-black rounded-full items-center'>
+            <button className='rounded-full py-4 justify-start flex'>
+              <Link to={'/shop'} className='box-border bg-white hover:bg-pink hover:text-white shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full items-center'>
                 Create shop
               </Link>
             </button>
-            <button className=' bg-white rounded-full py-4 justify-start flex'>
-              <span className='box-border border inline-flex px-4 py-2 font-second border-black rounded-full items-center'>
+            <button className=' rounded-full py-4 justify-start flex'>
+              <span className='box-border bg-white hover:bg-pink hover:text-white shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full items-center'>
                 Edit shop
               </span>
             </button>

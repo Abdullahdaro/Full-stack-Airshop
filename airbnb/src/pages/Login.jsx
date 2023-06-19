@@ -2,6 +2,8 @@ import React, {useState, useContext} from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import axios from "axios";
 import { UserContext } from '../Contexts/UserContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 const login = () => {
   const [email, setEmail] = useState('')
@@ -26,6 +28,10 @@ const login = () => {
     return < Navigate to={'/'} />
   }
 
+  const googleSuccess =  () => {
+    window.open("http://localhost:4000/googlelogin", "_self");
+  };
+
   return (
     <div className='mt-4'>
         <h1 className='text-4xl text-center mb-4'>Login</h1>
@@ -37,6 +43,15 @@ const login = () => {
             Don't have an account yet? <Link to={'/register'} className='underline text-bold'> Register now</Link>
           </div>
         </form>
+        <div className="flex items-center justify-center mt-6">
+          <div
+            className="flex items-center border px-5 bg-primary rounded-md shadow-sm py-2 font-medium text-white hover:bg-pink focus:outline-none focus:ring-2 focus:ring-offset-2 hover:cursor-pointer focus:ring-indigo-500"
+            onClick={googleSuccess}
+          >
+            <FontAwesomeIcon className='pr-4' icon={faGoogle} />
+            Google
+          </div>
+        </div>
     </div>
     
   )
