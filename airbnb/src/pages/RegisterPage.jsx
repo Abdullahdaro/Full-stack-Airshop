@@ -4,7 +4,8 @@ import axios from "axios";
 import { GoogleLogin } from 'react-google-login';
 import { gapi } from "gapi-script";
 import jwt_decode from 'jwt-decode';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 const RegisterPage = () => {
     const [name, setName] = useState("")
@@ -53,12 +54,6 @@ const RegisterPage = () => {
   return (
     <div className='mt-4'>
         <h1 className='text-4xl text-center mb-4'>Sign up</h1>
-        <div>
-        <div className="loginButton google" onClick={googleSuccess}>
-            <img  alt="" className="icon" />
-            Google
-          </div>
-        </div>
         <form onSubmit={registerUser} action="" className='max-w-md mx-auto '>
           <input type="text" placeholder='Your name' value={name} onChange={e => setName(e.target.value)} />
           <input type="email" placeholder='Your@email.com' value={email} onChange={ e => setEmail(e.target.value)}/>
@@ -68,6 +63,15 @@ const RegisterPage = () => {
             Do you have an account? <Link to={'/Login'} className='underline text-bold'> Log in</Link>
           </div>
         </form>
+        <div className="flex items-center justify-center mt-6">
+          <div
+            className="flex items-center border px-5 bg-primary rounded-md shadow-sm py-2 font-medium text-white hover:bg-pink focus:outline-none focus:ring-2 focus:ring-offset-2 hover:cursor-pointer focus:ring-indigo-500"
+            onClick={googleSuccess}
+          >
+            <FontAwesomeIcon className='pr-4' icon={faGoogle} />
+            Google
+          </div>
+        </div>
     </div>
   )
 }
