@@ -7,15 +7,20 @@ const Profile = () => {
     const {ready, user} = useContext(UserContext)
     const [shopData, setShopData] = useState(null);
 
-    useEffect(() => { 
-      axios.get('/shops').then(({data}) => {
-          setShopData(data)
-          console.log(shopData);
+    useEffect(() => {
+      axios
+        .get('/shops')
+        .then(({ data }) => {
+          setShopData(data);
         })
         .catch(err => {
           console.log(err);
-        })
+        });
     }, []);
+    
+    useEffect(() => {
+      console.log(shopData);
+    }, [shopData]);
 
 
     if (!ready) {
@@ -25,11 +30,7 @@ const Profile = () => {
     if ( ready && !user ) {
         return <Navigate to={'/login'} />
     }
-
-    const {subpage} = useParams();
-
-    console.log(subpage)
-    console.log(user)
+   console.log(shopData);
     
   return (
     <div className='flex justify-center h-screen' >
@@ -72,10 +73,8 @@ const Profile = () => {
         <div className='flex flex-col'>
           <span className='font-red-hat-display font-semibold text-2xl leading-10 text-black '>My Shop</span>
           <div className='inline-flex'>
-            <div>
-              {shopData ? (
-                <p>Shop data is available</p>
-              ) : (
+            <div className='rounded-full py-4 justify-start flex'>
+            {shopData !== null && shopData.length === 0 ? (
                 <button className='rounded-full py-4 justify-start flex'>
                   <Link
                     to={'/shop'}
@@ -84,7 +83,7 @@ const Profile = () => {
                     Create shop
                   </Link>
                 </button>
-              )}
+              ) : null}
             </div>
             <button className=' rounded-full py-4 justify-start flex'>
               <span className='box-border bg-white hover:bg-pink hover:text-white shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full items-center'>

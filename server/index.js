@@ -178,10 +178,9 @@ app.get('/test', (req, res) => {
           const { email } = userData;
           // cjek if the user already has a shop
           const owner = await UserModel.findOne({ email: email });
-          const existingShop = await Shops.findOne({ owner: email });
-          if (existingShop) {
-            return res.status(400).json({ error: 'User already has a store.' });
-          }      
+          if (owner.shop) {
+            res.status(422).json({ message: "You already have a shop" });
+          }  
           // Find the owner based on the ID
           const shopDoc = await Shops.create({ owner: owner._id, photos:addedPhotos, title, address, description, city, country, number, email, website, instagram, facebook, twitter, youtube, language });
             res.json(shopDoc)
@@ -192,8 +191,8 @@ app.get('/test', (req, res) => {
         const {token} = req.cookies;
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
           if (err) throw err;
-          const { email } = userData;
-          const owner = await UserModel.findOne({ email: email });
+          const { id } = userData;
+          const owner = await UserModel.findOne({ id: id });
           const shopDoc = await Shops.find({ owner: owner._id });
           res.json(shopDoc)
         })
