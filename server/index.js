@@ -175,15 +175,14 @@ app.get('/test', (req, res) => {
         const { addedPhotos, title, address, description, city, country, number, website, instagram, facebook, twitter, youtube, language } = req.body;
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
           if (err) throw err;
-          const { id } = userData;
+          const { email } = userData;
           // cjek if the user already has a shop
-          const existingShop = await Shops.findOne({ owner: id });
+          const owner = await UserModel.findOne({ email: email });
+          const existingShop = await Shops.findOne({ owner: email });
           if (existingShop) {
             return res.status(400).json({ error: 'User already has a store.' });
           }      
-
           // Find the owner based on the ID
-          const owner = await UserModel.findOne({ email: email });
           const shopDoc = await Shops.create({ owner: owner._id, photos:addedPhotos, title, address, description, city, country, number, email, website, instagram, facebook, twitter, youtube, language });
             res.json(shopDoc)
           })
@@ -212,20 +211,60 @@ app.get('/test', (req, res) => {
       })
 
 // products
-      app.post('/products', (req, res) => {
-        const {token} = req.cookies;
-        const { addedPhotos,  title,  serialNumber,  price,  colors,  description,  material , age , sex , type , season , size
-        } = req.body; 
-        jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-          if (err) throw err; 
+      app.post('/products', async (req, res) => {
+        const { token } = req.cookies;
+        const {
+          addedPhotos,
+          title,
+          serialNumber,
+          price,
+          colors,
+          description,
+          material,
+          age,
+          sex,
+          type,
+          season,
+          size,
+        } = req.body;
+
+        try {
+          const userData = jwt.verify(token, jwtSecret);
           const { email } = userData;
 
-          // Find the owner based on the ID
+          // Find the owner based on the email
           const owner = await UserModel.findOne({ email: email });
-          const productDoc = await Product.create({ owner: owner._id, photos:addedPhotos, title, serialNumber, price, colors, description, material, age, sex, type, season, size });
-            res.json(productDoc)
-          })
-      })
+
+          // Find the shop associated with the owner
+          const shop = await Shops.findOne({ owner: owner._id });
+
+          // Create the product
+          const productDoc = await Product.create({
+            owner: shop._id,
+            photos: addedPhotos,
+            title,
+            serialNumber,
+            price,
+            colors,
+            description,
+            material,
+            age,
+            sex,
+            type,
+            season,
+            size,
+          });
+
+          // Add the product ID to the shop's products array
+          shop.products.push(productDoc._id);
+          await shop.save();
+
+          res.json(productDoc);
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ error: 'Server error' });
+        }
+      });
 
       app.get('/products', (req,res) => {
         const {token} = req.cookies;

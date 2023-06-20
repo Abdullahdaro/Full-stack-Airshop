@@ -1,9 +1,22 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState,  useEffect} from 'react'
 import { UserContext } from '../../Contexts/UserContext'
 import { Navigate, useParams, Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Profile = () => {
     const {ready, user} = useContext(UserContext)
+    const [shopData, setShopData] = useState(null);
+
+    useEffect(() => { 
+      axios.get('/shops').then(({data}) => {
+          setShopData(data)
+          console.log(shopData);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }, []);
+
 
     if (!ready) {
         return 'Loading...'
@@ -59,11 +72,20 @@ const Profile = () => {
         <div className='flex flex-col'>
           <span className='font-red-hat-display font-semibold text-2xl leading-10 text-black '>My Shop</span>
           <div className='inline-flex'>
-            <button className='rounded-full py-4 justify-start flex'>
-              <Link to={'/shop'} className='box-border bg-white hover:bg-pink hover:text-white shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full items-center'>
-                Create shop
-              </Link>
-            </button>
+            <div>
+              {shopData ? (
+                <p>Shop data is available</p>
+              ) : (
+                <button className='rounded-full py-4 justify-start flex'>
+                  <Link
+                    to={'/shop'}
+                    className='box-border bg-white hover:bg-pink hover:text-white shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full items-center'
+                  >
+                    Create shop
+                  </Link>
+                </button>
+              )}
+            </div>
             <button className=' rounded-full py-4 justify-start flex'>
               <span className='box-border bg-white hover:bg-pink hover:text-white shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full items-center'>
                 Edit shop
