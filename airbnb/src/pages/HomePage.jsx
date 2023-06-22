@@ -67,7 +67,6 @@ const HomePage = () => {
           <span className='font-second text-ms'>See All</span>
           <span className='font-second text-ms'>Lastest</span>
           <span className='font-second text-ms'>Discounts</span>
-          
         </div>
         <div className='flex flex-col gap-1'> 
         
