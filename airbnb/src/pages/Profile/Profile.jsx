@@ -74,7 +74,7 @@ const Profile = () => {
           <span className='font-red-hat-display font-semibold text-2xl leading-10 text-black '>My Shop</span>
           <div className='inline-flex'>
             <div className='rounded-full py-4 justify-start flex'>
-            {shopData !== null && shopData.length === 0 ? (
+              {shopData !== null && shopData.length === 0 ? (
                 <button className='rounded-full py-4 justify-start flex'>
                   <Link
                     to={'/shop'}
