@@ -149,7 +149,7 @@ const CreateShop = () => {
                                 <h2 className='text-xl font-second whitespace-nowrap  '>Phone number:</h2>
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setNumber(e.target.value)}
-                                type='text' 
+                                type='number' 
                                 placeholder='+90 (555) 555 55 55'></input>
                                 <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>

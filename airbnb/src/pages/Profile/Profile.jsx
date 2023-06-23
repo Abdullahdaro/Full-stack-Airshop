@@ -72,20 +72,18 @@ const Profile = () => {
         </div>
         <div className='flex flex-col'>
           <span className='font-red-hat-display font-semibold text-2xl leading-10 text-black '>My Shop</span>
-          <div className='inline-flex'>
-            <div className='rounded-full py-4 justify-start flex'>
+          <div className='inline-flex justify-between'>
+            <div className='rounded-full py-4 flex'>
               {shopData !== null && shopData.length === 0 ? (
-                <button className='rounded-full py-4 justify-start flex'>
                   <Link
                     to={'/shop'}
-                    className='box-border bg-white hover:bg-pink hover:text-white shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full items-center'
+                    className='box-border bg-white hover:bg-gray-100 shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full justify-center w-40 items-center'
                   >
                     Create shop
                   </Link>
-                </button>
               ) : null}
             </div>
-            <button className=' rounded-full py-4 justify-start flex'>
+            <button className=' rounded-full py-4 justify-center flex'>
               <span className='box-border bg-white hover:bg-pink hover:text-white shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full items-center'>
                 Edit shop
               </span>

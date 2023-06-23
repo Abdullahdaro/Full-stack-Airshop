@@ -6,6 +6,7 @@ const userSchema = mongoose.Schema({
     password: { type: String,},
     id: { type: String },
     googleId: { type: String },
+    avatar: { type: String },
     saved: [
         {
             type: mongoose.Schema.Types.ObjectId,
