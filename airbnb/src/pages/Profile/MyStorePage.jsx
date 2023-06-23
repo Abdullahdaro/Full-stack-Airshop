@@ -5,17 +5,22 @@ import { FaPlus } from 'react-icons/fa';
 
 const MyStorePage = () => {
   const [products, setProducts ] = useState([]);
-  const [shop, setShop] = useState(null);
+  const [shopData, setShopData] = useState(null);
 
   useEffect(() => {
-    axios.get('/shops').then(({data}) => {
-      setShop(data)
-      console.log(shop);
-    })
-    .catch(err => {
-      console.log(err);
-    })
+    axios
+      .get('/shops')
+      .then(({ data }) => {
+        setShopData(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }, []);
+  
+  useEffect(() => {
+    console.log(shopData);
+  }, [shopData]);
 
   useEffect(() => {
     axios.get('/products').then(({data}) => {
@@ -30,15 +35,35 @@ const MyStorePage = () => {
 
   return (
     <div>
-
-      <div className='p-4'>
-        <div className='font-main text-3xl p-2'>
+      <div>
+      <div className='font-main text-3xl p-2'>
           My Store
         </div>
-        <Link className="inline-flex items-center bg-gray-500 text-white py-2 px-4 rounded-full" to={'/profile/mystore/add'}> 
-          <span className="mr-4" >Add a new product</span> 
-          <FaPlus className="text-white text-base" />
-        </Link>
+        {shopData !== null && shopData.map((shop, i ) => (
+          
+          <div className='flex justify-center items-center'>
+            <div>
+              My shop name is:
+            </div>
+            {shop.city}
+          </div>
+        ))}
+      </div>
+
+      <div className='p-4'>
+        
+        {shopData !== null && shopData.length === 0 ? (
+              <div>
+              <div className='flex justify-center items-center'>
+                Create your own store to sell your products
+              </div>
+            </div>
+              ) : 
+              <Link className="inline-flex items-center bg-gray-500 text-white py-2 px-4 rounded-full" to={'/profile/mystore/add'}> 
+                <span className="mr-4" >Add a new product</span> 
+                <FaPlus className="text-white text-base" />
+              </Link>
+              }
       </div>
       
       <div className='m-4 justify-center gap-4 grid grid-cols-2 md:grid-cols-3 lg:grid-col-4'>

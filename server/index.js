@@ -321,7 +321,7 @@ app.get('/test', (req, res) => {
 
       app.get('/owners/:id', async(req,res) => {
         const {id} = req.params;
-        res.json(await UserModel.findById(id))
+        res.json(await Shops.findById(id))
       })
 
       app.get('/owner/:id', async (req, res) => {
@@ -329,7 +329,8 @@ app.get('/test', (req, res) => {
       
         try {
           const owner = await UserModel.findById(id);
-          const ownerProducts = await Product.find({ owner: owner._id }).populate('owner');
+          const shop = await Shops.findOne({ owner: owner._id });
+          const ownerProducts = await Product.find({ shop: owner._id }).populate('owner');
       
           res.json({ owner, ownerProducts });
         } catch (error) {
