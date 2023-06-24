@@ -127,7 +127,7 @@ const CreateShop = () => {
                             </div>
                         </div>
                     </div>
-                        {/* What we should enter */}
+
                     <div className='pl-10 ml-10'>
                         <div>
                             <h2 className='text-3xl font-second font-bold'>Your shop</h2>
