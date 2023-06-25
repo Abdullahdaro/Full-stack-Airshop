@@ -7,7 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {faGlobe,  faShoppingBag,faImage, faLanguage,faEnvelope, faArrowRight, faPhoneVolume, faLocationDot, faMountainCity, faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
-
+import InputMask from 'react-input-mask';
+import Select from 'react-select';
 
 
 const CreateShop = () => {
@@ -101,6 +102,26 @@ const CreateShop = () => {
             navTo('/profile/mystore')
         }}
 
+        const langaugeoptions = [
+            { value: 'English', label: 'English' },
+            { value: 'Spanish', label: 'Spanish' },
+            { value: 'French', label: 'French' },
+            { value: 'German', label: 'German' },
+            { value: 'Chinese', label: 'Chinese' },
+            { value: 'Japanese', label: 'Japanese' }
+          ];
+
+        const cityoptions = [
+            { value: 'Istanbul', label: 'Istanbul' },
+            { value: 'Ankara', label: 'Ankara' },
+            { value: 'Izmir', label: 'Izmir' },
+        ];
+
+        const countryoptions = [
+            { value: 'Turkey', label: 'Turkey' },
+        ];
+    
+
   return (
     <div className='flex justify-center'>
         <div className='flex p-4 '>
@@ -141,16 +162,22 @@ const CreateShop = () => {
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setTitle(e.target.value)}
                                 type='text' 
+                                required
                                 placeholder='The name of your shop'></input>
                                 <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon icon={faPhoneVolume} className='hover:text-2xl p-2 font-second font-semibold' />
                                 <h2 className='text-xl font-second whitespace-nowrap  '>Phone number:</h2>
-                                <input className='w-full border-none hover:bg-slate-100'
-                                onChange={e=> setNumber(e.target.value)}
-                                type='number' 
-                                placeholder='+90 (555) 555 55 55'></input>
+                                <InputMask
+                                    className='w-full border-none hover:bg-slate-100'
+                                    value={number}
+                                    onChange={e=> setNumber(e.target.value)}
+                                    mask='+99 (999) 999 99 99'
+                                    placeholder='+90 (555) 555 55 55'
+                                    maskChar={null}
+                                    required
+                                    />
                                 <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                         </div>
@@ -162,10 +189,13 @@ const CreateShop = () => {
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon  icon={faLanguage}  className='hover:text-2xl p-2 font-second font-semibold' />
                                 <h2 className='text-xl font-second whitespace-nowrap  '>Languages:</h2>
-                                <input className='w-full border-none hover:bg-slate-100'
-                                onChange={e=> setLanguage(e.target.value)}
-                                type='text' 
-                                placeholder='Choose languages you know'></input>
+                                <Select
+                                    className='w-full border-none h-7 ml-3 bg-white hover:bg-white active:h-20'
+                                    onChange={e => setLanguage(Array.from(e.target.selectedOptions, (option) => option.value))}
+                                    isMulti
+                                    required
+                                    options={langaugeoptions}
+                                /> 
                                 <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
@@ -173,8 +203,11 @@ const CreateShop = () => {
                                 <h2 className='text-xl font-second whitespace-nowrap  '>Email:</h2>
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setEmail(e.target.value)}
-                                type='text' 
-                                placeholder='shop.email@shop.com'></input>
+                                type='email'
+                                pattern='[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+                                placeholder='shop.email@shop.com'
+                                required
+                                />
                                 <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                         </div>
@@ -183,22 +216,28 @@ const CreateShop = () => {
                             <div className='border  px-48 mx-4'></div>
                         </div>
                         <div className='flex sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full'>
-                            <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
+                            <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 h-[70px] hover:h-20 p-2'>
                                 <FontAwesomeIcon  icon={faMountainCity}  className='hover:text-2xl p-2 font-second font-semibold' />
                                 <h2 className='text-xl font-second whitespace-nowrap  '>City:</h2>
-                                <input className='w-full border-none hover:bg-slate-100'
-                                onChange={e=> setCity(e.target.value)}
-                                type='text' 
-                                placeholder='Istanbul'></input>
+                                <Select
+                                    className='w-full border-none h-7 ml-3 bg-white  hover:bg-white'
+                                    onChange={e => setCity(Array.from(e.target.selectedOptions, (option) => option.value))}
+                                    isMulti
+                                    options={cityoptions}
+                                    required
+                                />
                                 <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon icon={faEarthAmericas} className='hover:text-2xl p-2 font-second font-semibold' />
                                 <h2 className='text-xl font-second whitespace-nowrap'>Country:</h2>
-                                <input className='w-full border-none hover:bg-slate-100'
-                                onChange={e=> setCountry(e.target.value)}
-                                type='text' 
-                                placeholder='Turkey'></input>
+                                <Select
+                                    className='w-full border-none h-7 ml-3 bg-white hover:bg-white'
+                                    onChange={e => setCountry(Array.from(e.target.selectedOptions, (option) => option.value))}
+                                    isMulti
+                                    options={countryoptions}
+                                    required
+                                />
                                 <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                         </div>
