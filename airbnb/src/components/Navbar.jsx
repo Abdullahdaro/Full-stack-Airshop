@@ -2,6 +2,10 @@ import React, { useContext, useState, useEffect, useRef  } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import down from '../assets/down.png'
+import russia from '../assets/russia.png'
+import saudi from '../assets/saudi.png'
+import turkey from '../assets/turkey.png'
+import united from '../assets/united.png'
 import profileuser from '../assets/profileuser.png'
 import { UserContext } from '../Contexts/UserContext'
 import axios from 'axios'
@@ -10,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 const Navbar = () => {
   const {user, setUser} = useContext(UserContext)
   const [showMenu, setShowMenu] = useState(false);
+  const [showMenuLangauge, setShowMenuLangauge] = useState(false)
   const navTo = useNavigate();
 
   async function logout() {
@@ -37,6 +42,7 @@ const Navbar = () => {
       document.removeEventListener('click', handleClick);
     };
   }, []);
+
   
   return (
     <div className=''>
@@ -60,7 +66,30 @@ const Navbar = () => {
             </div>
             {/* last */}
             <div className="flex gap-2 items-center py-2 pr-2">
-            <div className='text-main text-[16px] px-6'>language</div>
+            <button className='text-main text-[16px] px-6' onClick={() => setShowMenuLangauge(!showMenuLangauge)}>
+              Langauge
+            </button>
+              {showMenuLangauge && (
+                <ul className='absolute top-8 right-0 z-50 w-40 bg-white rounded-md shadow-lg py-1'>
+                  <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => setShowMenuLangauge(false)}>
+                    <img className='w-8 h-8' src={russia} />
+                    <span className='px-4'>Russian</span>
+                  </li>
+                  <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => setShowMenuLangauge(false)}>
+                    <img className='w-8 h-8' src={saudi} />
+                    <span className='px-4'>Arabic</span>
+                  </li>
+                  <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => setShowMenuLangauge(false)}>
+                    <img className='w-8 h-8' src={turkey} />
+                    <span className='px-4'>Turkish</span>
+                  </li>
+                  <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => setShowMenuLangauge(false)}>
+                    <img className='w-8 h-8' src={united} />
+                    <span className='px-4'>English</span>
+                  </li>
+                </ul>
+              )}
+            
            
             {user ? (
                 <div className='relative' ref={userMenuRef}>
@@ -69,7 +98,6 @@ const Navbar = () => {
                     className='items-center focus:outline-none'
                   >
                     <img src={profileuser} className='w-[25px]' />
-                    <div className='text-xs text-pink font-main'>{user.name}</div>
                   </button>
                   {showMenu && (
                     <ul className='absolute top-8 right-0 z-50 w-40 bg-white rounded-md shadow-lg py-1'>
