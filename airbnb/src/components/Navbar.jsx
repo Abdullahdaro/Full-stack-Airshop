@@ -66,7 +66,7 @@ const Navbar = () => {
             </div>
             {/* last */}
             <div className="flex gap-2 items-center py-2 pr-2">
-            <button className='text-main text-[16px] px-6' onClick={() => setShowMenuLangauge(!showMenuLangauge)}>
+            <button className='text-main text-[16px] ml-6' onClick={() => setShowMenuLangauge(!showMenuLangauge)}>
               Langauge
             </button>
               {showMenuLangauge && (
@@ -95,9 +95,9 @@ const Navbar = () => {
                 <div className='relative' ref={userMenuRef}>
                   <button
                     onClick={() => setShowMenu(!showMenu)}
-                    className='items-center focus:outline-none'
+                    className='items-start pl-2 pr-8 w-full justify-center focus:outline-none'
                   >
-                    <img src={profileuser} className='w-[25px]' />
+                    <img src={profileuser} className=' w-full mx-4 items-start h-8' />
                   </button>
                   {showMenu && (
                     <ul className='absolute top-8 right-0 z-50 w-40 bg-white rounded-md shadow-lg py-1'>
@@ -132,7 +132,7 @@ const Navbar = () => {
                   )}
                 </div>
               ) : (
-                <Link to={'/login'} className='text-pink font-main font-bold text-[16px] bg-secondary p-2 rounded-full'>
+                <Link to={'/login'} className='text-pink font-main font-bold w-full text-[16px] bg-secondary p-2 rounded-full'>
                   Log In
                 </Link>
               )}

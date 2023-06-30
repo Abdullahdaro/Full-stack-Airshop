@@ -226,6 +226,7 @@ const CreateShop = () => {
                                     options={cityoptions}
                                     required
                                 />
+                                
                                 <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>

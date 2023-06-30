@@ -3,7 +3,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
-
+import { MongoClient, ServerApiVersion } from 'mongodb';
 import Product from './models/clothes.js';
 import Shops from './models/shops.js';
 import UserModel from './models/user.js';
@@ -22,6 +22,7 @@ dotenv.config();
 
 const app = express();
 
+
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = 'fasefraw4r5r3wq45wdfgw34twdfg';
 const __filename = fileURLToPath(import.meta.url);
@@ -36,7 +37,6 @@ app.use(
   cors({
     credentials: true,
     origin:  'http://localhost:5173', 
-    // Add additional headers if required
     allowedHeaders: 'Content-Type, Authorization',
     methods: 'GET, POST, OPTIONS',
   })
@@ -47,7 +47,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/uploads', express.static(path.join(__dirname + '/uploads')));
 
-mongoose.connect(process.env.REACT_APP_CONNECTION_URL);
+try {
+  await mongoose.connect(process.env.REACT_APP_CONNECTION_URL, {
+    useNewUrlParser: true,
+  });
+  console.log(`Server running on port: ${process.env.PORT || 5000}`);
+} catch (error) {
+  console.log(error.message);
+}
 
 app.get('/test', (req, res) => {
   res.json('test ok');
@@ -311,7 +318,11 @@ app.get('/test', (req, res) => {
 
 // homepage products 
       app.get('/homeproducts', async (req,res) => {
-        res.json( await Product.find() )
+        try {
+          res.json( await Product.find().maxTimeMS(20000))
+        } catch (err) {
+          console.log(err)
+        }
       })
 
       app.get('/product/:id', async(req,res) => {
