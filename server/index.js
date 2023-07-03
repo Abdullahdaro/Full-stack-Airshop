@@ -60,6 +60,14 @@ app.get('/test', (req, res) => {
   res.json('test ok');
 });
 
+class APIfeatures  {
+  constructor(query, queryString){
+    this.query = query;
+    this.queryString = queryString;
+  }
+}
+
+
 //profile 
       app.post('/register', async (req,res) => {
         const {name, email, password} = req.body;
@@ -349,6 +357,70 @@ app.get('/test', (req, res) => {
           res.status(500).json({ error: 'Internal Server Error' });
         }
       });
+
+//  save unsave posts 
+        app.patch('/product/:id', async (req, res ) => {
+          const {id} = req.params;
+
+          try {
+
+            if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with this id: ${id}`)
+            
+            if (!mongoose.Types.ObjectId.isValid(req.owner)) return res.status(404).send (`No user with this id: ${req.owner}`)
+
+            const product = await Product.findById(req.params.id)
+
+            const oldUser = await UserModel.findById(req.owner)
+
+            if (!product) {
+              return res.status(404).json({message: "Product not found"})
+            }
+
+            if (oldUser.saved.includes(product.id.toString())) {
+                oldUser.saved = oldUser.saved.filter((p) => p.toString() !== product.id.toString())
+                product.savedBy = product.savedBy.filter((p) => p.toString() !== req.owner.toString())
+                await oldUser.save();
+                await product.save();
+
+                return res.status(200).json({
+                  success: true,
+                  message: "Post Unsaved"
+                });
+            } else {
+              oldUser.saved.push(product.id)
+              product.savedBy.push(req.owner)
+
+              await oldUser.save();
+              await product.save();
+
+              return res.status(200).json({
+                success: true, 
+                message:"Post Saved"
+              });
+            }} catch (err) {
+              console.log(err)
+              return res.status(500).json({message: err.message})
+            }
+        });
+
+        app.get('/savedproducts', async (res, req) => {
+          const {id} = req.query; 
+
+          try {
+            const user = await UserModel.findById(req.owner)
+
+            if(!user) {
+              return }
+
+            const features = new APIfeatures ( Product.find({id: {$in:owner.saved}}))
+            const saveProducts = await features.query.sort([])
+
+            res.json ( { data: saveProducts})
+          } catch (err) {
+            console.log(err)
+            return res.status(500).json({message: err.message})
+          }
+        });
 
 
 app.listen(4000);
