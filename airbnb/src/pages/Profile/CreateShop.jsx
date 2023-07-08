@@ -173,7 +173,7 @@ const CreateShop = () => {
                         <div className='flex sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full'>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon icon={faShoppingBag} className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap '>Shop Name:</h2>
+                                <h2 className='text-xl font-second whitespace-nowrap pr-1 '>Shop Name:</h2>
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setTitle(e.target.value)}
                                 type='text' 
@@ -183,9 +183,9 @@ const CreateShop = () => {
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon icon={faPhoneVolume} className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap  '>Phone number:</h2>
+                                <h2 className='text-xl font-second whitespace-nowrap pr-1 '>Phone number:</h2>
                                 <InputMask
-                                    className='w-full border-none hover:bg-slate-100'
+                                    className='w-full border-none rounded-full h-[40px] px-2 hover:bg-slate-100'
                                     value={number}
                                     onChange={e=> setNumber(e.target.value)}
                                     mask='+99 (999) 999 99 99'
@@ -216,7 +216,7 @@ const CreateShop = () => {
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2 '>
                                 <FontAwesomeIcon icon={faEnvelope} className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap  '>Email:</h2>
+                                <h2 className='text-xl font-second whitespace-nowrap pr-1  '>Email:</h2>
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setEmail(e.target.value)}
                                 type='email'
@@ -262,8 +262,8 @@ const CreateShop = () => {
                             <div className='border  px-48 mx-4'></div>
                             <div className='border  px-48 mx-4'></div>
                         </div>
-                        <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
-                            <h2 className='text-2xl font-second font-semibold'>Description</h2>
+                        <div className='flex justify-center whitespace-nowrap items-center px-8 w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
+                            <h2 className='text-2xl font-second font-semibold pr-1'>Description:</h2>
                             <input className='border rounded-md w-full' 
                             value={description}
                             onChange={e=> setDescription(e.target.value)}
@@ -273,7 +273,7 @@ const CreateShop = () => {
                         <div className='flex sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full'>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon  icon={faGlobe}  className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap  '>Website:</h2>
+                                <h2 className='text-xl font-second whitespace-nowrap pr-1  '>Website:</h2>
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setWebsite(e.target.value)}
                                 type='text' 
@@ -281,7 +281,7 @@ const CreateShop = () => {
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon icon={faInstagram} className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap'>Instagram:</h2>
+                                <h2 className='text-xl font-second whitespace-nowrap pr-1'>Instagram:</h2>
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setInstagram(e.target.value)}
                                 type='text' 
@@ -295,7 +295,7 @@ const CreateShop = () => {
                         <div className='flex sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full'>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon  icon={faFacebook}  className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap  '>Facebook:</h2>
+                                <h2 className='text-xl font-second whitespace-nowrap pr-1 '>Facebook:</h2>
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setFacebook(e.target.value)}
                                 type='text' 
@@ -303,7 +303,7 @@ const CreateShop = () => {
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon icon={faTwitter} className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap'>Twitter:</h2>
+                                <h2 className='text-xl font-second whitespace-nowrap pr-1'>Twitter:</h2>
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setTwitter(e.target.value)}
                                 type='text' 
