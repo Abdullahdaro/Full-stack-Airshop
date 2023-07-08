@@ -206,9 +206,9 @@ class APIfeatures  {
         const {token} = req.cookies;
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
           if (err) throw err;
-          const { id } = userData;
-          const owner = await UserModel.findOne({ id: id });
-          const shopDoc = await Shops.find({ owner: owner._id });
+          const { email } = userData;
+          const owner = await UserModel.findOne({ email: email });
+          const shopDoc = await Shops.find({ owner: owner.id });
           res.json(shopDoc)
         })
       })  
