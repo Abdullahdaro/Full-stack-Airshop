@@ -18,7 +18,7 @@ const CreateShop = () => {
     const [title, setTitle] = useState('')
     const [address, setAddress] = useState('')
     const [description, setDescription] = useState('')
-    const [city, setCity] = useState('')
+    const [city, setCity] = useState([])
     const [language, setLanguage] = useState([])
     const [country, setCountry] = useState('')
     const [number, setNumber] = useState('')
@@ -111,15 +111,30 @@ const CreateShop = () => {
             { value: 'Japanese', label: 'Japanese' }
           ];
 
+          const handleLangauegeChange = (selectedOptions) => {
+            setLanguage(selectedOptions);
+          };
+
         const cityoptions = [
             { value: 'Istanbul', label: 'Istanbul' },
             { value: 'Ankara', label: 'Ankara' },
             { value: 'Izmir', label: 'Izmir' },
         ];
 
+        const handleCityChange = (selectedOptions) => {
+            setCity(selectedOptions);
+          };
+
         const countryoptions = [
             { value: 'Turkey', label: 'Turkey' },
         ];
+
+        const handleCountryChange = (selectedOptions) => {
+            setCountry(selectedOptions);
+          };
+
+
+       
     
 
   return (
@@ -186,19 +201,20 @@ const CreateShop = () => {
                             <div className='border  px-48 mx-4'></div>
                         </div>
                         <div className='flex sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full'>
-                            <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
-                                <FontAwesomeIcon  icon={faLanguage}  className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap  '>Languages:</h2>
+                            <div className="flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2">
+                                <FontAwesomeIcon icon={faLanguage} className="p-2 font-second font-semibold" />
+                                <h2 className="text-xl font-second whitespace-nowrap">Languages:</h2>
                                 <Select
-                                    className='w-full border-none h-7 ml-3 bg-white hover:bg-white active:h-20'
-                                    onChange={e => setLanguage(Array.from(e.target.selectedOptions, (option) => option.value))}
-                                    isMulti
-                                    required
-                                    options={langaugeoptions}
-                                /> 
-                                <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
+                                className="w-full border-none h-7 ml-3 bg-white hover:bg-white"
+                                onChange={handleLangauegeChange}
+                                isMulti
+                                value={language}
+                                required
+                                options={langaugeoptions}
+                                />
+                                <FontAwesomeIcon icon={faArrowRight} beat className="px-2" />
                             </div>
-                            <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
+                            <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2 '>
                                 <FontAwesomeIcon icon={faEnvelope} className='hover:text-2xl p-2 font-second font-semibold' />
                                 <h2 className='text-xl font-second whitespace-nowrap  '>Email:</h2>
                                 <input className='w-full border-none hover:bg-slate-100'
@@ -221,9 +237,9 @@ const CreateShop = () => {
                                 <h2 className='text-xl font-second whitespace-nowrap  '>City:</h2>
                                 <Select
                                     className='w-full border-none h-7 ml-3 bg-white  hover:bg-white'
-                                    onChange={e => setCity(Array.from(e.target.selectedOptions, (option) => option.value))}
-                                    isMulti
+                                    onChange={handleCityChange}
                                     options={cityoptions}
+                                    value={city}
                                     required
                                 />
                                 
@@ -234,8 +250,8 @@ const CreateShop = () => {
                                 <h2 className='text-xl font-second whitespace-nowrap'>Country:</h2>
                                 <Select
                                     className='w-full border-none h-7 ml-3 bg-white hover:bg-white'
-                                    onChange={e => setCountry(Array.from(e.target.selectedOptions, (option) => option.value))}
-                                    isMulti
+                                    onChange={handleCountryChange}
+                                    value={country}
                                     options={countryoptions}
                                     required
                                 />
