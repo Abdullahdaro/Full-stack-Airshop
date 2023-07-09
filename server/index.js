@@ -187,17 +187,20 @@ class APIfeatures  {
 // create a store 
       app.post('/shops', (req, res) => {
         const {token} = req.cookies;
-        const { addedPhotos, title, address, description, city, country, number, website, instagram, facebook, twitter, youtube, language } = req.body;
+        const { addedPhotos, title, address, description, langauge, city, email, country, number, website, instagram, facebook, twitter, youtube, language } = req.body;
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
           if (err) throw err;
-          const { email } = userData;
+          const { id } = userData;
           // cjek if the user already has a shop
-          const owner = await UserModel.findOne({ email: email });
+          console.log(id)
+
+          const owner = await UserModel.findOne({ _id: id });
+          console.log(owner)
           if (owner.shop) {
             res.status(422).json({ message: "You already have a shop" });
           }  
           // Find the owner based on the ID
-          const shopDoc = await Shops.create({ owner: owner._id, photos:addedPhotos, title, address, description, city, country, number, email, website, instagram, facebook, twitter, youtube, language });
+          const shopDoc = await Shops.create({ owner: owner._id, photos:addedPhotos, title, email, address, description, langauge, city, country, number, email, website, instagram, facebook, twitter, youtube, language });
             res.json(shopDoc)
           })
       })
@@ -208,7 +211,7 @@ class APIfeatures  {
           if (err) throw err;
           const { email } = userData;
           const owner = await UserModel.findOne({ email: email });
-          const shopDoc = await Shops.find({ owner: owner.id });
+          const shopDoc = await Shops.find({ owner: owner._id });
           res.json(shopDoc)
         })
       })  

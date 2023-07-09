@@ -18,7 +18,7 @@ const CreateShop = () => {
     const [title, setTitle] = useState('')
     const [address, setAddress] = useState('')
     const [description, setDescription] = useState('')
-    const [city, setCity] = useState([])
+    const [city, setCity] = useState('')
     const [language, setLanguage] = useState([])
     const [country, setCountry] = useState('')
     const [number, setNumber] = useState('')
@@ -45,8 +45,9 @@ const CreateShop = () => {
             setTitle(data.title)
             setAddress(data.address)
             setDescription(data.description)
-            setCity(data.city)
-            setCountry(data.country)
+            setLanguage(data.language.value)
+            setCity(data.city.value)
+            setCountry(data.country.value)
             setNumber(data.number)
             setEmail(data.email)
             setWebsite(data.website)
@@ -91,24 +92,23 @@ const CreateShop = () => {
         e.preventDefault();
         if (id) {
             await axios.put('/shops', { id,
-                addedPhotos, title, address, description, city, country, number, email, website, instagram, facebook, twitter, youtube, language
+                addedPhotos, title, address, description, city: city.value, country: country.value, language:language.value, number, email, website, instagram, facebook, twitter, youtube, 
             })
             navTo('/profile/mystore')
         } else {
             // add a new place 
             await axios.post('/shops', {
-                addedPhotos, title, address, description, city, country, number, email, website, instagram, facebook, twitter, youtube, language
+                addedPhotos, title, address, description, city: city.value, country: country.value, language:language.value, number, email, website, instagram, facebook, twitter, youtube, 
             })
             navTo('/profile/mystore')
         }}
 
         const langaugeoptions = [
-            { value: 'English', label: 'English' },
-            { value: 'Spanish', label: 'Spanish' },
-            { value: 'French', label: 'French' },
-            { value: 'German', label: 'German' },
-            { value: 'Chinese', label: 'Chinese' },
-            { value: 'Japanese', label: 'Japanese' }
+            { value: 'english', label: 'English' },
+            { value: 'turkish', label: 'Turkish' },
+            { value: 'french', label: 'French' },
+            { value: 'arabic', label: 'Arabic' },
+            { value: 'russian', label: 'Russian' }
           ];
 
           const handleLangauegeChange = (selectedOptions) => {
@@ -116,17 +116,18 @@ const CreateShop = () => {
           };
 
         const cityoptions = [
-            { value: 'Istanbul', label: 'Istanbul' },
-            { value: 'Ankara', label: 'Ankara' },
-            { value: 'Izmir', label: 'Izmir' },
+            { value: 'istanbul', label: 'Istanbul' },
+            { value: 'ankara', label: 'Ankara' },
+            { value: 'izmir', label: 'Izmir' },
         ];
 
         const handleCityChange = (selectedOptions) => {
             setCity(selectedOptions);
+            console.log(city)  
           };
 
         const countryoptions = [
-            { value: 'Turkey', label: 'Turkey' },
+            { value: 'turkey', label: 'Turkey' },
         ];
 
         const handleCountryChange = (selectedOptions) => {
@@ -154,7 +155,7 @@ const CreateShop = () => {
                                 onDragOver={(event) => event.preventDefault()}
                                 className='flex-col flex justify-center items-center'>
                                     <label className='justify-start p-2 pr-3 shadow-md bg-white rounded-full block text-left cursor-pointer hover:'>
-                                        <input className='hidden' type="file" multiple onChange={handleInputChange} />
+                                        <input className='hidden' type="file" required onChange={handleInputChange} />
                                         <h2 className='font-semibold '>
                                         <FontAwesomeIcon icon={faImage} beat className='px-2 ' />
                                         Browse to upload
