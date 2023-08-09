@@ -6,6 +6,7 @@ import axios from 'axios'
 const Profile = () => {
     const {ready, user} = useContext(UserContext)
     const [shopData, setShopData] = useState(null);
+    const [photoid, setPhotoid] = useState(null);
 
     useEffect(() => {
       axios
@@ -37,7 +38,11 @@ const Profile = () => {
       
       <div className=' flex items-center flex-col mt-10 w-[50%] ml-20'>
         <div className='bg-white flex items-center py-8 px-6 shadow-md rounded-3xl my-10 gap-x-6'>
-          <img src={user.avatar} className=' h-[125px] rounded-full w-[125px] ' />
+          {photoid !== null ? (
+             <img src={user.avatar} className=' h-[125px] rounded-full w-[125px] ' />
+            ) : (
+              <button className='h-[125px] w-[125px]'> <span className='hover:bg-pink hover:text-white px-4 py-3 border border-pink rounded-3xl font-bold'>Add photo</span> </button>
+            )}
           <div className='flex flex-col gap-y-6 w-[125px]'>
             <span className='font-second text-bond'>Name:</span>
             <span className='font-second font-semibold'>{user.name}</span>

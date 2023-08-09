@@ -70,7 +70,7 @@ class APIfeatures  {
 
 //profile 
       app.post('/register', async (req,res) => {
-        const {name, email, password} = req.body;
+        const {name, email, password, avatar} = req.body;
         try {
           const oldUser = await UserModel.findOne({ email });
           if (oldUser) return res.status(400).json({ message: "User already exists" });
@@ -78,6 +78,7 @@ class APIfeatures  {
             name,
             email,
             password: bcrypt.hashSync(password, bcryptSalt),
+            avatar,
           })
           res.json(user)
         } catch (error) {
