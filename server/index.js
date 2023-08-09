@@ -365,21 +365,14 @@ class APIfeatures  {
 //  save unsave posts 
         app.patch('/product/:id', async (req, res ) => {
           const {id} = req.params;
-
           try {
-
-            if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with this id: ${id}`)
-            
+            if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with this id: ${id}`) 
             if (!mongoose.Types.ObjectId.isValid(req.owner)) return res.status(404).send (`No user with this id: ${req.owner}`)
-
             const product = await Product.findById(req.params.id)
-
             const oldUser = await UserModel.findById(req.owner)
-
             if (!product) {
               return res.status(404).json({message: "Product not found"})
             }
-
             if (oldUser.saved.includes(product.id.toString())) {
                 oldUser.saved = oldUser.saved.filter((p) => p.toString() !== product.id.toString())
                 product.savedBy = product.savedBy.filter((p) => p.toString() !== req.owner.toString())

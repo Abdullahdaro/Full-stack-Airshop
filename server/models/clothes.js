@@ -13,6 +13,12 @@ const ClothesSchema = new mongoose.Schema({
     season: String,
     sex:String,
     serialNumber: Number, 
+    savedBy: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+        },
+    ],
 })
 
 const Product = mongoose.model("Product", ClothesSchema)

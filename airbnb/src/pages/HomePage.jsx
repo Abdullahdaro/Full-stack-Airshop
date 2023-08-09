@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, {useState, useEffect } from 'react'
+import React, {useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom';
+import { UserContext } from '../Contexts/UserContext'
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -9,12 +10,33 @@ const HomePage = () => {
   const [newStylesFilter, setNewStylesFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
   const [seasonFilter, setSeasonFilter] = useState('all');
+  const [saved, setSaved] = useState();
+  const [postId, setPostId] = useState(null);
+  const {user, setUser} = useContext(UserContext)
 
   useEffect(()=> {
     axios.get('/homeproducts').then(response => {
       setProducts([...response.data ])
     })
   }, []);
+
+  const handleSave = async () => {
+    try {
+      const response = await axios.patch(`/product/${id}`, null, {
+        headers: {
+          Authorization: `Bearer ${user.token}` // Include the user's token for authentication
+        }
+      });
+
+      if (response.status === 200) {
+        setSaved(!saved); // Toggle the saved state
+      }
+    } catch (error) {
+      console.error('Error saving/unsaving post:', error);
+    }
+  };
+  console.log(user);
+  console.log(user._id);
   
   useEffect(() => {
     const handleFilter = () => {
@@ -106,42 +128,52 @@ const HomePage = () => {
       </div>
       <div className='m-7 gap-2 grid w-[95%] sm:grid-cols-1 md:grid-cols-4 lg:grid-col-4'>
         {filteredProducts.length > 0 && filteredProducts.map(product => (
-          <Link to={'/product/'+product._id} >
+          
+
             <div className='bg-white flex flex-col'>
-              <div className="relative h-[400px] w-[280px] ">
-                  {product.photos?.[0] && (
-                    <img src={'http://localhost:4000/uploads/'+product.photos?.[0]} 
-                      className='object-cover w-full h-full aspect-w-1 aspect-h-1 rounded-xl' />
-                  )}
-              </div>
-              <div className="pl-1 grow font-second pt-3">
-                    <h2 className="text-2xl">{product.title}</h2>
-                    <div className="text-xl">
-                      <div className="gap-1 flex flex-col">
-                        <span className="text-xs text-[#7F8086]">
-                          Price: ${product.price}
-                        </span>
-                        <div className='flex flex-col'>
-                          <span className="text-xs">
-                            Sizes: {product.type}
-                          </span>
-                          <span className="text-xs">
-                            Sizes: {product.size}
-                          </span>
-                        </div>
-                        <div className=' grid-cols-2 grid'>
-                          <span className="text-sm text-[#7F8086]">
-                            Gendar: <span className='text-[#FE8B8B]'>{product.sex}</span> 
-                          </span>
-                          <span className="text-sm text-[#7F8086]">
-                            Kind: <span className='text-[#FE8B8B]'>{product.season}</span> 
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+              <Link to={'/product/'+product._id} >
+                <div className="relative h-[400px] w-[280px] ">
+                    {product.photos?.[0] && (
+                      <img src={'http://localhost:4000/uploads/'+product.photos?.[0]} 
+                        className='object-cover w-full h-full aspect-w-1 aspect-h-1 rounded-xl' />
+                    )}
                 </div>
+              </Link>
+              <div className="pl-1 grow font-second pt-3">
+                <div className='flex justify-between w-full'>
+                <Link to={'/product/'+product._id} >
+                  <h2 className="text-2xl">{product.title}</h2>
+                </Link>
+                  <button onClick={handleSave(product._id)} title={product.saved ? "Remove from My List" : "Add to My List"} className=''>
+                    {product.saved ? "Remove" : "Add "}
+                  </button>               
+                </div>
+                <div className="text-xl">
+                  <div className="gap-1 flex flex-col">
+                    <span className="text-xs text-[#7F8086]">
+                      Price: ${product.price}
+                    </span>
+                    <div className='flex flex-col'>
+                      <span className="text-xs">
+                        Sizes: {product.type}
+                      </span>
+                      <span className="text-xs">
+                        Sizes: {product.size}
+                      </span>
+                    </div>
+                    <div className=' grid-cols-2 grid'>
+                      <span className="text-sm text-[#7F8086]">
+                        Gendar: <span className='text-[#FE8B8B]'>{product.sex}</span> 
+                      </span>
+                      <span className="text-sm text-[#7F8086]">
+                        Kind: <span className='text-[#FE8B8B]'>{product.season}</span> 
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </Link>
+          
         ))}
       </div>
     </div>
