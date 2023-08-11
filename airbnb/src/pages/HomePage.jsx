@@ -1,6 +1,6 @@
 import axios from 'axios';
-import React, {useState, useEffect, useContext } from 'react'
-import { Link } from 'react-router-dom';
+import React, {useState, useEffect, useContext,  } from 'react'
+import { Link, useParams } from 'react-router-dom';
 import { UserContext } from '../Contexts/UserContext'
 
 const HomePage = () => {
@@ -14,29 +14,15 @@ const HomePage = () => {
   const [postId, setPostId] = useState(null);
   const {user, setUser} = useContext(UserContext)
 
+  const id = useParams();
+
+  console.log(id);
+
   useEffect(()=> {
     axios.get('/homeproducts').then(response => {
       setProducts([...response.data ])
     })
   }, []);
-
-  const handleSave = async () => {
-    try {
-      const response = await axios.patch(`/product/${id}`, null, {
-        headers: {
-          Authorization: `Bearer ${user.token}` // Include the user's token for authentication
-        }
-      });
-
-      if (response.status === 200) {
-        setSaved(!saved); // Toggle the saved state
-      }
-    } catch (error) {
-      console.error('Error saving/unsaving post:', error);
-    }
-  };
-  console.log(user);
-  console.log(user._id);
   
   useEffect(() => {
     const handleFilter = () => {
