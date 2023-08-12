@@ -1,14 +1,17 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons';
 import { useParams, Link  } from 'react-router-dom'
+import { UserContext } from '../Contexts/UserContext';
 
 const ProductPage = () => {
     const {id} = useParams(); 
     const [product, setProduct] = useState(null)
     const [owner, setOwner] = useState(null);
+    const [saved, setSaved] = useState(null);
+    const {user} = useContext(UserContext)
 
     useEffect(() => {
         if (!id) {
@@ -24,13 +27,31 @@ const ProductPage = () => {
                 console.log(ownerResponse.data)
               });
             }
+            const isSaved = user && user.saved.includes(response.data._id);
+            setSaved(isSaved);
         })
-    }, [id])
+    }, [id, user])
+
 
     if (!product) return ''
 
+    const handleSave = async () => {
+      
+      try {
+        const response = await axios.patch(`/products/${id}`, null, {
+        });
+        setSaved(response.data.saved);
+      } catch (error) {
+        console.error('Error saving/unsaving product:', error);
+      }
+    };
+
     const { title, price, colors, decription, material, age, sex, type, season, size, serialNumber } = product;
  // write for me the 
+
+ console.log(product)
+ console.log(product.owner)
+ console.log(user)
 
   return (
     <div className=''>
@@ -55,7 +76,7 @@ const ProductPage = () => {
         <div className='w-[25%] my-4 mx-10 relative p-4 rounded-xl '>
           <div className='flex justify-between mb-6 mt-4'>
             <h1 className='font-second text-xl'>{title}</h1>
-            <button className='w-20 text-2xl'><FontAwesomeIcon icon={faRegularHeart} /></button>
+            <button className='w-20 text-2xl' onClick={handleSave}><FontAwesomeIcon icon={faRegularHeart} /></button>
           </div>
           <h2 className='font-second text- mb-12 text-[#7F8086]'>PRICE: {price}$</h2>
           <div className='mb-4'>

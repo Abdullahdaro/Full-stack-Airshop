@@ -14,10 +14,6 @@ const HomePage = () => {
   const [postId, setPostId] = useState(null);
   const {user, setUser} = useContext(UserContext)
 
-  const id = useParams();
-
-  console.log(id);
-
   useEffect(()=> {
     axios.get('/homeproducts').then(response => {
       setProducts([...response.data ])
@@ -130,9 +126,9 @@ const HomePage = () => {
                 <Link to={'/product/'+product._id} >
                   <h2 className="text-2xl">{product.title}</h2>
                 </Link>
-                  <button onClick={handleSave(product._id)} title={product.saved ? "Remove from My List" : "Add to My List"} className=''>
+{/*                   <button onClick={handleSave(product._id)} title={product.saved ? "Remove from My List" : "Add to My List"} className=''>
                     {product.saved ? "Remove" : "Add "}
-                  </button>               
+                  </button>     */}           
                 </div>
                 <div className="text-xl">
                   <div className="gap-1 flex flex-col">
