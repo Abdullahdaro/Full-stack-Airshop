@@ -14,8 +14,12 @@ export function UserContextProvider({children}) {
           })
           };
       }, []);
+
+    const [selectedCountry, setSelectedCountry] = useState(null);
+    const [selectedCity, setSelectedCity] = useState(null);
+
     return (
-        <UserContext.Provider value={{setUser, user, ready}}>
+        <UserContext.Provider value={{setUser, user, ready,  selectedCountry, setSelectedCountry, selectedCity, setSelectedCity}}>
             {children}
         </UserContext.Provider>
         

@@ -12,7 +12,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
-  const {user, setUser} = useContext(UserContext)
+  const {user, setUser, selectedCountry, setSelectedCountry, selectedCity, setSelectedCity } = useContext(UserContext)
   const [showMenu, setShowMenu] = useState(false);
   const [showMenuLangauge, setShowMenuLangauge] = useState(false)
   const navTo = useNavigate();
