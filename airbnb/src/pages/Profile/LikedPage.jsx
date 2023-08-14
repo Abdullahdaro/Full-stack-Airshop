@@ -26,7 +26,7 @@ const LikedPage = () => {
       </div>
       <div className='m-4 justify-center gap-4 grid grid-cols-2 md:grid-cols-3 lg:grid-col-4'>
         {likedproducts.length > 0 && likedproducts.map((product, i ) =>(
-          <Link to={'/profile/products/'+product._id} key={i}>
+          <Link to={'/product/'+product._id} key={i}>
             <div className='bg-white flex flex-col'>
               <div className='relative h-[600px] w-[475px]'>
                 {product.photos.length > 0 && (

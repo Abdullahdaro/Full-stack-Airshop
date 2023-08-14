@@ -10,7 +10,7 @@ const ProductPage = () => {
     const {id} = useParams(); 
     const [product, setProduct] = useState(null)
     const [owner, setOwner] = useState(null);
-    const [saved, setSaved] = useState(null);
+    const [saved, setSaved] = useState(false);
     const {user} = useContext(UserContext)
 
     useEffect(() => {
@@ -26,17 +26,20 @@ const ProductPage = () => {
                 setOwner(ownerResponse.data);
               });
             }
+            setSaved(response.data.savedBy.includes(user._id));
         })
     }, [id])
 
-    if (!product) return ''
+    if (!product) {
+      return <div>Loading...</div>;
+    }
 
     const handleSave = async () => {
       try {
         const response = await axios.patch(`/products/${id}`, null, {
           withCredentials: true, // Send cookies with the request
         });
-        setSaved(response.data.message === 'Post Saved', user._id); // Update the saved state based on response
+        setSaved(response.data.message === 'Post Saved'); // Update the saved state based on response
       } catch (error) {
         console.error('Error saving/unsaving product:', error);
       }
