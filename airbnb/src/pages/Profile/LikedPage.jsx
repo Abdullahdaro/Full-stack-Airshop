@@ -7,14 +7,16 @@ const LikedPage = () => {
   const [likedproducts, setLikedproducts] = useState([])
 
   useEffect(() => {
-    axios.get('/linkedproducts').then(({data}) => {
-      setLikedproducts(data)
+    axios.get('/savedproducts').then(response => {
+      setLikedproducts([...response.data])
       console.log(likedproducts);
     })
     .catch(err => {
       console.log(err);
     })
   }, []);
+
+  console.log(likedproducts);
 
 
   return (

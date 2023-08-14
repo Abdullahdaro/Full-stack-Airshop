@@ -22,43 +22,36 @@ const ProductPage = () => {
             const ownerId = response.data.owner;
             if (ownerId) {
               // Fetch the owner's data based on the owner ID
-              axios.get(`/owners/${ownerId}`).then(ownerResponse => {
+              axios.get(`/owner/${ownerId}`).then(ownerResponse => {
                 setOwner(ownerResponse.data);
-                console.log(ownerResponse.data)
               });
             }
-            const isSaved = user && user.saved.includes(response.data._id);
-            setSaved(isSaved);
         })
-    }, [id, user])
-
+    }, [id])
 
     if (!product) return ''
 
     const handleSave = async () => {
-      
       try {
         const response = await axios.patch(`/products/${id}`, null, {
+          withCredentials: true, // Send cookies with the request
         });
-        setSaved(response.data.saved);
+        setSaved(response.data.message === 'Post Saved', user._id); // Update the saved state based on response
       } catch (error) {
         console.error('Error saving/unsaving product:', error);
       }
     };
 
-    const { title, price, colors, decription, material, age, sex, type, season, size, serialNumber } = product;
- // write for me the 
+    console.log(saved)
 
- console.log(product)
- console.log(product.owner)
- console.log(user)
+    const { title, price, colors, decription, material, age, sex, type, season, size, serialNumber, } = product;
 
   return (
     <div className=''>
       {owner && (
         <Link to={`/owner/${owner._id}`} className='flex ml-4 mt-2 font-main text-2xl leading-10'>
-        {owner && <p>{owner.photo} </p>}
-        {owner && <p>{owner.name}Shop</p>}
+        {owner && <p>{owner.owner.photo} </p>}
+        {owner && <p>{owner.owner.name} Shop</p>}
       </Link>
       )}
       <div className='flex '>
@@ -76,7 +69,7 @@ const ProductPage = () => {
         <div className='w-[25%] my-4 mx-10 relative p-4 rounded-xl '>
           <div className='flex justify-between mb-6 mt-4'>
             <h1 className='font-second text-xl'>{title}</h1>
-            <button className='w-20 text-2xl' onClick={handleSave}><FontAwesomeIcon icon={faRegularHeart} /></button>
+            <button className='w-20 text-2xl' onClick={handleSave}>{saved === true ? <FontAwesomeIcon className='text-pink' icon={faSolidHeart} /> : <FontAwesomeIcon className='' icon={faRegularHeart} /> }  </button>
           </div>
           <h2 className='font-second text- mb-12 text-[#7F8086]'>PRICE: {price}$</h2>
           <div className='mb-4'>

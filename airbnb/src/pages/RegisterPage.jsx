@@ -1,9 +1,7 @@
 import React, {useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from "axios";
-import { GoogleLogin } from 'react-google-login';
 import { gapi } from "gapi-script";
-import jwt_decode from 'jwt-decode';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
@@ -25,12 +23,6 @@ const RegisterPage = () => {
       }
       
     }
-
-    const responseGoogle = (response) => {
-      // Handle the response from Google login
-      // Pass the response to your backend for verification and registration
-      // You can call the handleGoogleRegistration function mentioned in the previous response here
-    };
 
     useEffect(() => {
       function start() {

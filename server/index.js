@@ -38,7 +38,7 @@ app.use(
     credentials: true,
     origin:  'http://localhost:5173', 
     allowedHeaders: 'Content-Type, Authorization',
-    methods: 'GET, POST, OPTIONS',
+    methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   })
 );
 app.use(express.json());
@@ -284,7 +284,7 @@ class APIfeatures  {
         }
       });
 
-      app.get('/products', (req,res) => {
+      app.get('/products', async (req,res) => {
         const {token} = req.cookies;
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
           if (err) {
@@ -365,17 +365,23 @@ class APIfeatures  {
 //  save unsave posts 
         app.patch('/products/:id', async (req, res ) => {
           const {id} = req.params;
+          const {token} = req.cookies;
+          jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+            if (err) throw err;
+            const { email } = userData;
+            const user = await UserModel.findOne({ email: email });
+
           try {
             if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with this id: ${id}`) 
-            if (!mongoose.Types.ObjectId.isValid(req.owner)) return res.status(404).send (`No user with this id: ${req.owner}`)
+            if (!mongoose.Types.ObjectId.isValid(user._id)) return res.status(404).send (`No user with this id: ${user._id}`)
             const product = await Product.findById(req.params.id)
-            const oldUser = await UserModel.findById(req.owner)
+            const oldUser = await UserModel.findById(user._id)
             if (!product) {
               return res.status(404).json({message: "Product not found"})
             }
             if (oldUser.saved.includes(product.id.toString())) {
                 oldUser.saved = oldUser.saved.filter((p) => p.toString() !== product.id.toString())
-                product.savedBy = product.savedBy.filter((p) => p.toString() !== req.owner.toString())
+                product.savedBy = product.savedBy.filter((p) => p.toString() !== user._id.toString())
                 await oldUser.save();
                 await product.save();
 
@@ -385,7 +391,7 @@ class APIfeatures  {
                 });
             } else {
               oldUser.saved.push(product.id)
-              product.savedBy.push(req.owner)
+              product.savedBy.push(user._id)
 
               await oldUser.save();
               await product.save();
@@ -398,25 +404,36 @@ class APIfeatures  {
               console.log(err)
               return res.status(500).json({message: err.message})
             }
+          })
         });
 
-        app.get('/savedproducts', async (res, req) => {
-          const {id} = req.query; 
+        app.get('/savedproducts', async (req, res) => {
+          const {token} = req.cookies;
+
+          jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+            if (err) throw err;
+            const { email } = userData;
+            const user = await UserModel.findOne({ email: email });
 
           try {
-            const user = await UserModel.findById(req.owner)
+            const olduser = await UserModel.findById(user._id)
 
-            if(!user) {
-              return }
+            if(!olduser) {
+              return res.status(404).json({message: "User not found"})
+            }
 
-            const features = new APIfeatures ( Product.find({id: {$in:owner.saved}}))
-            const saveProducts = await features.query.sort([])
+            const savedProduct = await Product.find({ _id: {$in: olduser.saved}})
+            console.log(savedProduct)
 
-            res.json ( { data: saveProducts})
+/*             const features = new APIfeatures ( Product.find({email: {$in:olduser.saved}}))
+            const saveProducts = await features.query.sort([]) */
+
+            res.json (savedProduct)
           } catch (err) {
             console.log(err)
             return res.status(500).json({message: err.message})
           }
+        })
         });
 
 
