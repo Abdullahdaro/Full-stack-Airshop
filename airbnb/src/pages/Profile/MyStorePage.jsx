@@ -9,11 +9,9 @@ const MyStorePage = () => {
 
   useEffect(() => {
     axios
-      .get('/shops')
-      .then(({ data }) => {
+      .get('/shops').then(({ data }) => {
         setShopData(data);
-      })
-      .catch(err => {
+      }).catch(err => {
         console.log(err);
       });
   }, []);
