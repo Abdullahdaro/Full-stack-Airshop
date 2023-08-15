@@ -16,6 +16,7 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showMenuLangauge, setShowMenuLangauge] = useState(false)
   const [setshowcity, setSetshowcity] = useState(false)
+  const [setshowcountry, setSetshowcountry] = useState(false)
   const navTo = useNavigate();
 
   const handleCountrySelection = (country) => {
@@ -71,9 +72,34 @@ const Navbar = () => {
             </Link>
             {/* middle */}
             <div className='flex shadow-gray-300 '>
-              <div className='font-main text-[18px] px-8 flex items-center gap-2'>
-                Country
-                <img src={down} className='w-[8px] h-[8px]' />
+              <div className='font-main text-[18px] px-8 flex items-center'>
+                <button className='flex items-center gap-2' onClick={() => setSetshowcountry(!setshowcountry)}>
+                  Country
+                  <img src={down} className='w-[8px] h-[8px]' />
+                </button>
+                {setshowcountry && (
+                  <ul className='absolute top-12 right-100 z-50 w-40 bg-white rounded-md shadow-lg py-1' >
+{/*                     <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center'  onClick={() => {
+                        setSetshowcountry(false); // Call the first function
+                        handleCountrySelection('Russia'); // Call the second function
+                      }}>
+                      <img className='w-8 h-8' src={russia} />
+                      <span className='px-4'>Russia</span>
+                    </li>
+                    <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() =>{setSetshowcountry(false); handleCountrySelection('Saudi Arabia')}}>
+                      <img className='w-8 h-8' src={saudi} />
+                      <span className='px-4'>Saudi Arabia</span>
+                    </li> */}
+                    <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-center items-center' onClick={() =>{setSetshowcountry(false); handleCountrySelection('Turkey')}}>
+                      <img className='w-8 h-8' src={turkey} />
+                      <span className='px-4'>Turkey</span>
+                    </li>
+                    <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-center items-center' onClick={() =>{setSetshowcountry(false); handleCountrySelection('All')}}>
+                      <span>All</span>
+                    </li>
+                  </ul>
+                )}
+
               </div>
               <div className="border-l border-gray-300"></div>
               <div className='font-main text-[18px] px-8 flex items-center gap-2'>
