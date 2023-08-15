@@ -15,7 +15,16 @@ const Navbar = () => {
   const {user, setUser, selectedCountry, setSelectedCountry, selectedCity, setSelectedCity } = useContext(UserContext)
   const [showMenu, setShowMenu] = useState(false);
   const [showMenuLangauge, setShowMenuLangauge] = useState(false)
+  const [setshowcity, setSetshowcity] = useState(false)
   const navTo = useNavigate();
+
+  const handleCountrySelection = (country) => {
+    setSelectedCountry(country);
+  };
+
+  const handleCitySelection = (city) => {
+    setSelectedCity(city);
+  };
 
   async function logout() {
     await axios.post('/logout')
@@ -24,6 +33,8 @@ const Navbar = () => {
   }
 
   const userMenuRef = useRef();
+  const userMenuLangaugeRef = useRef();
+
 
   // for user prop
   useEffect(() => {
@@ -34,6 +45,12 @@ const Navbar = () => {
         !userMenuRef.current.contains(event.target)
       ) {
         setShowMenu(false);
+      }
+      if (
+        userMenuLangaugeRef.current &&
+        !userMenuLangaugeRef.current.contains(event.target)
+      ) {
+        setShowMenuLangauge(false);
       }
     };
     document.addEventListener('click', handleClick);
@@ -65,12 +82,12 @@ const Navbar = () => {
               </div>
             </div>
             {/* last */}
-            <div className="flex gap-2 items-center py-2 pr-2">
+            <div className="flex gap-2 items-center py-2 pr-2" ref={userMenuLangaugeRef}>
             <button className='text-main text-[16px] ml-6' onClick={() => setShowMenuLangauge(!showMenuLangauge)}>
               Langauge
             </button>
               {showMenuLangauge && (
-                <ul className='absolute top-8 right-0 z-50 w-40 bg-white rounded-md shadow-lg py-1'>
+                <ul className='absolute top-8 right-0 z-50 w-40 bg-white rounded-md shadow-lg py-1' >
                   <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => setShowMenuLangauge(false)}>
                     <img className='w-8 h-8' src={russia} />
                     <span className='px-4'>Russian</span>

@@ -3,16 +3,16 @@ import React, {useState, useEffect, useContext,  } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { UserContext } from '../Contexts/UserContext'
 
-const HomePage = () => {
+const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelectedCit}) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [sexFilter, setSexFilter] = useState('all');
   const [newStylesFilter, setNewStylesFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
   const [seasonFilter, setSeasonFilter] = useState('all');
-  const [saved, setSaved] = useState();
-  const [postId, setPostId] = useState(null);
-  const {user, setUser} = useContext(UserContext)
+/*   const [saved, setSaved] = useState();
+  const [postId, setPostId] = useState(null); */
+/*   const {user, setUser} = useContext(UserContext) */
 
   useEffect(()=> {
     axios.get('/homeproducts').then(response => {
@@ -35,13 +35,19 @@ const HomePage = () => {
         if (seasonFilter !== 'all' && product.season !== seasonFilter) {
           return false;
         }
+        if (selectedCountry !== 'all' && product.country !== selectedCountry) {
+          return false;
+        }
+        if (selectedCity !== 'all' && product.city !== selectedCity) {
+          return false;
+        }
         return true;
       });
 
       setFilteredProducts(filtered);
     };
       handleFilter();
-    }, [sexFilter, newStylesFilter, typeFilter, seasonFilter, products]);
+    }, [sexFilter, newStylesFilter, typeFilter, selectedCountry, selectedCity, seasonFilter, products]);
 
   return (
   <div className=''>
