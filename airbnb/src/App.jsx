@@ -31,6 +31,7 @@ function App() {
                 <Route path='/product/:id' element={(<ProductPage/>)} />
                 <Route path='/owner/:id' element={(<ShopPage/>)} />
                 <Route path='/shop' element={(<CreateShop/>)} />
+                <Route path='/shop/:id' element={(<CreateShop/>)} />
             </Routes>  
         </div>
             

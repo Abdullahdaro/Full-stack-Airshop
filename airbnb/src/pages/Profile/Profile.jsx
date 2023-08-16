@@ -31,7 +31,6 @@ const Profile = () => {
     if ( ready && !user ) {
         return <Navigate to={'/login'} />
     }
-   console.log(shopData);
     
   return (
     <div className='flex justify-center h-screen' >
@@ -89,9 +88,9 @@ const Profile = () => {
               ) : null}
             </div>
             <button className=' rounded-full py-4 justify-center flex'>
-              <span className='box-border bg-white hover:bg-pink hover:text-white shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full items-center'>
+              <Link to={'/shop/'+shopData._id} className='box-border bg-white hover:bg-pink hover:text-white shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full items-center'>
                 Edit shop
-              </span>
+              </Link>
             </button>
           </div>
           <div className='flex flex-col'>
