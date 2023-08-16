@@ -22,6 +22,7 @@ const Form = () => {
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [selectedColor, setSelectedColor] = useState('');
     const navTo = useNavigate()
+
     useEffect(() => {
         if (!id) {
             return;
@@ -48,6 +49,7 @@ const Form = () => {
     }
 
     const pickerRef = useRef(null);
+    
     function handleColorChange(color) {
         if (colors.length >= 5) {
             return
@@ -112,6 +114,7 @@ const Form = () => {
     async function addNewPlace (e) {
         e.preventDefault();
         if (id) {
+            // update the place
             await axios.put('/products', { id,
                 addedPhotos, title, serialNumber, price, colors, description, material, age, sex , type , season , size
             })

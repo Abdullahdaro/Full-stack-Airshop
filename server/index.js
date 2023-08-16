@@ -234,6 +234,7 @@ class APIfeatures  {
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
           if (err) throw err;
           const shopDoc = await Shops.findById(id);
+          console.log(shopDoc)
           if (userData.id === shopDoc.owner.toString()) {
             shopDoc.set({ id, addedPhotos, title, address, description, langauge, city, email, country, number, website, instagram, facebook, twitter, youtube, language });
             await shopDoc.save();

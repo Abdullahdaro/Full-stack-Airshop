@@ -88,11 +88,13 @@ const CreateShop = () => {
         })
     }
 
+    console.log(id)
+
     async function createMyShop (e) {
         e.preventDefault();
         if (id) {
             await axios.put('/shops', { id,
-                addedPhotos, title, address, description, city: city.value, country: country.value, language:language.value, number, email, website, instagram, facebook, twitter, youtube, 
+                addedPhotos, title, address, description, city:city.value , country:country.value, language:language.value, number, email, website, instagram, facebook, twitter, youtube, 
             })
             navTo('/profile/mystore')
         } else {
@@ -133,10 +135,6 @@ const CreateShop = () => {
         const handleCountryChange = (selectedOptions) => {
             setCountry(selectedOptions);
           };
-
-
-       
-    
 
   return (
     <div className='flex justify-center'>
