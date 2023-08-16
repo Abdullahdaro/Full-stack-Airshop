@@ -35,6 +35,8 @@ const Navbar = () => {
 
   const userMenuRef = useRef();
   const userMenuLangaugeRef = useRef();
+  const userMenuCityRef = useRef();
+  const userMenuCountryRef = useRef();
 
 
   // for user prop
@@ -52,6 +54,18 @@ const Navbar = () => {
         !userMenuLangaugeRef.current.contains(event.target)
       ) {
         setShowMenuLangauge(false);
+      }
+      if (
+        userMenuCountryRef.current &&
+        !userMenuCountryRef.current.contains(event.target)
+      ) {
+        setSetshowcountry(false);
+      }
+      if (
+        userMenuCityRef.current &&
+        !userMenuCityRef.current.contains(event.target)
+      ) {
+        setSetshowcity(false);
       }
     };
     document.addEventListener('click', handleClick);
@@ -72,7 +86,7 @@ const Navbar = () => {
             </Link>
             {/* middle */}
             <div className='flex shadow-gray-300 '>
-              <div className='font-main text-[18px] px-8 flex items-center'>
+              <div className='font-main text-[18px] px-8 flex items-center' ref={userMenuCountryRef}>
                 <button className='flex items-center gap-2' onClick={() => setSetshowcountry(!setshowcountry)}>
                   Country
                   <img src={down} className='w-[8px] h-[8px]' />
@@ -102,10 +116,34 @@ const Navbar = () => {
 
               </div>
               <div className="border-l border-gray-300"></div>
-              <div className='font-main text-[18px] px-8 flex items-center gap-2'>
-                City
-                <img src={down} className='w-[8px] h-[8px]' />
-              </div>
+              <div className='font-main text-[18px] px-8 flex items-center' ref={userMenuCityRef}>
+                <button className='flex  items-center gap-2' onClick={() => setSetshowcity(!setshowcity)}>
+                    City
+                    <img src={down} className='w-[8px] h-[8px]' />
+                </button>
+                {setshowcity && (
+                  <ul className='absolute top-12 right-100 z-50 w-40 bg-white rounded-md shadow-lg py-1' >
+  {/*                     <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center'  onClick={() => {
+                          setSetshowcountry(false); // Call the first function
+                          setSetshowcity(false); // Call the first function
+                          handleCitySelection('Moscow'); // Call the second function
+                        }}>
+                        <img className='w-8 h-8' src={russia} />
+                        <span className='px-4'>Moscow</span>
+                      </li>
+                      <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() =>{setSetshowcountry(false); setSetshowcity(false); handleCitySelection('Riyadh')}}>
+                        <img className='w-8 h-8' src={saudi} />
+                        <span className='px-4'>Riyadh</span>
+                      </li> */}
+                      <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-center items-center' onClick={() =>{setSetshowcountry(false); setSetshowcity(false); handleCitySelection('Istanbul')}}>
+                        <span>Istanbul</span>
+                      </li>
+                      <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-center items-center' onClick={() =>{setSetshowcity(false); handleCountrySelection('All')}}>
+                      <span>All</span>
+                    </li>
+                    </ul>
+                  )}  
+                </div>
             </div>
             {/* last */}
             <div className="flex gap-2 items-center py-2 pr-2" ref={userMenuLangaugeRef}>

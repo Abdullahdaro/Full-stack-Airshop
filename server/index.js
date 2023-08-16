@@ -54,6 +54,7 @@ try {
   console.log(`Server running on port: ${process.env.PORT || 5000}`);
 } catch (error) {
   console.log(error.message);
+  res.status(500).json({ error: 'Internal Server Error' });
 }
 
 app.get('/test', (req, res) => {
@@ -160,7 +161,6 @@ class APIfeatures  {
           res.json(null);
         }
       } catch (error) {
-        console.log(error);
         res.status(500).json({ error: 'Internal Server Error' });
       }
       });
@@ -190,20 +190,20 @@ class APIfeatures  {
         const {token} = req.cookies;
         const { addedPhotos, title, address, description, langauge, city, email, country, number, website, instagram, facebook, twitter, youtube, language } = req.body;
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-          if (err) throw err;
+          try{
           const { id } = userData;
           // cjek if the user already has a shop
-          console.log(id)
+          const owner = await UserModel.findOne({ email: userData.email });
 
-          const owner = await UserModel.findOne({ _id: id });
-          console.log(owner)
           if (owner.shop) {
             res.status(422).json({ message: "You already have a shop" });
           }  
           // Find the owner based on the ID
           const shopDoc = await Shops.create({ owner: owner._id, photos:addedPhotos, title, email, address, description, langauge, city, country, number, email, website, instagram, facebook, twitter, youtube, language });
             res.json(shopDoc)
-          })
+          } catch (error) {
+            res.status(422).json({ message: "Something went wrong" });
+          }})
       })
 
       app.get('/shops', (req,res) => {
@@ -355,7 +355,7 @@ class APIfeatures  {
         try {
           res.json( await Product.find().maxTimeMS(20000))
         } catch (err) {
-          console.log(err)
+          res.status(500).json({message: err.message})
         }
       })
 
@@ -423,7 +423,6 @@ class APIfeatures  {
                 message:"Post Saved"
               });
             }} catch (err) {
-              console.log(err)
               return res.status(500).json({message: err.message})
             }
           })
@@ -445,14 +444,12 @@ class APIfeatures  {
             }
 
             const savedProduct = await Product.find({ _id: {$in: olduser.saved}})
-            console.log(savedProduct)
 
 /*             const features = new APIfeatures ( Product.find({email: {$in:olduser.saved}}))
             const saveProducts = await features.query.sort([]) */
 
             res.json (savedProduct)
           } catch (err) {
-            console.log(err)
             return res.status(500).json({message: err.message})
           }
         })

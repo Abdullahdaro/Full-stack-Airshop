@@ -211,6 +211,7 @@ const CreateShop = () => {
                                 isMulti
                                 value={language}
                                 required
+                                placeholder="Select langauges you know"
                                 options={langaugeoptions}
                                 />
                                 <FontAwesomeIcon icon={faArrowRight} beat className="px-2" />
@@ -268,7 +269,7 @@ const CreateShop = () => {
                             <input className='border rounded-md w-full' 
                             value={description}
                             onChange={e=> setDescription(e.target.value)}
-                            type="text" placeholder='Write about your product' />
+                            type="text" placeholder='Write what kind of products you sell' />
                         </div>
                         <div className='border  px-48 mx-4'></div>
                         <div className='flex sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full'>
