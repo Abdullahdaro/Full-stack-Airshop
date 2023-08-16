@@ -27,7 +27,7 @@ const Form = () => {
         if (!id) {
             return;
         }
-        axios.post('/products/'+id).then(response => {
+        axios.get('/product/'+id).then(response => {
             const {data} = response;
             setAddedPhotos(data.photos)
             setTitle(data.title)
@@ -49,7 +49,7 @@ const Form = () => {
     }
 
     const pickerRef = useRef(null);
-    
+
     function handleColorChange(color) {
         if (colors.length >= 5) {
             return

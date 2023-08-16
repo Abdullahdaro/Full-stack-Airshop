@@ -228,7 +228,20 @@ class APIfeatures  {
         })
       })
 
-      app.put('/shops/:id', async (req,res) => {
+      app.get('/shop/:id', async (req, res) => {
+        try {
+        const { id } = req.params;
+        const shop = await Shops.findById(id);
+        res.json(shop);
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ error: 'Internal Server Error' });
+        }
+      });
+
+
+
+      app.put('/shops', async (req,res) => {
         const {token} = req.cookies;
         const {id, addedPhotos, title, address, description, langauge, city, email, country, number, website, instagram, facebook, twitter, youtube, language } = req.body;
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
@@ -310,11 +323,9 @@ class APIfeatures  {
           if (owner) {
             // find the shop associated with the owner
             const shop = await Shops.findOne({ owner: owner._id });
-            console.log(shop)
 
             // Retrieve all the products made by the shop
             const products = await Product.find({ owner: shop._id });
-            console.log(products)
 
             res.json(products);
           } else {
@@ -327,7 +338,7 @@ class APIfeatures  {
         })
       });
 
-      app.get('/products/:id', async (req,res) => {
+      app.get('/product/:id', async (req,res) => {
         const {id} = req.params;
         res.json(await Product.findById(id))
       })
@@ -339,7 +350,8 @@ class APIfeatures  {
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
           if (err) throw err;
           const productDoc = await Product.findById(id);
-          if (userData.id === productDoc.owner.toString()) {
+          const shopDoc = await Shops.findOne(productDoc.owner);
+          if (shopDoc.id === productDoc.owner.toString()) {
             productDoc.set({ id, addedPhotos, title,  serialNumber,   price, colors,  description,  material, age, sex, type , season , size });
             await productDoc.save();
             res.json('ok');
