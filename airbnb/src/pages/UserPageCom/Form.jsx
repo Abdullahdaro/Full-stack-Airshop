@@ -108,37 +108,23 @@ const Form = () => {
         ev.preventDefault();
         setAddedPhotos([filename,...addedPhotos.filter(photo => photo !== filename)]);
     }
-
-    console.log(addedPhotos)
     
     async function addNewPlace (e) {
         e.preventDefault();
         if (id) {
             await axios.put('/products', { id,
-                addedPhotos, title, serialNumber, price, colors, description, material
-                , age
-                , sex
-                , type
-                , season
-                , size
+                addedPhotos, title, serialNumber, price, colors, description, material, age, sex , type , season , size
             })
             navTo('/profile/mystore')
 
         } else {
             // add a new place 
             await axios.post('/products', {
-                addedPhotos, title, serialNumber, price, colors, description, material
-                , age
-                , sex
-                , type
-                , season
-                , size
+                addedPhotos, title, serialNumber, price, colors, description, material, age, sex, type, season , size
             })
             navTo('/profile/mystore')
         }
-        
     }
-
 
   return (
     <div className='flex m-8 items-center justify-center'>

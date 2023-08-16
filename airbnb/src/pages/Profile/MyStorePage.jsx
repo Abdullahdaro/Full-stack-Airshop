@@ -12,24 +12,18 @@ const MyStorePage = () => {
       .get('/shops').then(({ data }) => {
         setShopData(data);
       }).catch(err => {
-        console.log(err);
+        alert(err);
       });
   }, []);
-  
-  useEffect(() => {
-    console.log(shopData);
-  }, [shopData]);
 
   useEffect(() => {
     axios.get('/products').then(({data}) => {
       setProducts(data)
-      console.log(products);
     })
     .catch(err => {
-      console.log(err);
+      alert(err);
     })
   }, []);
-
 
   return (
     <div>
@@ -43,7 +37,7 @@ const MyStorePage = () => {
             <div>
               My shop name is:
             </div>
-            {shop.city}
+            {shop.title}
           </div>
         ))}
       </div>
