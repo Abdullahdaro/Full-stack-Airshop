@@ -5,24 +5,16 @@ import axios from 'axios'
 
 const Profile = () => {
     const {ready, user} = useContext(UserContext)
-    const [shopData, setShopData] = useState(null);
+    const [shopData, setShopData] = useState([]);
     const [photoid, setPhotoid] = useState(null);
 
     useEffect(() => {
-      axios
-        .get('/shops')
-        .then(({ data }) => {
+      axios.get('/shops').then(({ data }) => {
           setShopData(data);
-        })
-        .catch(err => {
+        }).catch(err => {
           console.log(err);
         });
     }, []);
-    
-    useEffect(() => {
-      console.log(shopData);
-    }, [shopData]);
-
 
     if (!ready) {
         return 'Loading...'
@@ -31,6 +23,8 @@ const Profile = () => {
     if ( ready && !user ) {
         return <Navigate to={'/login'} />
     }
+
+    console.log(shopData);
     
   return (
     <div className='flex justify-center h-screen' >
@@ -79,19 +73,24 @@ const Profile = () => {
           <div className='inline-flex justify-between'>
             <div className='rounded-full py-4 flex'>
               {shopData !== null && shopData.length === 0 ? (
-                  <Link
-                    to={'/shop'}
-                    className='box-border bg-white hover:bg-gray-100 shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full justify-center w-40 items-center'
-                  >
-                    Create shop
-                  </Link>
-              ) : null}
+                    <Link
+                        to={'/shop'}
+                        className='box-border bg-white hover:bg-gray-100 shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full justify-center w-40 items-center'
+                    >
+                        Create shop
+                    </Link>
+                ) : null}
             </div>
-            <button className=' rounded-full py-4 justify-center flex'>
-              <Link to={'/shop/'+shopData._id} className='box-border bg-white hover:bg-pink hover:text-white shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full items-center'>
-                Edit shop
-              </Link>
-            </button>
+            {shopData !== null && shopData.length > 0 ? (
+                <button className='rounded-full py-4 justify-center flex'>
+                    <Link
+                        to={'/shops/' + shopData[0]._id}
+                        className='box-border bg-white hover:bg-pink hover:text-white shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full items-center'
+                    >
+                        Edit shop
+                    </Link>
+                </button>
+            ) : null}
           </div>
           <div className='flex flex-col'>
             <span>Shop name:</span>
