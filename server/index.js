@@ -228,7 +228,7 @@ class APIfeatures  {
         })
       })
 
-      app.put('/shops', async (req,res) => {
+      app.put('/shops/:id', async (req,res) => {
         const {token} = req.cookies;
         const {id, addedPhotos, title, address, description, langauge, city, email, country, number, website, instagram, facebook, twitter, youtube, language } = req.body;
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
@@ -302,25 +302,29 @@ class APIfeatures  {
       app.get('/products', async (req,res) => {
         const {token} = req.cookies;
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-          if (err) {
-            // Handle the error condition, such as invalid token or verification failure
-            console.error(err);
-            return res.status(401).json({ error: 'Unauthorized' });
-          }
-          const { email } = userData;
+         try {
 
           // Find the owner based on the ID
-          const owner = await UserModel.findOne({ email: email });
+          const owner = await UserModel.findOne({ email: userData.email });
 
           if (owner) {
-            // Retrieve all the products made by the owner
-            const products = await Product.find({ owner: owner._id });
+            // find the shop associated with the owner
+            const shop = await Shops.findOne({ owner: owner._id });
+            console.log(shop)
+
+            // Retrieve all the products made by the shop
+            const products = await Product.find({ owner: shop._id });
+            console.log(products)
 
             res.json(products);
           } else {
             res.json(null);
           } 
-        });
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ error: 'Internal Server Error' });
+        }
+        })
       });
 
       app.get('/products/:id', async (req,res) => {
