@@ -29,6 +29,7 @@ const Form = () => {
     const [selectedColor, setSelectedColor] = useState('');
     const navTo = useNavigate()
 
+    // Load the place data when the component mounts
     useEffect(() => {
         if (!id) {
             return;
@@ -137,26 +138,23 @@ const Form = () => {
     function handleSeasonChange(selectedOption) {
         setSeason(selectedOption);
     }
-
-
+    // mouse click outside the color picker
       useEffect(() => {
         document.addEventListener('mousedown', handleOutsideClick);
         return () => {
           document.removeEventListener('mousedown', handleOutsideClick);
         };
       }, []);
-
+    // upload photos
     function handleInputChange(event) {
         const files = event.target.files;
         handleFileUpload(files);
     }
-
     function handleDrop(event) {
         event.preventDefault();
         const files = event.dataTransfer.files;
         handleFileUpload(files);
     }
-
     function handleFileUpload(files) {
         const data = new FormData();
         for (let i = 0; i < files.length; i++) {
@@ -171,17 +169,15 @@ const Form = () => {
         });
         })
     }
-
     function removePhoto(ev, filename) {
         ev.preventDefault();
         setAddedPhotos([...addedPhotos.filter(photo => photo !== filename)]);
     }
-
     function selecAsMainPhoto(ev, filename) {
         ev.preventDefault();
         setAddedPhotos([filename,...addedPhotos.filter(photo => photo !== filename)]);
     }
-    
+    // add new place
     async function addNewPlace (e) {
         e.preventDefault();
         if (id) {
@@ -199,7 +195,7 @@ const Form = () => {
             navTo('/profile/mystore')
         }
     }
-
+    // generate serial number
     useEffect(() => {
         if (id) {
             return;
@@ -285,7 +281,7 @@ const Form = () => {
                                 <h2 className='font-main font-light md:text-xl'>Prices</h2>
                                 <div className='flex'>
                                     <input
-                                        className='w-full p-2  rounded-md border-2 border-main focus:outline-none focus:border-pink hover:bg-gray-100'
+                                        className='w-[100px] p-2 border-r-none rounded-l-md border-2 border-main focus:outline-none focus:border-pink hover:bg-gray-100'
                                         value={price}
                                         onChange={e => setPrice(e.target.value)}
                                         type='number'
@@ -293,15 +289,15 @@ const Form = () => {
                                     />
 
                                     {/* Add currency selection */}
-                                    <select
+                                    <Select
                                         value={selectedCurrency}
                                         onChange={e => setSelectedCurrency(e.target.value)}
-                                        className=''
-                                    >
-                                        <option value='USD'>$ - US Dollar</option>
-                                        <option value='EUR'>&euro; - Euro</option>
-                                        {/* Add more currency options here */}
-                                    </select>
+                                        className='w-[100px] rounded-r-md boder-l-none border-2 border-main focus:outline-none focus:border-pink hover:bg-gray-100'
+                                        options={[
+                                        { value: 'USD', label: '$US Dollar' },
+                                        { value: 'EUR', label: '&Euro' },
+                                        ]}
+                                    />
                                 </div>
                             </div>
                             <div >
@@ -342,8 +338,6 @@ const Form = () => {
                                 </div>
                             </div>
                         </div>
-
-
                         <div>
                             <p className='font-main font-light md:text-xl'>Material</p>
                             <input className='w-full p-2 rounded-md border-2 border-main focus:outline-none focus:border-black-2 hover:bg-gray-50 bg-main bg-opacity-10'
@@ -352,57 +346,39 @@ const Form = () => {
                             placeholder='50% fiber, 40 koton, 10 plastic' />
                         </div>
 {/*                         <div>
-                            <h2>Description</h2>
-                            <input className='border rounded-md w-full' 
-                            value={description}
-                            onChange={e=> setDescription(e.target.value)}
-                            type="text" placeholder='Write about your product' />
-                        </div>
- */}
+                                <h2>Description</h2>
+                                <input className='border rounded-md w-full' 
+                                value={description}
+                                onChange={e=> setDescription(e.target.value)}
+                                type="text" placeholder='Write about your product' />
+                            </div> */}
                         <div className="flex grid-cols-4 mt-4">
                             <div>
                                 <p>Age</p>
-                                <Select
-                                    className='block h-14 rounded-md '
-                                    value={age}
-                                    onChange={handleAgeChange}
-                                    options={ageOptions}
-                                    required
-                                    placeholder='Choose a age'
+                                <Select className='block rounded-md ' value={age} onChange={handleAgeChange} options={ageOptions} required placeholder='Choose a age'
                                 />
                             </div>
                             <div className=''>
                                 <p>Gender</p>
-                                <Select className='block rounded-md  w-full' value={sex}   onChange={handleGenderChange}        options={genderOptions}       required
+                                <Select className='block rounded-md  w-full' value={sex} onChange={handleGenderChange} options={genderOptions}       required
                                 />
                             </div>
                             <div className=''>
                                 <p>Type</p>
-                                <Select className='block h-14 rounded-md  w-full' value={type} onChange={handleTypeChange} 
-                                    required
-                                    options={typeOptions}
-                                >
-                                </Select>
+                                <Select className='block rounded-md  w-full' value={type} onChange={handleTypeChange} required  options={typeOptions} />
                             </div>
                             <div>
                                 <p>Season</p>
-                                <Select
-                                    className='block h-14 rounded-md  w-full'
-                                    value={season}
-                                    onChange={handleSeasonChange}
-                                    required
-                                    options={seasonOptions}
-                                >
-                                </Select>
+                                <Select className='block rounded-md  w-full' value={season} onChange={handleSeasonChange} required options={seasonOptions}/>
                             </div>
                         </div>
                         <div>
-                                <p>Sizes</p>
-                                <input className='border rounded-md w-full' 
-                                value={size}
-                                onChange={e=> setSize(e.target.value)}
-                                type="text" placeholder='S,M,M,L,Xl' />
-                            </div>
+                            <p>Sizes</p>
+                            <input className='border rounded-md w-full' 
+                            value={size}
+                            onChange={e=> setSize(e.target.value)}
+                            type="text" placeholder='S,M,M,L,Xl' />
+                        </div>
                     </div>
                 </div>
                 <button className='pt-4'><span className='px-6 py-2 bg-main rounded-full text-white font-bold hover:text-pink hover:bg-black'>Save</span></button>
