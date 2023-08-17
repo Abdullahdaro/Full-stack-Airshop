@@ -256,6 +256,26 @@ class APIfeatures  {
         });
       });
 
+
+// generate a serial number
+      const products = [];
+
+      function generateSerialNumber() {
+        return `S${Math.floor(Math.random() * 100000).toString().padStart(5, '0')}`;
+      }
+
+      app.get('/get-serial-number', async (req,res) => {
+        const serialNumber = generateSerialNumber();
+        const newProduct = {
+          id: products.lenght + 1,
+          serialNumber,
+        }
+        products.push(newProduct);
+        res.json(newProduct);
+      })
+
+
+
 // products
       app.post('/products', async (req, res) => {
         const { token } = req.cookies;

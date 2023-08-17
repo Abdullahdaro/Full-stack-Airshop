@@ -23,6 +23,7 @@
     "react-google-login": "^5.2.2",
     "react-icons": "^4.8.0",
     "react-input-mask": "^2.0.4",
+    "react-inputs-validation": "^4.9.9",
     "react-maskedinput": "^4.0.1",
     "react-router-dom": "^6.10.0",
     "react-select": "^5.7.3"
