@@ -3,6 +3,9 @@ import axios from 'axios'
 import Image from './Image'
 import { SketchPicker } from 'react-color';
 import { useNavigate, useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
+
 
 const Form = () => {
     const {id} = useParams();
@@ -136,7 +139,8 @@ const Form = () => {
 
             <div onDrop={handleDrop}
                 onDragOver={(event) => event.preventDefault()}
-                className='p-14 flex-col bg-[#A9A9A9] flex border rounded-md border-dashed justify-center items-center'>
+                className='p-10 flex-col bg-[#A9A9A9] flex border rounded-md border-dashed justify-center items-center'>
+                <FontAwesomeIcon icon={faLayerGroup} className='text-2xl text-[#EE4878] ' />
                 <p>Drag and drop your product's photos here</p>
                 <div className='flex'>
                     <span>Or,</span>
