@@ -194,7 +194,7 @@ const CreateShop = () => {
                                     placeholder='+90 (555) 555 55 55'
                                     maskChar={null}
                                     required
-                                    />
+                                />
                                 <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                         </div>
