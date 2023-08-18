@@ -284,6 +284,7 @@ class APIfeatures  {
           title,
           serialNumber,
           price,
+          selectedCurrency,
           colors,
           description,
           material,
@@ -311,6 +312,7 @@ class APIfeatures  {
             title,
             serialNumber,
             price,
+            selectedCurrency,
             colors,
             description,
             material,
@@ -366,13 +368,13 @@ class APIfeatures  {
       app.put('/products', async (req,res) => {
         const {token} = req.cookies;
         const {
-          id, addedPhotos, title,  serialNumber,   price, colors,  description,  material, age, sex, type , season , size } = req.body;
+          id, addedPhotos, title,  serialNumber,   price, selectedCurrency, colors,  description,  material, age, sex, type , season , size } = req.body;
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
           if (err) throw err;
           const productDoc = await Product.findById(id);
           const shopDoc = await Shops.findOne(productDoc.owner);
           if (shopDoc.id === productDoc.owner.toString()) {
-            productDoc.set({ id, addedPhotos, title,  serialNumber,   price, colors,  description,  material, age, sex, type , season , size });
+            productDoc.set({ id, addedPhotos, title,  serialNumber,   price, selectedCurrency, colors,  description,  material, age, sex, type , season , size });
             await productDoc.save();
             res.json('ok');
           }
