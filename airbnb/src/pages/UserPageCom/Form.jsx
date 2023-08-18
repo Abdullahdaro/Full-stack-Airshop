@@ -40,6 +40,7 @@ const Form = () => {
             setTitle(data.title)
             setSerialNumber(data.serialNumber)
             setPrice(data.price)
+            setSelectedCurrency(data.selectedCurrency)
             setColors(data.colors)
             setDescription(data.description)
             setMaterial(data.materil)
@@ -183,14 +184,14 @@ const Form = () => {
         if (id) {
             // update the place
             await axios.put('/products', { id,
-                addedPhotos, title, serialNumber, price, colors, description, material, age, sex , type , season , size
+                addedPhotos, title, serialNumber, price, selectedCurrency, colors, description, material, age, sex , type , season , size
             })
             navTo('/profile/mystore')
 
         } else {
             // add a new place 
             await axios.post('/products', {
-                addedPhotos, title, serialNumber, price, colors, description, material, age, sex, type, season , size
+                addedPhotos, title, serialNumber, price, colors, selectedCurrency, description, material, age, sex, type, season , size
             })
             navTo('/profile/mystore')
         }
@@ -262,7 +263,7 @@ const Form = () => {
                             <div className='p-2'>
                                 <h2 className='font-main font-light md:text-xl'>Title</h2>
                                 <input
-                                className='w-full p-2 rounded-md border-2 border-main focus:outline-none focus:border-pink hover:bg-gray-100'
+                                className='w-full p-2 rounded-md border-2 border-main focus:outline-none focus:border-pink hover:bg-gray-100 '
                                 value={title}
                                 onChange={e => setTitle(e.target.value)}
                                 placeholder='T shirt V shape Lagos'
@@ -270,14 +271,14 @@ const Form = () => {
                             </div>
                             <div className='p-2' >
                                 <h2 className='font-main font-light md:text-xl'>Serial Number</h2>
-                                <input className='w-full p-2 rounded-md border-2 border-main focus:outline-none focus:border-black-2 hover:bg-gray-50'
+                                <input className='w-full p-2 rounded-md border-2 border-main focus:outline-none focus:border-black-2 hover:bg-gray-50 bg-main bg-opacity-10'
                                 value={serialNumber}
                                 readOnly={true}
                                 placeholder={serialNumber}/>
                             </div>
                         </div>
                         <div className='flex'> 
-                            <div className='w-1/2'>
+                            <div className='p-2'>
                                 <h2 className='font-main font-light md:text-xl'>Prices</h2>
                                 <div className='flex'>
                                     <input
@@ -291,46 +292,60 @@ const Form = () => {
                                     {/* Add currency selection */}
                                     <Select
                                         value={selectedCurrency}
-                                        onChange={e => setSelectedCurrency(e.target.value)}
-                                        className='w-[100px] rounded-r-md boder-l-none border-2 border-main focus:outline-none focus:border-pink hover:bg-gray-100'
+                                        onChange={e => setSelectedCurrency(selectedOption)}
+                                        className='w-[57px] rounded-r-md border border-main focus:outline-none focus:border-pink hover:bg-gray-100'
                                         options={[
-                                        { value: 'USD', label: '$US Dollar' },
-                                        { value: 'EUR', label: '&Euro' },
+                                        { value: 'USD', label: 'USD' },
+                                        { value: 'EUR', label: 'Euro' },
+                                        { value: 'TRY', label: 'TL' },
                                         ]}
+                                        styles={{
+                                            // Customize the base styles for the dropdown container
+                                            control: provided => ({
+                                                ...provided,
+                                                boxShadow: 'none', // Remove default box-shadow
+                                            }),
+                                            // Customize the styles for each option in the dropdown
+                                            option: (provided, state) => ({
+                                                ...provided,
+                                                backgroundColor: state.isFocused ? 'rgba(255, 192, 203, 0.2)' : 'transparent',
+                                                color: state.isSelected ? '#ff69b4' : '#333',
+                                                padding: '8px',
+                                                borderRadius: '4px',
+                                            }),
+                                        }}
                                     />
                                 </div>
                             </div>
-                            <div >
+                            <div className='p-2'>
                                 <h2 className='font-main font-light md:text-xl'>Main color</h2>
-                                <div style={{ display: '', alignItems: 'center' }}>
+                                <div className='pt-' style={{ display: 'flex', alignItems: 'center' }}>
                                     <div
-                                    style={{ backgroundColor: colors[0], height: 20, cursor: 'pointer' }}
+                                    style={{ cursor: 'pointer' }}
                                     onClick={handlePickerToggle}
-                                    className='border w-full'
-                                    />
+                                    className=' px-2 py-1 rounded-md h-10 text-gray-500  border-main border-2 focus:outline-none focus:border-black-2 hover:bg-gray-200'
+                                    >Select </div>
                                     {isPickerOpen && (
                                     <div style={{ position: 'absolute', zIndex: 1 }} ref={pickerRef}>
                                         <SketchPicker onChangeComplete={handleColorChange} />
                                         <button onClick={handlePickerToggle}>Save</button>
                                     </div>
                                     )}
-                                    
-                                    <div className=''>
-                                        More Colors: 
+                                    <div className='pl-6 pt-2'>
                                         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                                            {colors.slice(1).map((color, i) => (
+                                            {colors.slice(0).map((color, i) => (
                                                 <div
                                                 key={i}
                                                 style={{
                                                     backgroundColor: color,
                                                     width: 20,
                                                     height: 20,
-                                                    marginRight: 5,
+                                                    marginRight: 2,
                                                     marginBottom: 5,
                                                     borderRadius: 2,
                                                     cursor: 'pointer',
                                                 }}
-                                                onClick={() => handleColorRemove(i + 1)}
+                                                onClick={() => handleColorRemove(i)}
                                                 />
                                             ))}
                                         </div>
@@ -338,9 +353,9 @@ const Form = () => {
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div className='p-2'>
                             <p className='font-main font-light md:text-xl'>Material</p>
-                            <input className='w-full p-2 rounded-md border-2 border-main focus:outline-none focus:border-black-2 hover:bg-gray-50 bg-main bg-opacity-10'
+                            <input className='w-full p-2 rounded-md border-2 border-main focus:outline-none focus:border-black-2 hover:bg-gray-50'
                             value={material}
                             onChange={e=> setMaterial(e.target.value)}
                             placeholder='50% fiber, 40 koton, 10 plastic' />
@@ -352,32 +367,34 @@ const Form = () => {
                                 onChange={e=> setDescription(e.target.value)}
                                 type="text" placeholder='Write about your product' />
                             </div> */}
-                        <div className="flex grid-cols-4 mt-4">
-                            <div>
-                                <p>Age</p>
-                                <Select className='block rounded-md ' value={age} onChange={handleAgeChange} options={ageOptions} required placeholder='Choose a age'
+                        <div className="flex grid-col-2 gap-10 p-2 mt-4">
+                            <div className=''>
+                                <p className='font-main font-light md:text-xl' >Age</p>
+                                <Select className='block border rounded-md w-[185px] border-main active:border-2-main' value={age} onChange={handleAgeChange} options={ageOptions} required placeholder='Choose a age'
                                 />
                             </div>
                             <div className=''>
-                                <p>Gender</p>
-                                <Select className='block rounded-md  w-full' value={sex} onChange={handleGenderChange} options={genderOptions}       required
+                                <p className='font-main font-light md:text-xl'>Gender</p>
+                                <Select className='block border rounded-md w-[185px] border-main active:border-2-main' value={sex} onChange={handleGenderChange} options={genderOptions} required placeholder='Choose a gender'
                                 />
-                            </div>
-                            <div className=''>
-                                <p>Type</p>
-                                <Select className='block rounded-md  w-full' value={type} onChange={handleTypeChange} required  options={typeOptions} />
-                            </div>
-                            <div>
-                                <p>Season</p>
-                                <Select className='block rounded-md  w-full' value={season} onChange={handleSeasonChange} required options={seasonOptions}/>
                             </div>
                         </div>
-                        <div>
-                            <p>Sizes</p>
-                            <input className='border rounded-md w-full' 
+                        <div className="flex grid-cols-2 px-2 gap-10 mt-4">
+                            <div className=''>
+                                <p className='font-main font-light md:text-xl'>Type</p>
+                                <Select className='block border rounded-md w-[185px] border-main active:border-2-main'  value={type} onChange={handleTypeChange} required  options={typeOptions} />
+                            </div>
+                            <div>
+                                <p className='font-main font-light md:text-xl'>Season</p>
+                                <Select className='block border rounded-md w-[185px] border-main active:border-2-main'  value={season} onChange={handleSeasonChange} required options={seasonOptions}/>
+                            </div>
+                        </div>
+                        <div className='p-2'>
+                            <p className='font-main font-light md:text-xl'>Sizes</p>
+                            <input className='w-full p-2 rounded-md border-2 border-main focus:outline-none focus:border-black-2 hover:bg-gray-50'
                             value={size}
                             onChange={e=> setSize(e.target.value)}
-                            type="text" placeholder='S,M,M,L,Xl' />
+                            placeholder='S,M,M,L,Xl' />
                         </div>
                     </div>
                 </div>
