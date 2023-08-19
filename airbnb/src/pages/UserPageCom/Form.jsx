@@ -74,6 +74,14 @@ const Form = () => {
         }
       }
     // selecetors here
+    const currencyOptions = [
+        { value: 'USD', label: 'USD' },
+        { value: 'EUR', label: 'Euro' },
+        { value: 'TRY', label: 'TL' },
+    ]
+    function handleCurrencyChange(selectedOption) {
+        setSelectedCurrency(selectedOption);
+    }
     const ageOptions = [
         { value: 'newborn', label: 'Newborn' },
         { value: '0-3', label: '0-3' },
@@ -184,14 +192,14 @@ const Form = () => {
         if (id) {
             // update the place
             await axios.put('/products', { id,
-                addedPhotos, title, serialNumber, price, selectedCurrency, colors, description, material, age, sex , type , season , size
+                addedPhotos, title, serialNumber, price, selectedCurrency:selectedCurrency.value , colors, description, material, age:age.value , sex:sex.value , type:type.value , season:season.value , size
             })
             navTo('/profile/mystore')
 
         } else {
             // add a new place 
             await axios.post('/products', {
-                addedPhotos, title, serialNumber, price, colors, selectedCurrency, description, material, age, sex, type, season , size
+                addedPhotos, title, serialNumber, price, colors, selectedCurrency:selectedCurrency.value , colors, description, material, age:age.value , sex:sex.value , type:type.value , season:season.value , size
             })
             navTo('/profile/mystore')
         }
@@ -212,6 +220,7 @@ const Form = () => {
         }
         fetchSerialNumber();
       }, []);
+
 
   return (
     <div className='flex py-8 items-center justify-center'>
@@ -286,19 +295,20 @@ const Form = () => {
                                         value={price}
                                         onChange={e => setPrice(e.target.value)}
                                         type='number'
-                                        placeholder={selectedCurrency === 'USD' ? '$' : 'Price'}
+                                        placeholder={
+                                            selectedCurrency.value === 'USD' ? '$' :
+                                            selectedCurrency.value === 'TRY' ? '₺' :
+                                            selectedCurrency.value === 'EUR' ? '€' :
+                                            ''
+                                        }
                                     />
 
                                     {/* Add currency selection */}
                                     <Select
                                         value={selectedCurrency}
-                                        onChange={e => setSelectedCurrency(selectedOption)}
+                                        onChange={handleCurrencyChange}
                                         className='w-[57px] rounded-r-md border border-main focus:outline-none focus:border-pink hover:bg-gray-100'
-                                        options={[
-                                        { value: 'USD', label: 'USD' },
-                                        { value: 'EUR', label: 'Euro' },
-                                        { value: 'TRY', label: 'TL' },
-                                        ]}
+                                        options={currencyOptions}
                                         styles={{
                                             // Customize the base styles for the dropdown container
                                             control: provided => ({
