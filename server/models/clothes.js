@@ -12,7 +12,7 @@ const ClothesSchema = new mongoose.Schema({
     type: String, 
     season: String,
     sex:String,
-    serialNumber: Number, 
+    serialNumber: String, 
     savedBy: [
         {
             type: mongoose.Schema.Types.ObjectId,
