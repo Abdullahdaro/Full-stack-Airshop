@@ -106,7 +106,6 @@ const CreateShop = () => {
             })
             navTo('/profile/mystore')
         }}
-
         const langaugeoptions = [
             { value: 'english', label: 'English' },
             { value: 'turkish', label: 'Turkish' },
@@ -114,21 +113,17 @@ const CreateShop = () => {
             { value: 'arabic', label: 'Arabic' },
             { value: 'russian', label: 'Russian' }
           ];
-
           const handleLangauegeChange = (selectedOptions) => {
             setLanguage(selectedOptions);
           };
-
         const cityoptions = [
             { value: 'istanbul', label: 'Istanbul' },
             { value: 'ankara', label: 'Ankara' },
             { value: 'izmir', label: 'Izmir' },
         ];
-
         const handleCityChange = (selectedOptions) => {
             setCity(selectedOptions);
           };
-
         const countryoptions = [
             { value: 'turkey', label: 'Turkey' },
         ];
