@@ -41,6 +41,19 @@ app.use(
     methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   })
 );
+
+app.get('/geocode', async (req, res) => {
+  const { address, apiKey } = req.query;
+  const encodedAddress = encodeURIComponent(address);
+
+  try {
+    const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=${apiKey}`);
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching geocode data' });
+  }
+});
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(passport.initialize());

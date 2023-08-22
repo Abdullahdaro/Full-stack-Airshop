@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {useState, useEffect, useContext,  } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { UserContext } from '../Contexts/UserContext'
+import Map from '../components/ComponentsUsage/Map';
 
 const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelectedCit}) => {
   const [products, setProducts] = useState([]);
@@ -10,9 +11,6 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
   const [newStylesFilter, setNewStylesFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
   const [seasonFilter, setSeasonFilter] = useState('all');
-/*   const [saved, setSaved] = useState();
-  const [postId, setPostId] = useState(null); */
-/*   const {user, setUser} = useContext(UserContext) */
 
   useEffect(()=> {
     axios.get('/homeproducts').then(response => {
@@ -114,6 +112,10 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
             </div>
         </div>
       </div>
+      <div>
+      <button>Geocode Address</button>
+      <Map />
+    </div>
       <div className='m-7 gap-2 grid w-[95%] sm:grid-cols-1 md:grid-cols-4 lg:grid-col-4'>
         {filteredProducts.length > 0 && filteredProducts.map(product => (
           

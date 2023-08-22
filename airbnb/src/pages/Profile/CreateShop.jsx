@@ -30,9 +30,6 @@ const CreateShop = () => {
     const [youtube, setYoutube] = useState('')
     const [selectedFiles, setSelectedFiles] = useState([]);
 
-    const [stablePhoto, setStablePhoto] = useState(null);
-    const [uploadedPhotos, setUploadedPhotos] = useState([]);
-
     const navTo = useNavigate()
 
     useEffect(() => {
@@ -63,7 +60,7 @@ const CreateShop = () => {
         })
     }, [id])
 
-
+// upload photos drag and drop
 
     function handleInputChange(event) {
         const files = event.target.files;
@@ -106,6 +103,8 @@ const CreateShop = () => {
             })
             navTo('/profile/mystore')
         }}
+// options and selection for language, city and country      
+
         const langaugeoptions = [
             { value: 'english', label: 'English' },
             { value: 'turkish', label: 'Turkish' },
@@ -127,10 +126,10 @@ const CreateShop = () => {
         const countryoptions = [
             { value: 'turkey', label: 'Turkey' },
         ];
-
         const handleCountryChange = (selectedOptions) => {
             setCountry(selectedOptions);
           };
+
 
   return (
     <div className='flex justify-center'>
