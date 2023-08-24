@@ -8,7 +8,7 @@ const Map = () => {
     height: '350px',
   };
 
-  const apiKey = 'AIzaSyBqgmtOHmr9SGauS7g3QjEsvHmMhGDy96Y'; // Replace with your actual Google Maps API key // Use your server's URL
+  const apiKey = ''; // Replace with your actual Google Maps API key // Use your server's URL
   const address = 'Ergenekon Mahallesi, Cumhuriyeti Cad. No:179, Istanbul, Turkey';
   const [officeLocation, setOfficeLocation] = useState('')
   useEffect(() => {
