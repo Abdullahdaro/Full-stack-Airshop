@@ -49,7 +49,7 @@ app.get('/geocode', async (req, res) => {
 
     const geocodingApiUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
       address
-    )}&key=AIzaSyBqgmtOHmr9SGauS7g3QjEsvHmMhGDy96Y`; // Replace with your API key
+    )}&key=${process.env.REACT_API_KEY}`; // Replace with your API key
 
     // Make the request to the Geocoding API using the 'https' module
     https.get(geocodingApiUrl, (apiResponse) => {
