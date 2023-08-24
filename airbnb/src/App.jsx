@@ -1,6 +1,6 @@
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Navbar } from './components'
+import { Footer, Navbar } from './components'
 import { Login, RegisterPage, HomePage, ProductPage} from './pages'
 import {LikedPage, Profile, MyStorePage, CreateShop} from './pages/Profile'
 import { Form } from './pages/UserPageCom'
@@ -33,8 +33,8 @@ function App() {
                 <Route path='/shop' element={(<CreateShop/>)} />
                 <Route path='/shops/:id' element={(<CreateShop/>)} />
             </Routes>  
+          <Footer />
         </div>
-            
         </BrowserRouter>
       </UserContextProvider>
     </div>

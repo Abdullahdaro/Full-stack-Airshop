@@ -7,6 +7,7 @@ import { MongoClient, ServerApiVersion } from 'mongodb';
 import Product from './models/clothes.js';
 import Shops from './models/shops.js';
 import UserModel from './models/user.js';
+import https from 'https';
 
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
@@ -43,16 +44,41 @@ app.use(
 );
 
 app.get('/geocode', async (req, res) => {
-  const { address, apiKey } = req.query;
-  const encodedAddress = encodeURIComponent(address);
-
   try {
-    const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=${apiKey}`);
-    res.json(response.data);
+    const address = req.query.address; // Replace with your actual API key
+
+    const geocodingApiUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+      address
+    )}&key=AIzaSyBqgmtOHmr9SGauS7g3QjEsvHmMhGDy96Y`; // Replace with your API key
+
+    // Make the request to the Geocoding API using the 'https' module
+    https.get(geocodingApiUrl, (apiResponse) => {
+      let data = '';
+
+      apiResponse.on('data', (chunk) => {
+        data += chunk;
+      });
+
+      apiResponse.on('end', () => {
+        const response = JSON.parse(data);
+
+        // Check for a successful response
+        if (apiResponse.statusCode === 200) {
+          // Return the Geocoding API response to the client
+          res.json(response);
+        } else {
+          res.status(apiResponse.statusCode).json({ error: 'Geocoding request failed' });
+        }
+      });
+    });
   } catch (error) {
-    res.status(500).json({ error: 'Error fetching geocode data' });
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
   }
 });
+
+
+
 
 app.use(express.json());
 app.use(cookieParser());
