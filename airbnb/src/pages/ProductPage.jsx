@@ -17,19 +17,21 @@ const ProductPage = () => {
         if (!id) {
             return 
         }
-        axios.get(`/products/${id}`).then(response => {
+        axios.get(`/product/${id}`).then(response => {
             setProduct(response.data)
-            const ownerId = response.data.owner;
-            if (ownerId) {
+            const shopId = response.data.owner;
+            if (shopId) {
               // Fetch the owner's data based on the owner ID
-              axios.get(`/owner/${ownerId}`).then(ownerResponse => {
-                setOwner(ownerResponse.data);
+              axios.get(`/shop/${shopId}`).then(shopResponse => {
+                setOwner(shopResponse.data);
+
               });
             }
             setSaved(response.data.savedBy.includes(user._id));
         })
     }, [id])
 
+    console.log(owner)
     if (!product) {
       return <div>Loading...</div>;
     }
@@ -46,6 +48,7 @@ const ProductPage = () => {
     };
 
     console.log(saved)
+    console.log(owner.photos[0])
 
     const { title, price, colors, decription, material, age, sex, type, season, size, serialNumber, } = product;
 
@@ -53,8 +56,8 @@ const ProductPage = () => {
     <div className=''>
       {owner && (
         <Link to={`/owner/${owner._id}`} className='flex ml-4 mt-2 font-main text-2xl leading-10'>
-        {owner && <p>{owner.owner.photo} </p>}
-        {owner && <p>{owner.owner.name} Shop</p>}
+        {owner && <img src={'http://localhost:4000/uploads/' + owner.photos[0]} className='w-20 h-20 rounded-full' />}
+        {owner && <p>{owner.title} Shop</p>}
       </Link>
       )}
       <div className='flex '>

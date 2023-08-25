@@ -34,3 +34,26 @@ button.primary{
     background-color: #FF9D9D;
     @apply bg-primary p-2 w-full text-white rounded-2xl;
 }
+
+.icon-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 15px;
+  color: #fff;
+  background-color: #A4A4CB;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.icon-button.bg-secondary {
+  background-color: #f44336; /* Red color for the "Delete" button */
+}
+
+.icon-button i {
+  margin-right: 8px;
+}
+
+.icon-button:hover {
+  background-color: #020c16;
+  color: pink /* Darker blue on hover */
+}

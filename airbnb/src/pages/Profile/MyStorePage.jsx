@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { FaPlus } from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+
 
 const MyStorePage = () => {
   const [products, setProducts ] = useState([]);
@@ -58,19 +61,22 @@ const MyStorePage = () => {
               }
       </div>
       
-      <div className='m-4 justify-center gap-4 grid grid-cols-2 md:grid-cols-3 lg:grid-col-4'>
+      <div className='m-4 justify-center gap-4 grid grid-rows-2'>
         {products.length > 0 && products.map((product, i ) =>(
-          <Link to={'/profile/products/'+product._id} key={i}>
-            <div className='bg-white flex flex-col'>
-              <div className='relative h-[600px] w-[475px]'>
+          <Link className='flex shadow-lg rounded-xl p-6 justify-between' to={'/profile/products/'+product._id} key={i}>
+            <div className='bg-white flex flex-row'>
+              <div className='relative  h-[150px] w-[150px]'>
                 {product.photos.length > 0 && (
                 <img loading='lazy' src={'http://localhost:4000/uploads/'+product.photos[0]}
-                className='object-cover w-full h-full aspect-w-1 aspect-h-1 border border-greay-400 '  />
+                className='object-cover rounded-lg shadow-lg w-full h-full aspect-w-1 aspect-h-1 border '  />
                 )}
               </div>
             </div>
-            <div className="pr-3 grow font-second">
-              <h2 className="text-2xl">{product.title}</h2>
+            <div className="pr-3 grow flex font-second">
+              <div className='px-10 flex-nowrap w-full'>
+                <h2 className="text-2xl">{product.title}</h2>
+                <p className='text-sm pt-4'>{product.description}</p>
+              </div>
               <div className="text-xl">
                 <div className="gap-1 flex flex-col">
                   <span className="text-xs text-[#7F8086]">
@@ -89,7 +95,15 @@ const MyStorePage = () => {
                   </div>
                 </div>
               </div>
-          </div>
+              <div className='relative flex justify-between flex-col '>
+                <button className="icon-button shadow-lg">
+                  <FontAwesomeIcon icon={faEdit} />
+                </button>
+                <button className="icon-button shadow-lg bg-secondary">
+                  <FontAwesomeIcon icon={faTrash} /> 
+                </button>
+              </div>
+           </div>
           </Link>
         ))}
       </div>
