@@ -415,6 +415,7 @@ class APIfeatures  {
       
         try {
           const product = await Product.findByIdAndDelete(id);
+          console.log(product);
       
           if (!product) {
             return res.status(404).json({ message: 'Product not found' });

@@ -47,9 +47,6 @@ const ProductPage = () => {
       }
     };
 
-    console.log(saved)
-    console.log(owner.photos[0])
-
     const { title, price, colors, decription, material, age, sex, type, season, size, serialNumber, } = product;
 
   return (

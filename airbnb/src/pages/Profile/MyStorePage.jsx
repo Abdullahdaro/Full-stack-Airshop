@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { FaPlus } from 'react-icons/fa';
@@ -9,6 +9,8 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 const MyStorePage = () => {
   const [products, setProducts ] = useState([]);
   const [shopData, setShopData] = useState(null);
+  const [shopId, setShopId] = useState('');
+
 
   useEffect(() => {
     axios
@@ -27,6 +29,22 @@ const MyStorePage = () => {
       alert(err);
     })
   }, []);
+
+  const handleDeleteClick =  useCallback(async () => {
+    try {
+      console.log(shopId)
+      const response = await axios.delete(`/products/${shopId}`);
+      if (response.status === 200) {
+        alert('Product deleted successfully');
+        setProducts(prevProducts => prevProducts.filter(product => product._id !== shopId));
+      } else if (response.status === 404) {
+        alert('Product not found');
+      }
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      alert('An error occurred while deleting the product');
+    }
+  }, [shopId]);
 
   return (
     <div>
@@ -63,7 +81,8 @@ const MyStorePage = () => {
       
       <div className='m-4 justify-center gap-4 grid grid-rows-2'>
         {products.length > 0 && products.map((product, i ) =>(
-          <Link className='flex shadow-lg rounded-xl p-6 justify-between' to={'/profile/products/'+product._id} key={i}>
+          <div className='flex shadow-lg rounded-xl p-6 justify-between'>
+          <Link to={'/profile/products/'+product._id} key={i}>
             <div className='bg-white flex flex-row'>
               <div className='relative  h-[150px] w-[150px]'>
                 {product.photos.length > 0 && (
@@ -72,6 +91,7 @@ const MyStorePage = () => {
                 )}
               </div>
             </div>
+            </Link>
             <div className="pr-3 grow flex font-second">
               <div className='px-10 flex-nowrap w-full'>
                 <h2 className="text-2xl">{product.title}</h2>
@@ -99,12 +119,19 @@ const MyStorePage = () => {
                 <button className="icon-button shadow-lg">
                   <FontAwesomeIcon icon={faEdit} />
                 </button>
-                <button className="icon-button shadow-lg bg-secondary">
+                <button           onClick={() => {
+          setShopId(product._id);
+          
+          // Delay the execution of handleDeleteClick by 1 second
+          setTimeout(() => {
+            handleDeleteClick();
+          }, 1000); // Delay for 1 second (1000 milliseconds)
+        }} className="icon-button shadow-lg bg-secondary">
                   <FontAwesomeIcon icon={faTrash} /> 
                 </button>
               </div>
            </div>
-          </Link>
+          </div>
         ))}
       </div>
     </div>
