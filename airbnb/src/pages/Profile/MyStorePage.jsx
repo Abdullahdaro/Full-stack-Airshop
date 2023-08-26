@@ -79,7 +79,7 @@ const MyStorePage = () => {
               }
       </div>
       
-      <div className='m-4 justify-center gap-4 grid grid-rows-2'>
+      <div className='m-4 justify-center gap-4 px-80 grid-rows-2'>
         {products.length > 0 && products.map((product, i ) =>(
           <div className='flex shadow-lg rounded-xl p-6 justify-between'>
           <Link to={'/profile/products/'+product._id} key={i}>
