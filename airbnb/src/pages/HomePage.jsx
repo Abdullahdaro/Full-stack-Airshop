@@ -6,6 +6,8 @@ import Map from '../components/ComponentsUsage/Map';
 
 const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelectedCit}) => {
   const [products, setProducts] = useState([]);
+  const [visibleProducts, setVisibleProducts] = useState(28);
+  const [loadMore, setLoadMore] = useState(true);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [sexFilter, setSexFilter] = useState('all');
   const [newStylesFilter, setNewStylesFilter] = useState('all');
@@ -14,9 +16,14 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
 
   useEffect(()=> {
     axios.get('/homeproducts').then(response => {
-      setProducts([...response.data ])
+      setProducts([...response.data, response.data, response.data, response.data,])
     })
   }, []);
+
+  const loadMoreProducts = () => {
+    // Increase the number of visible products by 30
+    setVisibleProducts(visibleProducts + 30);
+  };
   
   useEffect(() => {
     const handleFilter = () => {
@@ -48,7 +55,7 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
     }, [sexFilter, newStylesFilter, typeFilter, selectedCountry, selectedCity, seasonFilter, products]);
 
   return (
-  <div className=''>
+  <div className='pb-4'>
     <div className='flex flex-row justify-between'>
       <div className="flex flex-row w-[70%] font-second font-light text-base leading-6 items-center justify-center">
       <button  onClick={() => setSexFilter('men')}>Men</button>
@@ -117,9 +124,7 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
       <Map />
     </div> */}
       <div className='m-7 gap-2 grid w-[95%] sm:grid-cols-1 md:grid-cols-4 lg:grid-col-4'>
-        {filteredProducts.length > 0 && filteredProducts.map(product => (
-          
-
+        {filteredProducts.length > 0 && filteredProducts.slice(0, visibleProducts).map(product => (
             <div className='bg-white flex flex-col'>
               <Link to={'/product/'+product._id} >
                 <div className="relative h-[400px] w-[280px] ">
@@ -134,7 +139,7 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
                 <Link to={'/product/'+product._id} >
                   <h2 className="text-2xl">{product.title}</h2>
                 </Link>
-{/*                   <button onClick={handleSave(product._id)} title={product.saved ? "Remove from My List" : "Add to My List"} className=''>
+                   {/*                   <button onClick={handleSave(product._id)} title={product.saved ? "Remove from My List" : "Add to My List"} className=''>
                     {product.saved ? "Remove" : "Add "}
                   </button>     */}           
                 </div>
@@ -163,12 +168,15 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
                 </div>
               </div>
             </div>
-          
         ))}
       </div>
     </div>
-    
-</div>
+    {loadMore && (
+        <div className="flex justify-center">
+          <button onClick={loadMoreProducts}><span className='px-20 py-2 text-2xl bg-main font-bold text-white text-opacity-80 bg-opacity-50 rounded-sm'>See More</span></button>
+        </div>
+      )}
+  </div>
   )
 }
 

@@ -19,7 +19,7 @@ function App() {
         <BrowserRouter>
         <div className='bg-[#FAFAFA]'>
         <Navbar />
-            <Routes>
+            <Routes className=''>
                 <Route path='/' element={(<HomePage />)} />
                 <Route path="/Login" element={(<Login/>)} />
                 <Route path="/register" element={(<RegisterPage/>)} />
