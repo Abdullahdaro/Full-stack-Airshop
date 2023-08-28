@@ -120,13 +120,11 @@ const MyStorePage = () => {
                   <FontAwesomeIcon icon={faEdit} />
                 </button>
                 <button           onClick={() => {
-          setShopId(product._id);
-          
-          // Delay the execution of handleDeleteClick by 1 second
-          setTimeout(() => {
-            handleDeleteClick();
-          }, 1000); // Delay for 1 second (1000 milliseconds)
-        }} className="icon-button shadow-lg bg-secondary">
+                      setShopId(product._id);
+                      setTimeout(() => {
+                        handleDeleteClick();
+                      }, 1000); // Delay for 1 second (1000 milliseconds)
+                    }} className="icon-button shadow-lg bg-secondary">
                   <FontAwesomeIcon icon={faTrash} /> 
                 </button>
               </div>

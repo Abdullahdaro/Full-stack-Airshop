@@ -10,6 +10,9 @@ import profileuser from '../assets/profileuser.png'
 import { UserContext } from '../Contexts/UserContext'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'
+
+const locales = ['en', 'ru', 'ar', 'tr'];
 
 const Navbar = () => {
   const {user, setUser, selectedCountry, setSelectedCountry, selectedCity, setSelectedCity } = useContext(UserContext)
@@ -18,6 +21,11 @@ const Navbar = () => {
   const [setshowcity, setSetshowcity] = useState(false)
   const [setshowcountry, setSetshowcountry] = useState(false)
   const navTo = useNavigate();
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
 
   const handleCountrySelection = (country) => {
     setSelectedCountry(country);
@@ -152,19 +160,19 @@ const Navbar = () => {
             </button>
               {showMenuLangauge && (
                 <ul className='absolute top-8 right-0 z-50 w-40 bg-white rounded-md shadow-lg py-1' >
-                  <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => setShowMenuLangauge(false)}>
+                  <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={()  => {setShowMenuLangauge(false); i18n.changeLanguage('tr') }}>
                     <img className='w-8 h-8' src={russia} />
                     <span className='px-4'>Russian</span>
                   </li>
-                  <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => setShowMenuLangauge(false)}>
+                  <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => {setShowMenuLangauge(false); changeLanguage('ar') }}>
                     <img className='w-8 h-8' src={saudi} />
                     <span className='px-4'>Arabic</span>
                   </li>
-                  <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => setShowMenuLangauge(false)}>
+                  <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => {setShowMenuLangauge(false); changeLanguage('tr') }}>
                     <img className='w-8 h-8' src={turkey} />
                     <span className='px-4'>Turkish</span>
                   </li>
-                  <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => setShowMenuLangauge(false)}>
+                  <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => {setShowMenuLangauge(false); changeLanguage('en') }}>
                     <img className='w-8 h-8' src={united} />
                     <span className='px-4'>English</span>
                   </li>

@@ -3,6 +3,7 @@ import React, {useState, useEffect, useContext,  } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { UserContext } from '../Contexts/UserContext'
 import Map from '../components/ComponentsUsage/Map';
+import { useTranslation } from 'react-i18next';
 
 const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelectedCit}) => {
   const [products, setProducts] = useState([]);
@@ -13,6 +14,7 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
   const [newStylesFilter, setNewStylesFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
   const [seasonFilter, setSeasonFilter] = useState('all');
+  const { t } = useTranslation();
 
   useEffect(()=> {
     axios.get('/homeproducts').then(response => {
@@ -58,7 +60,7 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
   <div className='pb-4'>
     <div className='flex flex-row justify-between'>
       <div className="flex flex-row w-[70%] font-second font-light text-base leading-6 items-center justify-center">
-      <button  onClick={() => setSexFilter('men')}>Men</button>
+      <button  onClick={() => setSexFilter('men')}>{t("homepage.welcome")}</button>
           <button  onClick={() => setSexFilter('women')}>Women</button>
           <button  onClick={() => setSexFilter('uniSex')}>UniSex</button>
           <button  onClick={() => setSexFilter('children')}>Children</button>
@@ -123,14 +125,14 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
       <button>Geocode Address</button>
       <Map />
     </div> */}
-      <div className='m-7 gap-2 grid w-[95%] sm:grid-cols-1 md:grid-cols-4 lg:grid-col-4'>
+      <div className='m-7 gap-2 grid w-[95%] sm:grid-cols-2 md:grid-cols-3 lg:grid-col-4'>
         {filteredProducts.length > 0 && filteredProducts.slice(0, visibleProducts).map(product => (
-            <div className='bg-white flex flex-col'>
+            <div className='shadow-lg ss:w-[250px] sm:w-[275px] rounded-lg flex flex-col'>
               <Link to={'/product/'+product._id} >
-                <div className="relative h-[400px] w-[280px] ">
+                <div className="relative w-full ">
                     {product.photos?.[0] && (
                       <img loading='lazy' src={'http://localhost:4000/uploads/'+product.photos?.[0]} 
-                        className='object-cover w-full h-full aspect-w-1 aspect-h-1 rounded-xl' />
+                        className='object-cover aspect-w-1 aspect-h-1 rounded-xl' />
                     )}
                 </div>
               </Link>

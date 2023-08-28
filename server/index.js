@@ -79,7 +79,7 @@ app.get('/geocode', async (req, res) => {
 
 
 
-
+app.use('/locales', express.static(path.join(__dirname + '/locales')));
 app.use(express.json());
 app.use(cookieParser());
 app.use(passport.initialize());
