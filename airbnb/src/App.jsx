@@ -8,13 +8,15 @@ import { ShopPage } from './pages/ShopsPage'
 import axios from 'axios'
 import { UserContextProvider } from './Contexts/UserContext'
 
+import { Suspense } from 'react'
+
 axios.defaults.baseURL= "http://localhost:4000"
 axios.defaults.withCredentials= true;
 
 function App() {
-
+  
   return (
-    <div className="App">
+    <Suspense className="App" fallback={null}>
       <UserContextProvider>
         <BrowserRouter>
         <div className='bg-[#FAFAFA]'>
@@ -37,7 +39,7 @@ function App() {
         </div>
         </BrowserRouter>
       </UserContextProvider>
-    </div>
+    </Suspense>
   )
 }
 
