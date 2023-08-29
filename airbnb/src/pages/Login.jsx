@@ -4,13 +4,15 @@ import axios from "axios";
 import { UserContext } from '../Contexts/UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { useTranslation } from 'react-i18next';
 
 const login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [redirect, setRedirect] = useState(false)
   const {setUser} = useContext(UserContext)
-  
+  const { t } = useTranslation("login");
+
   async function handleSubmit(e) {
     e.preventDefault();
     try {
