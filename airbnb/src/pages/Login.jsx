@@ -37,13 +37,13 @@ const login = () => {
 
   return (
     <div className='mt-4'>
-        <h1 className='text-4xl text-center mb-4'>Login</h1>
+        <h1 className='text-4xl text-center mb-4'>{t("Login")}</h1>
         <form action="" className='max-w-md mx-auto ' onSubmit={handleSubmit}>
           <input type="email" placeholder='Your@email.com' value={email} onChange={e => setEmail(e.target.value)} />
           <input type="password" placeholder='password' value={password} onChange={e => setPassword(e.target.value)} />
-          <button className='primary'>login</button>
+          <button className='primary'>{t("login")}</button>
           <div>
-            Don't have an account yet? <Link to={'/register'} className='underline text-bold'> Register now</Link>
+            {t("Don't have an account yet")}? <Link to={'/register'} className='underline text-bold'> {t("Register now")}</Link>
           </div>
         </form>
         <div className="flex items-center justify-center mt-6">
@@ -52,7 +52,7 @@ const login = () => {
             onClick={googleSuccess}
           >
             <FontAwesomeIcon className='pr-4' icon={faGoogle} />
-            Google
+            {t("Google")}
           </div>
         </div>
     </div>

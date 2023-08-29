@@ -5,6 +5,7 @@ import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons';
 import { useParams, Link  } from 'react-router-dom'
 import { UserContext } from '../Contexts/UserContext';
+import { useTranslation } from 'react-i18next';
 
 const ProductPage = () => {
     const {id} = useParams(); 
@@ -12,6 +13,7 @@ const ProductPage = () => {
     const [owner, setOwner] = useState(null);
     const [saved, setSaved] = useState(false);
     const {user} = useContext(UserContext)
+    const { t } = useTranslation("productPage");
 
     useEffect(() => {
         if (!id) {
@@ -33,7 +35,7 @@ const ProductPage = () => {
 
     console.log(owner)
     if (!product) {
-      return <div>Loading...</div>;
+      return <div>{t("Loading")}...</div>;
     }
 
     const handleSave = async () => {
@@ -54,7 +56,7 @@ const ProductPage = () => {
       {owner && (
         <Link to={`/owner/${owner._id}`} className='flex ml-4 mt-2 font-main text-2xl leading-10'>
         {owner && <img src={'http://localhost:4000/uploads/' + owner.photos[0]} className='w-20 h-20 rounded-full' />}
-        {owner && <p>{owner.title} Shop</p>}
+        {owner && <p>{owner.title} {t("Shop")}</p>}
       </Link>
       )}
       <div className='flex '>
@@ -74,31 +76,31 @@ const ProductPage = () => {
             <h1 className='font-second text-xl'>{title}</h1>
             <button className='w-20 text-2xl' onClick={handleSave}>{saved === true ? <FontAwesomeIcon className='text-pink' icon={faSolidHeart} /> : <FontAwesomeIcon className='' icon={faRegularHeart} /> }  </button>
           </div>
-          <h2 className='font-second text- mb-12 text-[#7F8086]'>PRICE: {price}$</h2>
+          <h2 className='font-second text- mb-12 text-[#7F8086]'>{t("PRICE")}: {price}$</h2>
           <div className='mb-4'>
-            <h2>COLORS:</h2>
+            <h2>{t("COLORS")}:</h2>
             {colors.map((color, index) => (
               <div key={index} className='rounded-full mb-12 border border-black' style={{ backgroundColor: color, width: '20px', height: '20px' }}></div>
             ))}
           </div>
           <div className=' mb-12'>
-            <h2 className='font-second text-ms  '>AGE: {age}</h2>
-            <h2 className='font-second text-ms '>SEX: {sex}</h2>
-            <h2 className='font-second text-ms '>TYPE: {type}</h2>
-            <h2 className='font-second text-ms '>SIZES: {size}</h2>
-            <h2 className='font-second text-ms '>SEASON: {season}</h2>
+            <h2 className='font-second text-ms  '>{t("AGE")}: {age}</h2>
+            <h2 className='font-second text-ms '>{t("SEX")}: {sex}</h2>
+            <h2 className='font-second text-ms '>{t("TYPE")}: {type}</h2>
+            <h2 className='font-second text-ms '>{t("SIZES")}: {size}</h2>
+            <h2 className='font-second text-ms '>{t("SEASON")}: {season}</h2>
           </div>
-          <button className='bg-secondary py-2'>Send a message to the seller</button>
+          <button className='bg-secondary py-2'>{t("Send a message to the seller")}</button>
         </div>
       </div>
       <div className='px-6'>
         <h1>{title}</h1>
-        <h2>Descritop: <br/>{decription}</h2>
-        <h2>Serial Number: {serialNumber}</h2>
-        <h2>Composition: {material}</h2>
+        <h2>{t("Descritop")}: <br/>{decription}</h2>
+        <h2>{t("Serial Number")}: {serialNumber}</h2>
+        <h2>{t("Composition")}: {material}</h2>
       </div>
       <div>
-        <h1>Products that you may like</h1>
+        <h1>{t("Products that you may like")}</h1>
         <div></div>
       </div>
     </div>

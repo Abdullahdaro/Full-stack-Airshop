@@ -4,11 +4,13 @@ import axios from "axios";
 import { gapi } from "gapi-script";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { useTranslation } from 'react-i18next';
 
 const RegisterPage = () => {
     const [name, setName] = useState("")
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
+    const { t } = useTranslation("register");
     async function registerUser(e) {
       e.preventDefault();
       try {
@@ -45,14 +47,14 @@ const RegisterPage = () => {
 
   return (
     <div className='mt-4'>
-        <h1 className='text-4xl text-center mb-4'>Sign up</h1>
+        <h1 className='text-4xl text-center mb-4'>{t("Sign up")}</h1>
         <form onSubmit={registerUser} action="" className='max-w-md mx-auto '>
           <input type="text" placeholder='Your name' value={name} onChange={e => setName(e.target.value)} />
-          <input type="email" placeholder='Your@email.com' value={email} onChange={ e => setEmail(e.target.value)}/>
+          <input type="email" placeholder='John@email.com' value={email} onChange={ e => setEmail(e.target.value)}/>
           <input type="password" placeholder='password' value={password} onChange={ e => setPassword(e.target.value)} />
-          <button className='primary'>Sign up</button>
+          <button className='primary'>{t("Sign up")}</button>
           <div>
-            Do you have an account? <Link to={'/Login'} className='underline text-bold'> Log in</Link>
+            {t("Do you have an account")}? <Link to={'/Login'} className='underline text-bold'> {t("Log in")}</Link>
           </div>
         </form>
         <div className="flex items-center justify-center mt-6">
@@ -61,7 +63,7 @@ const RegisterPage = () => {
             onClick={googleSuccess}
           >
             <FontAwesomeIcon className='pr-4' icon={faGoogle} />
-            Google
+            {t("Google")}
           </div>
         </div>
     </div>
