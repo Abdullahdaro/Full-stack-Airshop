@@ -164,10 +164,10 @@ const Navbar = () => {
                     <img className='w-8 h-8' src={russia} />
                     <span className='px-4'>{t("Russian")}</span>
                   </li>
-                  <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => {setShowMenuLangauge(false); changeLanguage('ar') }}>
+                  {/* <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => {setShowMenuLangauge(false); changeLanguage('ar') }}>
                     <img className='w-8 h-8' src={saudi} />
                     <span className='px-4'>{t("Arabic")}</span>
-                  </li>
+                  </li> */}
                   <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => {setShowMenuLangauge(false); changeLanguage('tr') }}>
                     <img className='w-8 h-8' src={turkey} />
                     <span className='px-4'>{t("Turkish")}</span>

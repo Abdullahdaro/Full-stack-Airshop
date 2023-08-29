@@ -15,7 +15,7 @@ i18n.use(Backend)
     fallbackLng: 'en',
     ns: [ 'main', 'profile', 'createshop', 'likedpage', 'mystorepage', 'login', "register", "productPage" ],
     lng: "en",
-    debug: true,
+    debug: false,
     interpolation: {
       escapeValue: false, // React already escapes by default
     },
