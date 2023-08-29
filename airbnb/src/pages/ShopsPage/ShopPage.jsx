@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
+
 const ShopPage = () => {
   const { id } = useParams();
   const [shop, setShop] = useState(null);

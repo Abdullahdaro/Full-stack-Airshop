@@ -4,12 +4,14 @@ import axios from 'axios';
 import { FaPlus } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { useTranslation } from 'react-i18next';
 
 
 const MyStorePage = () => {
   const [products, setProducts ] = useState([]);
   const [shopData, setShopData] = useState(null);
   const [shopId, setShopId] = useState('');
+  const { t } = useTranslation("mystorepage");
 
 
   useEffect(() => {
@@ -50,13 +52,13 @@ const MyStorePage = () => {
     <div>
       <div>
       <div className='font-main text-3xl p-2'>
-          My Store
+          {t("My Store")}
         </div>
         {shopData !== null && shopData.map((shop, i ) => (
           
           <div className='flex justify-center items-center'>
             <div>
-              My shop name is:
+              {t("My shop name is")}:
             </div>
             {shop.title}
           </div>
@@ -68,12 +70,12 @@ const MyStorePage = () => {
         {shopData !== null && shopData.length === 0 ? (
               <div>
               <div className='flex justify-center items-center'>
-                Create your own store to sell your products
+                {t("Create your own store to sell your products")}
               </div>
             </div>
               ) : 
               <Link className="inline-flex items-center bg-gray-500 text-white py-2 px-4 rounded-full" to={'/profile/mystore/add'}> 
-                <span className="mr-4" >Add a new product</span> 
+                <span className="mr-4" >{t("Add a new product")}</span> 
                 <FaPlus className="text-white text-base" />
               </Link>
               }
@@ -100,17 +102,17 @@ const MyStorePage = () => {
               <div className="text-xl">
                 <div className="gap-1 flex flex-col">
                   <span className="text-xs text-[#7F8086]">
-                    Price: ${product.price}
+                    {t("Price")}: ${product.price}
                   </span>
                   <span className="text-xs">
-                    Sizes: {product.size}
+                    {t("Sizes")}: {product.size}
                   </span>
                   <div className=' grid-cols-3 grid'>
                     <span className="text-sm text-[#7F8086]">
-                      type: <span className='text-[#FE8B8B]'>{product.type}</span> 
+                      {t("type")}: <span className='text-[#FE8B8B]'>{product.type}</span> 
                     </span>
                     <span className="text-sm text-[#7F8086]">
-                      kind: <span className='text-[#FE8B8B]'>{product.season}</span> 
+                      {t("kind")}: <span className='text-[#FE8B8B]'>{product.season}</span> 
                     </span>
                   </div>
                 </div>
