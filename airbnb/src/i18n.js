@@ -9,10 +9,11 @@ i18n.use(Backend)
   .use(initReactI18next)
   .init({
     backend: {
-        loadPath: 'http://localhost:4000/locales/{{lng}}/translations.json',
+        loadPath: 'http://localhost:4000/locales/{{lng}}/{{ns}}.json',
     },
 
     fallbackLng: 'en',
+    ns: ['translations', 'main', 'profile'],
     lng: "en",
     debug: true,
     interpolation: {

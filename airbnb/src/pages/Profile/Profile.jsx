@@ -2,11 +2,13 @@ import React, {useContext, useState,  useEffect} from 'react'
 import { UserContext } from '../../Contexts/UserContext'
 import { Navigate, useParams, Link } from 'react-router-dom'
 import axios from 'axios'
+import { useTranslation } from 'react-i18next'
 
 const Profile = () => {
     const {ready, user} = useContext(UserContext)
     const [shopData, setShopData] = useState([]);
     const [photoid, setPhotoid] = useState(null);
+    const { t } = useTranslation('profile');
 
     useEffect(() => {
       axios.get('/shops').then(({ data }) => {
@@ -34,19 +36,19 @@ const Profile = () => {
           {photoid !== null ? (
              <img src={user.avatar} className=' h-[125px] rounded-full w-[125px] ' />
             ) : (
-              <button className='h-[125px] w-[125px]'> <span className='hover:bg-pink hover:text-white px-4 py-3 border border-pink rounded-3xl font-bold'>Add photo</span> </button>
+              <button className='h-[125px] w-[125px]'> <span className='hover:bg-pink hover:text-white px-4 py-3 border border-pink rounded-3xl font-bold'>{t("Add photo")}</span> </button>
             )}
           <div className='flex flex-col gap-y-6 w-[125px]'>
-            <span className='font-second text-bond'>Name:</span>
+            <span className='font-second text-bond'>{t("Name")}:</span>
             <span className='font-second font-semibold'>{user.name}</span>
           </div>
         </div>
         <div className='flex justify-center items-start flex-col m-10 rounded-3xl w-[45%] border px-6 gap-4 py-10'>
-          <span className='text-xl font-second font-semibold'>{user.name} Confirmed Information:</span>
+          <span className='text-xl font-second font-semibold'>{user.name} {t("Confirmed Information")}:</span>
           <div className=' flex flex-col ml-2 gap-2 '>
-            <span>Identity</span>
-            <span>Email address</span>
-            <span>Phone number</span>
+            <span>{t("Identity")}</span>
+            <span>{t("Email address")}</span>
+            <span>{t("Phone number")}</span>
           </div>
         </div>
       </div>
@@ -54,22 +56,22 @@ const Profile = () => {
       <div className='flex flex-col mt-10 w-[70%]'>
         <div className='flex flex-col mt-10'>
           <span className='font-red-hat-display font-semibold text-2xl leading-10 text-black '>
-            About me:
+           {t("About me")}:
           </span>
           <div className='inline-flex'>
             <button className=' rounded-full py-4 justify-start flex'>
               <span className='box-border bg-white hover:bg-pink hover:text-white shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full items-center'>
-                Edit profile
+                {t("Edit profile")}
               </span>
             </button>
           </div>
           <span>
-            I speak ....
+            {t("I speak")} ....
           </span>
           <div className='border border-pink opacity-60 mr-60 my-10 '></div>
         </div>
         <div className='flex flex-col'>
-          <span className='font-red-hat-display font-semibold text-2xl leading-10 text-black '>My Shop</span>
+          <span className='font-red-hat-display font-semibold text-2xl leading-10 text-black '>{t("My Shop")}</span>
           <div className='inline-flex justify-between'>
             <div className='rounded-full py-4 flex'>
               {shopData !== null && shopData.length === 0 ? (
@@ -77,7 +79,7 @@ const Profile = () => {
                         to={'/shop'}
                         className='box-border bg-white hover:bg-gray-100 shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full justify-center w-40 items-center'
                     >
-                        Create shop
+                        {t("Create shop")}
                     </Link>
                 ) : null}
             </div>
@@ -87,23 +89,23 @@ const Profile = () => {
                         to={'/shops/' + shopData[0]._id}
                         className='box-border bg-white hover:bg-pink hover:text-white shadow-xl text-xl border inline-flex px-4 py-2 font-second border-black rounded-full items-center'
                     >
-                        Edit shop
+                        {t("Edit shop")}
                     </Link>
                 </button>
             ) : null}
           </div>
           <div className='flex flex-col'>
-            <span>Shop name:</span>
-            <span>Phone number:</span>
-            <span>Address:</span>
-            <span>City:</span>
-            <span>Country:</span>
-            <span>Shop description:</span>
+            <span>{t("Shop name")}:</span>
+            <span>{t("Phone number")}:</span>
+            <span>{t("Address")}:</span>
+            <span>{t("City")}:</span>
+            <span>{t("Country")}:</span>
+            <span>{t("Shop description")}:</span>
           </div>
           <div className='border border-pink opacity-60 mr-60 my-10 '></div>
         </div>
         <div className='flex flex-col'>
-          <span className='font-red-hat-display font-semibold text-2xl leading-10 text-black' >My Products</span>
+          <span className='font-red-hat-display font-semibold text-2xl leading-10 text-black' >{t("My Products")}</span>
           <div className='inline-flex'>
              
           </div>

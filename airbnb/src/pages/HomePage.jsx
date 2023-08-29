@@ -14,7 +14,7 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
   const [newStylesFilter, setNewStylesFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
   const [seasonFilter, setSeasonFilter] = useState('all');
-  const { t } = useTranslation();
+  const { t } = useTranslation('main');
 
   useEffect(()=> {
     axios.get('/homeproducts').then(response => {
@@ -60,63 +60,63 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
   <div className='pb-4'>
     <div className='flex flex-row justify-between'>
       <div className="flex flex-row w-[70%] font-second font-light text-base leading-6 items-center justify-center">
-      <button  onClick={() => setSexFilter('men')}>{t("homepage.welcome")}</button>
-          <button  onClick={() => setSexFilter('women')}>Women</button>
-          <button  onClick={() => setSexFilter('uniSex')}>UniSex</button>
-          <button  onClick={() => setSexFilter('children')}>Children</button>
-          <button  onClick={() => setSexFilter('all')}>All</button>
+      <button  onClick={() => setSexFilter('men')}>{t("men")}</button>
+          <button  onClick={() => setSexFilter('women')}>{t('Women')}</button>
+          <button  onClick={() => setSexFilter('uniSex')}>{t('UniSex')}</button>
+          <button  onClick={() => setSexFilter('children')}>{t('kids')}</button>
+          <button  onClick={() => setSexFilter('all')}>{t("all")}</button>
       </div>
       <div className='flex flex-row font-second font-light text-base leading-6 items-center justify-center gap-8 m-5'>
       <div class="font-normal text-base leading-6 flex items-center justify-center relative">
         <span class="relative">
-          What are you looking for?
+          {t("What are you looking for?")}
           <span class="absolute left-0 right-0 bottom-[-5px] h-[1px] bg-black"></span>
         </span>
       </div>
-        <span className='font-red-hat-display font-light text-pink text-base text-[20px]'>Search</span>
+        <span className='font-red-hat-display font-light text-pink text-base text-[20px]'>{t("Search")}</span>
       </div>
     </div>
     <div className='border opacity-20 border-black '></div>
     <div className='flex'>
       <div className='w-[17%] p-8 '>
         <div className='flex flex-col gap-1 pb-10'> 
-          <span className='text-main font-bold text-2xl'>New Styles</span>
-          <span className='font-second text-ms'>See All</span>
-          <span className='font-second text-ms'>Lastest</span>
-          <span className='font-second text-ms'>Discounts</span>
+          <span className='text-main font-bold text-2xl'>{t("New Styles")}</span>
+          <span className='font-second text-ms'>{t("See All")}</span>
+          <span className='font-second text-ms'>{t("Lastest")}</span>
+          <span className='font-second text-ms'>{t("Discounts")}</span>
         </div>
         <div className='flex flex-col gap-1'> 
         
-          <span className='text-main font-bold pb-1 text-2xl '>FILTER</span>
+          <span className='text-main font-bold pb-1 text-2xl '>{t("FILTER")}</span>
           <div className='flex flex-col gap-1 mb-3'>
-              <span className='font-second font-semibold text-ms'>Season</span>
+              <span className='font-second font-semibold text-ms'>{t("Type")}</span>
               <button className='text-left font-main text-xs' onClick={() => setTypeFilter('t-shirt')}>
-                T-Short
+                {t("T-Short")}
               </button>
               <button className='text-left font-main text-xs' onClick={() => setTypeFilter('pant')}>
-                Pants
+                {t("Pants")}
               </button>
               <button className='text-left font-main text-xs' onClick={() => setTypeFilter('shoes')}>
-                Shoes
+                {t("Shoes")}
               </button>
               <button className='text-left font-main text-xs' onClick={() => setTypeFilter('all')}>
-                All Seasons
+                {t("all")}
               </button>
             </div>
           <div className='border opacity-20 border-black mr-20 '></div>
           <div className='flex flex-col gap-1'>
-              <span className='font-second font-semibold text-ms'>Season</span>
+              <span className='font-second font-semibold text-ms'>{t("Season")}</span>
               <button className='text-left font-main text-xs' onClick={() => setSeasonFilter('summer')}>
-                Summer
+                {t("Summer")}
               </button>
               <button className='text-left font-main text-xs' onClick={() => setSeasonFilter('winter')}>
-                Winter
+                {t("Winter")}
               </button>
               <button className='text-left font-main text-xs' onClick={() => setSeasonFilter('spring')}>
-                Spring
+                {t("Spring")}
               </button>
               <button className='text-left font-main text-xs' onClick={() => setSeasonFilter('all')}>
-                All Seasons
+                {t("All Seasons")}
               </button>
             </div>
         </div>
@@ -148,22 +148,22 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
                 <div className="text-xl">
                   <div className="gap-1 flex flex-col">
                     <span className="text-xs text-[#7F8086]">
-                      Price: ${product.price}
+                      {t("Price")} ${product.price}
                     </span>
                     <div className='flex flex-col'>
                       <span className="text-xs">
-                        Sizes: {product.type}
+                        {t("TypeForm")} {product.type}
                       </span>
                       <span className="text-xs">
-                        Sizes: {product.size}
+                        {t("Sizes")}: {product.size}
                       </span>
                     </div>
                     <div className=' grid-cols-2 grid'>
                       <span className="text-sm text-[#7F8086]">
-                        Gendar: <span className='text-[#FE8B8B]'>{product.sex}</span> 
+                        {t("Gendar")} <span className='text-[#FE8B8B]'>{product.sex}</span> 
                       </span>
                       <span className="text-sm text-[#7F8086]">
-                        Kind: <span className='text-[#FE8B8B]'>{product.season}</span> 
+                        {t("Kind")} <span className='text-[#FE8B8B]'>{product.season}</span> 
                       </span>
                     </div>
                   </div>

@@ -1,0 +1,31 @@
+{
+    "men" : "Man",
+    "Women": "Women",
+    "UniSex": "UniSex",
+    "kids": "Kids",
+    "all": "All",
+
+    "What are you looking for?" : "What are you looking for?",
+    "Search" : "Search",
+    "New Styles" : "New Styles",
+    "See All" : "See All",
+    "Lastest" : "Lastest",
+    "Discounts" : "Discounts",
+
+    "FILTER" : "FILTER",
+    "Type" : "Season",
+    "T-Short" : "T-Short",
+    "Pants" : "Pants",
+    "Shoes" : "Shoes",
+    "All Seasons"   : "All Seasons",
+    "Season" : "Season",
+    "Summer" : "Summer",
+    "Winter" : "Winter",
+    "Spring" : "Spring",
+
+    "Price" : "Price:",
+    "TypeForm" : "Type:",
+    "Sizes" : "Sizes:",
+    "Gendar" : "Gendar:",
+    "Kind" : "Kind:"
+}

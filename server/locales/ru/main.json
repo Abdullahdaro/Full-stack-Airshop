@@ -1,0 +1,31 @@
+{
+    "men" : "Мужчины",
+    "Women": "Женщины",
+    "UniSex": "Унисекс",
+    "kids": "Дети",
+    "all": "Все",
+
+    "What are you looking for?" : "Что вы ищете?",
+    "Search" : "Поиск",
+    "New Styles" : "Новые стили",
+    "See All" : "Посмотреть все",
+    "Lastest" : "Последние",
+    "Discounts" : "Скидки",
+
+    "FILTER" : "ФИЛЬТР",
+    "Type" : "Тип",
+    "T-Short" : "Футболка",
+    "Pants" : "Брюки",
+    "Shoes" : "Обувь",
+    "All Seasons" : "Все сезоны",
+    "Season" : "Сезон",
+    "Summer" : "Лето",
+    "Winter" : "Зима",
+    "Spring" : "Весна",
+
+    "Price" : "Цена",
+    "TypeForm" : "Форма",
+    "Sizes" : "Размеры",
+    "Gendar" : "Пол",
+    "Kind" : "Вид"
+}

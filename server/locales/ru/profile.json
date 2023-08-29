@@ -1,0 +1,20 @@
+{
+    "Add photo" : "фото" ,
+    "Name" : "Имя" ,
+    "Confirmed Information" : "Подтвержденная информация" ,
+    "Identity" : "Идентификация" ,
+    "Email address" : "Адрес электронной почты" ,
+    "Phone number" : " Номер телефона" ,
+    "About me" :  "Обо мне" ,
+    "Edit profile" :    "Редактировать профиль" ,
+    "I speak" :  "Я говорю" ,
+    "My Shop"  : "Мой магазин" ,
+    "Create shop" :  "Создать магазин" ,
+    "Edit shop" :  "Редактировать магазин" ,
+    "Shop name" :  "Название магазина" ,
+    "Address" :      "Адрес" ,
+    "City" : "Город" ,
+    "Country" : "Страна" ,
+    "Shop description" : "Описание магазина" ,
+    "My Products" : "Мои продукты" 
+}

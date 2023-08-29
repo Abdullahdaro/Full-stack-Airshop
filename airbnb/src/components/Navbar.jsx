@@ -21,7 +21,7 @@ const Navbar = () => {
   const [setshowcity, setSetshowcity] = useState(false)
   const [setshowcountry, setSetshowcountry] = useState(false)
   const navTo = useNavigate();
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation("navbar");
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
@@ -96,7 +96,7 @@ const Navbar = () => {
             <div className='flex shadow-gray-300 '>
               <div className='font-main text-[18px] px-8 flex items-center' ref={userMenuCountryRef}>
                 <button className='flex items-center gap-2' onClick={() => setSetshowcountry(!setshowcountry)}>
-                  Country
+                  {t("Country")}
                   <img src={down} className='w-[8px] h-[8px]' />
                 </button>
                 {setshowcountry && (
@@ -114,10 +114,10 @@ const Navbar = () => {
                     </li> */}
                     <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-center items-center' onClick={() =>{setSetshowcountry(false); handleCountrySelection('Turkey')}}>
                       <img className='w-8 h-8' src={turkey} />
-                      <span className='px-4'>Turkey</span>
+                      <span className='px-4'>{t("Turkey")}</span>
                     </li>
                     <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-center items-center' onClick={() =>{setSetshowcountry(false); handleCountrySelection('All')}}>
-                      <span>All</span>
+                      <span>{t("All")}</span>
                     </li>
                   </ul>
                 )}
@@ -126,7 +126,7 @@ const Navbar = () => {
               <div className="border-l border-gray-300"></div>
               <div className='font-main text-[18px] px-8 flex items-center' ref={userMenuCityRef}>
                 <button className='flex  items-center gap-2' onClick={() => setSetshowcity(!setshowcity)}>
-                    City
+                    {t("City")}
                     <img src={down} className='w-[8px] h-[8px]' />
                 </button>
                 {setshowcity && (
@@ -144,10 +144,10 @@ const Navbar = () => {
                         <span className='px-4'>Riyadh</span>
                       </li> */}
                       <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-center items-center' onClick={() =>{setSetshowcountry(false); setSetshowcity(false); handleCitySelection('Istanbul')}}>
-                        <span>Istanbul</span>
+                        <span>{t("Istanbul")}</span>
                       </li>
                       <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-center items-center' onClick={() =>{setSetshowcity(false); handleCountrySelection('All')}}>
-                      <span>All</span>
+                      <span>{t("All")}</span>
                     </li>
                     </ul>
                   )}  
@@ -156,25 +156,25 @@ const Navbar = () => {
             {/* last */}
             <div className="flex gap-2 items-center py-2 pr-2" ref={userMenuLangaugeRef}>
             <button className='text-main text-[16px] ml-6' onClick={() => setShowMenuLangauge(!showMenuLangauge)}>
-              Langauge
+              {t("Langauge")}
             </button>
               {showMenuLangauge && (
                 <ul className='absolute top-8 right-0 z-50 w-40 bg-white rounded-md shadow-lg py-1' >
-                  <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={()  => {setShowMenuLangauge(false); i18n.changeLanguage('tr') }}>
+                  <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={()  => {setShowMenuLangauge(false); i18n.changeLanguage('ru') }}>
                     <img className='w-8 h-8' src={russia} />
-                    <span className='px-4'>Russian</span>
+                    <span className='px-4'>{t("Russian")}</span>
                   </li>
                   <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => {setShowMenuLangauge(false); changeLanguage('ar') }}>
                     <img className='w-8 h-8' src={saudi} />
-                    <span className='px-4'>Arabic</span>
+                    <span className='px-4'>{t("Arabic")}</span>
                   </li>
                   <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => {setShowMenuLangauge(false); changeLanguage('tr') }}>
                     <img className='w-8 h-8' src={turkey} />
-                    <span className='px-4'>Turkish</span>
+                    <span className='px-4'>{t("Turkish")}</span>
                   </li>
                   <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => {setShowMenuLangauge(false); changeLanguage('en') }}>
                     <img className='w-8 h-8' src={united} />
-                    <span className='px-4'>English</span>
+                    <span className='px-4'>{t("English")}</span>
                   </li>
                 </ul>
               )}
@@ -192,29 +192,29 @@ const Navbar = () => {
                     <ul className='absolute top-8 right-0 z-50 w-40 bg-white rounded-md shadow-lg py-1'>
                       <li>
                         <Link to='/profile' onClick={() => setShowMenu(false)} className='block px-4 py-2 hover:bg-gray-100'>
-                          Profile
+                          {t("Profile")}
                         </Link>
                       </li>
                       <div className='border opacity-20 border-black '></div>
                       <li>
                         <Link to='/profile/liked' onClick={() => setShowMenu(false)} className='block px-4 py-2 hover:bg-gray-100'>
-                          Liked Posts
+                          {t("Liked Posts")}
                         </Link>
                       </li>
                       <li>
                         <Link to='/profile/liked' onClick={() => setShowMenu(false)} className='block px-4 py-2 hover:bg-gray-100'>
-                          Places I've been
+                          {t("Places I've been")}
                         </Link>
                       </li>
                       <li>
                         <Link to='/profile/mystore' onClick={() => setShowMenu(false)} className='block px-4 py-2 hover:bg-gray-100'>
-                          My Store 
+                          {t("My Store")}
                         </Link>
                       </li>
                       <div className='border opacity-20 border-black '></div>
                       <li>
                         <div to='/my-store' onClick={() => setShowMenu(false)} className='block px-4 py-2 hover:bg-gray-100'>
-                          <button onClick={logout} className='justify-start block w-full text-left'>Log out</button>
+                          <button onClick={logout} className='justify-start block w-full text-left'>{t("Log Out")}</button>
                         </div>
                       </li>
                     </ul>
@@ -222,7 +222,7 @@ const Navbar = () => {
                 </div>
               ) : (
                 <Link to={'/login'} className='text-pink font-main font-bold w-full text-[16px] bg-secondary p-2 rounded-full'>
-                  Log In
+                  {t("Log In")}
                 </Link>
               )}
             </div>

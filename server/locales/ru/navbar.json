@@ -1,0 +1,19 @@
+{
+    "Country": "Страна",
+    "Turkey" : "Турция",
+    "All" : "Все",
+    "City" : "Город", 
+    "Istanbul" : "Стамбул",
+    "Langauge" : "Язык", 
+    "Russian" : "Русский",
+    "Turkish" : "Турецкий",
+    "English" : "Английский",
+
+    "Profile" : "Профиль",
+    "Liked Posts" : "Понравившиеся посты",
+    "Places I've been" : "Места, где я был",
+    "My Store" : "Мой магазин",
+    "Log Out" : "Выйти", 
+
+    "Log In" : "Войти"
+}

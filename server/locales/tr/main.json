@@ -1,0 +1,33 @@
+{
+    "men" : "Erkek",
+    "Women" : "Kadın",
+    "kids" : "Çocuk",
+    "UniSex": "Unisex",
+    "all" : "hepsi",
+
+    "What are you looking for?" : "Ne arıyorsunuz?",
+    "Search" : "Araşter",
+    "New Styles" : "Yeni Stiller",
+    "See All" : "Hepsini Gör",
+    "Lastest" : "Son",
+    "Discounts" : "İndirimler",
+
+    "FILTER" : "FİLTRE",
+    "Type" : "Tip",
+    "T-Short" : "T-Shirt",
+    "Pants" : "Pantolon",
+    "Shoes" : "Ayakkabı",
+
+    "Season" : "Sezon",
+    "Summer" : "Yaz",
+    "Winter" : "Kış",
+    "Spring" : "İlkbahar",
+    "All Seasons" : "Tüm Sezonlar",
+
+    "Price" : "Fiyat:",
+    "TypeForm" : "Tip:",
+    "Sizes" : "Bedenler:",
+    "Gendar" : "Cinsiyet:",
+    "Kind" : "Tür:"
+
+}
