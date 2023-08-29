@@ -9,6 +9,7 @@ import {faGlobe,  faShoppingBag,faImage, faLanguage,faEnvelope, faArrowRight, fa
 import { faInstagram, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import InputMask from 'react-input-mask';
 import Select from 'react-select';
+import { useTranslation } from 'react-i18next';
 
 
 const CreateShop = () => {
@@ -29,6 +30,8 @@ const CreateShop = () => {
     const [twitter, setTwitter] = useState('')
     const [youtube, setYoutube] = useState('')
     const [selectedFiles, setSelectedFiles] = useState([]);
+    const { t } = useTranslation('createshop');
+
 
     const navTo = useNavigate()
 
@@ -106,25 +109,25 @@ const CreateShop = () => {
 // options and selection for language, city and country      
 
         const langaugeoptions = [
-            { value: 'english', label: 'English' },
-            { value: 'turkish', label: 'Turkish' },
-            { value: 'french', label: 'French' },
-            { value: 'arabic', label: 'Arabic' },
-            { value: 'russian', label: 'Russian' }
+            { value: 'english', label: t("english") },
+            { value: 'turkish', label: t("turkish") },
+            { value: 'french', label: t("french") },
+            { value: 'arabic', label: t("arabic") },
+            { value: 'russian', label: t("russian") }
           ];
           const handleLangauegeChange = (selectedOptions) => {
             setLanguage(selectedOptions);
           };
         const cityoptions = [
-            { value: 'istanbul', label: 'Istanbul' },
-            { value: 'ankara', label: 'Ankara' },
-            { value: 'izmir', label: 'Izmir' },
+            { value: 'istanbul', label: t("Istanbul") },
+            { value: 'ankara', label: t("Ankara") },
+            { value: 'izmir', label: t("Izmir") },
         ];
         const handleCityChange = (selectedOptions) => {
             setCity(selectedOptions);
           };
         const countryoptions = [
-            { value: 'turkey', label: 'Turkey' },
+            { value: 'turkey', label: t("Turkey") },
         ];
         const handleCountryChange = (selectedOptions) => {
             setCountry(selectedOptions);
@@ -151,7 +154,7 @@ const CreateShop = () => {
                                         <input className='hidden' type="file" onChange={handleInputChange} />
                                         <h2 className='font-semibold '>
                                         <FontAwesomeIcon icon={faImage} beat className='px-2 ' />
-                                        Browse to upload
+                                        {t("Browse to upload")}
                                         </h2> 
                                     </label>
                             </div>
@@ -160,26 +163,26 @@ const CreateShop = () => {
 
                     <div className='pl-10 ml-10'>
                         <div>
-                            <h2 className='text-3xl font-second font-bold'>Your shop</h2>
-                            <p className=''>The information you share will be used across Air Toptan to help other clients and sellers get to know you better. Learn more</p>
+                            <h2 className='text-3xl font-second font-bold'>{t("Your shop")}</h2>
+                            <p className=''>{t("The information you share will be used across Air Toptan to help other clients and sellers get to know you better. Learn more")}</p>
                         </div>
                         <div className='border mt-6'></div>
                         <div className='flex sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full'>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon icon={faShoppingBag} className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap pr-1 '>Shop Name:</h2>
+                                <h2 className='text-xl font-second whitespace-nowrap pr-1 '>{t("Shop Name")}:</h2>
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setTitle(e.target.value)}
                                 type='text' 
                                 value={title}
                                 required
 /*                                 pattern='[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}'
- */                                placeholder='The name of your shop'></input>
+ */                                placeholder={t("The name of your shop")}></input>
                                 <FontAwesomeIcon icon={faArrowRight} beat className=' px-2' />
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon icon={faPhoneVolume} className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap pr-1 '>Phone number:</h2>
+                                <h2 className='text-xl font-second whitespace-nowrap pr-1 '>{t("Phone number")}:</h2>
                                 <InputMask
                                     className='w-full border-none rounded-full h-[40px] px-2 hover:bg-slate-100'
                                     value={number}
@@ -199,21 +202,21 @@ const CreateShop = () => {
                         <div className='flex sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full'>
                             <div className="flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2">
                                 <FontAwesomeIcon icon={faLanguage} className="p-2 font-second font-semibold" />
-                                <h2 className="text-xl font-second whitespace-nowrap">Languages:</h2>
+                                <h2 className="text-xl font-second whitespace-nowrap">{t("Languages")}:</h2>
                                 <Select
                                 className="w-full border-none h-7 ml-3 bg-white hover:bg-white"
                                 onChange={handleLangauegeChange}
                                 isMulti
                                 value={language}
                                 required
-                                placeholder="Select langauges you know"
+                                placeholder={t("Select langauges you know")}
                                 options={langaugeoptions}
                                 />
                                 <FontAwesomeIcon icon={faArrowRight} beat className="px-2" />
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2 '>
                                 <FontAwesomeIcon icon={faEnvelope} className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap pr-1  '>Email:</h2>
+                                <h2 className='text-xl font-second whitespace-nowrap pr-1  '>{t("Email")}:</h2>
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setEmail(e.target.value)}
                                 type='email'
@@ -232,7 +235,7 @@ const CreateShop = () => {
                         <div className='flex sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full'>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 h-[70px] hover:h-20 p-2'>
                                 <FontAwesomeIcon  icon={faMountainCity}  className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap  '>City:</h2>
+                                <h2 className='text-xl font-second whitespace-nowrap  '>{t("City")}:</h2>
                                 <Select
                                     className='w-full border-none h-7 ml-3 bg-white  hover:bg-white'
                                     onChange={handleCityChange}
@@ -244,7 +247,7 @@ const CreateShop = () => {
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon icon={faEarthAmericas} className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap'>Country:</h2>
+                                <h2 className='text-xl font-second whitespace-nowrap'>{t("Country")}:</h2>
                                 <Select
                                     className='w-full border-none h-7 ml-3 bg-white hover:bg-white'
                                     onChange={handleCountryChange}
@@ -260,17 +263,17 @@ const CreateShop = () => {
                             <div className='border  px-48 mx-4'></div>
                         </div>
                         <div className='flex justify-center whitespace-nowrap items-center px-8 w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
-                            <h2 className='text-2xl font-second font-semibold pr-1'>Description:</h2>
+                            <h2 className='text-2xl font-second font-semibold pr-1'>{t("Description")}:</h2>
                             <input className='border rounded-md w-full' 
                             value={description}
                             onChange={e=> setDescription(e.target.value)}
-                            type="text" placeholder='Write what kind of products you sell' />
+                            type="text" placeholder={t("Write what kind of products you sell")} />
                         </div>
                         <div className='border  px-48 mx-4'></div>
                         <div className='flex sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full'>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon  icon={faGlobe}  className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap pr-1  '>Website:</h2>
+                                <h2 className='text-xl font-second whitespace-nowrap pr-1  '>{t("Website")}:</h2>
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setWebsite(e.target.value)}
                                 type='text' 
@@ -278,7 +281,7 @@ const CreateShop = () => {
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon icon={faInstagram} className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap pr-1'>Instagram:</h2>
+                                <h2 className='text-xl font-second whitespace-nowrap pr-1'>{t("Instagram")}:</h2>
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setInstagram(e.target.value)}
                                 type='text' 
@@ -292,7 +295,7 @@ const CreateShop = () => {
                         <div className='flex sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full'>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon  icon={faFacebook}  className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap pr-1 '>Facebook:</h2>
+                                <h2 className='text-xl font-second whitespace-nowrap pr-1 '>{t("Facebook")}:</h2>
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setFacebook(e.target.value)}
                                 type='text' 
@@ -300,7 +303,7 @@ const CreateShop = () => {
                             </div>
                             <div className='flex justify-center whitespace-nowrap items-center w-full rounded-md hover:bg-slate-100 hover:h-20 p-2'>
                                 <FontAwesomeIcon icon={faTwitter} className='hover:text-2xl p-2 font-second font-semibold' />
-                                <h2 className='text-xl font-second whitespace-nowrap pr-1'>Twitter:</h2>
+                                <h2 className='text-xl font-second whitespace-nowrap pr-1'>{t("Twitter")}:</h2>
                                 <input className='w-full border-none hover:bg-slate-100'
                                 onChange={e=> setTwitter(e.target.value)}
                                 type='text' 
@@ -315,7 +318,7 @@ const CreateShop = () => {
                         <div className='p-3 relative '>
                             <button className='px-4 justify-end flex py-2 font-semibold cursor-pointer'>
                                 <span className=' text-white shadow-md px-4 py-2 bg-pink rounded-full'>
-                                    Create My Store
+                                    {t("Create My Store")}
                                 </span>
                             </button>
                         </div>

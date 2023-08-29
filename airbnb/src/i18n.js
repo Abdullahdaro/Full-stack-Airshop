@@ -13,7 +13,7 @@ i18n.use(Backend)
     },
 
     fallbackLng: 'en',
-    ns: ['translations', 'main', 'profile'],
+    ns: [ 'main', 'profile', 'createshop'],
     lng: "en",
     debug: true,
     interpolation: {
