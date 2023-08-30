@@ -130,7 +130,7 @@ const Navbar = () => {
                   </ul>
                 )}
               </div>
-              <div className="border-l border-gray-300"></div>
+              {/* <div className="border-l border-gray-300"></div> */}
               <div className='font-main xs:text-sm md:text-[18px] xs:px-2 md:px-8 flex items-center' ref={userMenuCityRef}>
                 <button className='flex items-center gap-2' onClick={() => setSetshowcity(!setshowcity)}>
                     {t("City")}
@@ -219,7 +219,7 @@ const Navbar = () => {
               )}
             </div>
         </header>
-        <div className='border font-main opacity-20 border-black '></div>
+        <div className='border font-main border-black '></div> 
     </div>
   )
 }

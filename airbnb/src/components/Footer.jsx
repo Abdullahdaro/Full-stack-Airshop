@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="bg-main bg-opacity-20 text-gray-900 py-8 w-full">
+    <footer className="bg-black bg-opacity-90 text-white py-8 w-full">
       <div className="container mx-auto flex justify-between items-center">
         <div className="footer-logo">
           {/* You can add an H&M logo here */}
