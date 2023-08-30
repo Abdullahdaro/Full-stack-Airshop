@@ -71,7 +71,7 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
       </div>
       <div className='flex flex-row sm:hidden font-light items-center justify-center gap-2 ml-2'>
         <FontAwesomeIcon icon={faBars} onClick={() => setShowFilter(!showfilter)}/>
-        Filter
+        {t("Filter")}
         {showfilter && (
           <div className='flex absolute z-10 left-0 top-0 pt-10 bg-pink bg-opacity-70 p-10 text-white font-semibold w- h-full flex-col gap-4'>
             <button className='flex justify-start' onClick={() => setShowFilter(false)}><FontAwesomeIcon icon={faXmark} className='border rounded-lg bg-black px-2 py-1 hover:text-pink' /></button>
@@ -203,7 +203,7 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
     </div>
     {loadMore && (
         <div className="flex justify-center py-10">
-          <button onClick={loadMoreProducts}><span className='xs:px-10 sm:px-20 py-2 sm:text-2xl bg-[#b02020] bg font-bold text-white text-opacity-80 bg-opacity-80 rounded-sm'>See More</span></button>
+          <button onClick={loadMoreProducts}><span className='xs:px-10 sm:px-20 py-2 sm:text-2xl bg-[#b02020] bg font-bold text-white text-opacity-80 bg-opacity-80 rounded-sm'>{t("See More")}</span></button>
         </div>
       )}
   </div>

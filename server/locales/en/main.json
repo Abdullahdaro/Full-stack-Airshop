@@ -27,5 +27,7 @@
     "TypeForm" : "Type:",
     "Sizes" : "Sizes:",
     "Gendar" : "Gendar:",
-    "Kind" : "Kind:"
+    "Kind" : "Kind:",
+    "Filter" : "Filter",
+    "See More" : "See More"
 }

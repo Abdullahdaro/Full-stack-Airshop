@@ -83,25 +83,6 @@ const Navbar = () => {
       document.removeEventListener('click', handleClick);
     };
   }, []);
-
-  useEffect(() => {
-    // Add an event listener to handle screen width changes
-    const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setSetshowcountry(false);
-        setSetshowcity(false);
-      }
-    };
-
-    // Attach the event listener
-    window.addEventListener('resize', handleResize);
-
-    // Clean up the event listener on component unmount
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   
   return (
     <div className=''>
@@ -151,7 +132,7 @@ const Navbar = () => {
             {/* last */}
             <div className="flex items-center py-2" ref={userMenuLangaugeRef}>
               <button className='text-main text-[16px]' onClick={() => setShowMenuLangauge(!showMenuLangauge)}>
-                <FontAwesomeIcon className='text-pink text-2xl' icon={faLanguage} /> 
+                <FontAwesomeIcon className='xs:text-pink sm:text-black text-2xl' icon={faLanguage} /> 
               </button>
               {showMenuLangauge && (
                 <ul className='absolute top-8 right-0 z-50 w-40 bg-white rounded-md shadow-lg py-1' >
@@ -213,8 +194,9 @@ const Navbar = () => {
                   )}
                 </div>
               ) : (
-                <Link to={'/login'} className='text-pink font-main font-bold w-full text-[16px] bg-secondary p-2 rounded-full'>
-                  {t("Log In")}
+                <Link to={'/login'} className='sm:pl-8 font-main font-bold w-full flex text-[16px] bg-secondary xs:pr-2 sm:pr-8 rounded-full'>
+                 <span className='xs:hidden sm:flex w-12'>{t("Log In")}</span> 
+                 <FontAwesomeIcon className='text-pink text-2xl xs:pl-4 sm:pl-1 text-light' icon={faUser} />
                 </Link>
               )}
             </div>
