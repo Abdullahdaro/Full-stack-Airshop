@@ -11,8 +11,9 @@ import { UserContext } from '../Contexts/UserContext'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next'
-
-const locales = ['en', 'ru', 'ar', 'tr'];
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLanguage } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
 
 const Navbar = () => {
   const {user, setUser, selectedCountry, setSelectedCountry, selectedCity, setSelectedCity } = useContext(UserContext)
@@ -83,35 +84,42 @@ const Navbar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    // Add an event listener to handle screen width changes
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setSetshowcountry(false);
+        setSetshowcity(false);
+      }
+    };
+
+    // Attach the event listener
+    window.addEventListener('resize', handleResize);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   
   return (
     <div className=''>
-        <header className=' flex justify-between'>
+        <header className=' flex justify-between md:px-6' >
             {/* logo */}
             <Link to={'/'} className="flex items-center">
                 <img src={logo} className='h-25 w-[25px]' />
-                <span className='font-second text-xl'>Air TopTan</span>
+                <span className='font-second xs:text-sm md:text-xl'>Air TopTan</span>
             </Link>
             {/* middle */}
             <div className='flex shadow-gray-300 '>
-              <div className='font-main text-[18px] px-8 flex items-center' ref={userMenuCountryRef}>
+              <div className='font-main xs:text-sm md:text-[18px] xs:px-2 md:px-8 flex items-center' ref={userMenuCountryRef}>
                 <button className='flex items-center gap-2' onClick={() => setSetshowcountry(!setshowcountry)}>
                   {t("Country")}
-                  <img src={down} className='w-[8px] h-[8px]' />
+                  <img src={down} className='md:w-[8px] md:h-[8px] xs:w-[6px] xs:h-[6px]' />
                 </button>
                 {setshowcountry && (
                   <ul className='absolute top-12 right-100 z-50 w-40 bg-white rounded-md shadow-lg py-1' >
-{/*                     <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center'  onClick={() => {
-                        setSetshowcountry(false); // Call the first function
-                        handleCountrySelection('Russia'); // Call the second function
-                      }}>
-                      <img className='w-8 h-8' src={russia} />
-                      <span className='px-4'>Russia</span>
-                    </li>
-                    <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() =>{setSetshowcountry(false); handleCountrySelection('Saudi Arabia')}}>
-                      <img className='w-8 h-8' src={saudi} />
-                      <span className='px-4'>Saudi Arabia</span>
-                    </li> */}
                     <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-center items-center' onClick={() =>{setSetshowcountry(false); handleCountrySelection('Turkey')}}>
                       <img className='w-8 h-8' src={turkey} />
                       <span className='px-4'>{t("Turkey")}</span>
@@ -121,28 +129,15 @@ const Navbar = () => {
                     </li>
                   </ul>
                 )}
-
               </div>
               <div className="border-l border-gray-300"></div>
-              <div className='font-main text-[18px] px-8 flex items-center' ref={userMenuCityRef}>
-                <button className='flex  items-center gap-2' onClick={() => setSetshowcity(!setshowcity)}>
+              <div className='font-main xs:text-sm md:text-[18px] xs:px-2 md:px-8 flex items-center' ref={userMenuCityRef}>
+                <button className='flex items-center gap-2' onClick={() => setSetshowcity(!setshowcity)}>
                     {t("City")}
-                    <img src={down} className='w-[8px] h-[8px]' />
+                    <img src={down} className='md:w-[8px] md:h-[8px] xs:w-[6px] xs:h-[6px]' />
                 </button>
                 {setshowcity && (
                   <ul className='absolute top-12 right-100 z-50 w-40 bg-white rounded-md shadow-lg py-1' >
-  {/*                     <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center'  onClick={() => {
-                          setSetshowcountry(false); // Call the first function
-                          setSetshowcity(false); // Call the first function
-                          handleCitySelection('Moscow'); // Call the second function
-                        }}>
-                        <img className='w-8 h-8' src={russia} />
-                        <span className='px-4'>Moscow</span>
-                      </li>
-                      <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() =>{setSetshowcountry(false); setSetshowcity(false); handleCitySelection('Riyadh')}}>
-                        <img className='w-8 h-8' src={saudi} />
-                        <span className='px-4'>Riyadh</span>
-                      </li> */}
                       <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-center items-center' onClick={() =>{setSetshowcountry(false); setSetshowcity(false); handleCitySelection('Istanbul')}}>
                         <span>{t("Istanbul")}</span>
                       </li>
@@ -154,20 +149,16 @@ const Navbar = () => {
                 </div>
             </div>
             {/* last */}
-            <div className="flex gap-2 items-center py-2 pr-2" ref={userMenuLangaugeRef}>
-            <button className='text-main text-[16px] ml-6' onClick={() => setShowMenuLangauge(!showMenuLangauge)}>
-              {t("Langauge")}
-            </button>
+            <div className="flex items-center py-2" ref={userMenuLangaugeRef}>
+              <button className='text-main text-[16px]' onClick={() => setShowMenuLangauge(!showMenuLangauge)}>
+                <FontAwesomeIcon className='text-pink text-2xl' icon={faLanguage} /> 
+              </button>
               {showMenuLangauge && (
                 <ul className='absolute top-8 right-0 z-50 w-40 bg-white rounded-md shadow-lg py-1' >
                   <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={()  => {setShowMenuLangauge(false); i18n.changeLanguage('ru') }}>
                     <img className='w-8 h-8' src={russia} />
                     <span className='px-4'>{t("Russian")}</span>
                   </li>
-                  {/* <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => {setShowMenuLangauge(false); changeLanguage('ar') }}>
-                    <img className='w-8 h-8' src={saudi} />
-                    <span className='px-4'>{t("Arabic")}</span>
-                  </li> */}
                   <li className='hover:cursor-pointer m-1 hover:bg-gray-100 flex justify-start items-center' onClick={() => {setShowMenuLangauge(false); changeLanguage('tr') }}>
                     <img className='w-8 h-8' src={turkey} />
                     <span className='px-4'>{t("Turkish")}</span>
@@ -186,7 +177,8 @@ const Navbar = () => {
                     onClick={() => setShowMenu(!showMenu)}
                     className='items-start pl-2 pr-8 w-full justify-center focus:outline-none'
                   >
-                    <img src={profileuser} className=' w-full mx-4 items-start h-8' />
+                    {/* <img src={profileuser} className=' w-full mx-4 items-start h-8' /> */}
+                    <FontAwesomeIcon className='text-pink text-2xl pl-4 text-light' icon={faUser} />
                   </button>
                   {showMenu && (
                     <ul className='absolute top-8 right-0 z-50 w-40 bg-white rounded-md shadow-lg py-1'>

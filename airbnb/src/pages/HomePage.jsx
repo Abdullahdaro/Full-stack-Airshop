@@ -58,7 +58,7 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
 
   return (
   <div className='pb-4'>
-    <div className='flex flex-row justify-between'>
+    <div className='flex flex-row justify-between px-10'>
       <div className="flex flex-row w-[70%] font-second font-light text-base leading-6 items-center justify-center">
       <button  onClick={() => setSexFilter('men')}>{t("men")}</button>
           <button  onClick={() => setSexFilter('women')}>{t('Women')}</button>
@@ -77,7 +77,7 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
       </div>
     </div>
     <div className='border opacity-20 border-black '></div>
-    <div className='flex'>
+    <div className='flex px-2'>
       <div className='w-[17%] p-8 '>
         <div className='flex flex-col gap-1 pb-10'> 
           <span className='text-main font-bold text-2xl'>{t("New Styles")}</span>
