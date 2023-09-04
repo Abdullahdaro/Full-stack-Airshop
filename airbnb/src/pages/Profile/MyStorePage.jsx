@@ -66,7 +66,6 @@ const MyStorePage = () => {
       </div>
 
       <div className='p-4'>
-        
         {shopData !== null && shopData.length === 0 ? (
               <div>
               <div className='flex justify-center items-center'>
@@ -81,23 +80,23 @@ const MyStorePage = () => {
               }
       </div>
       
-      <div className='m-4 justify-center gap-4 px-80 grid-rows-2'>
+      <div className='sm:m-4 justify-center gap-4 ss:px-20 sm:px-40 md:px-80 grid-rows-2'>
         {products.length > 0 && products.map((product, i ) =>(
-          <div className='flex shadow-lg rounded-xl p-6 justify-between'>
-          <Link to={'/profile/products/'+product._id} key={i}>
-            <div className='bg-white flex flex-row'>
-              <div className='relative  h-[150px] w-[150px]'>
-                {product.photos.length > 0 && (
-                <img loading='lazy' src={'http://localhost:4000/uploads/'+product.photos[0]}
-                className='object-cover rounded-lg shadow-lg w-full h-full aspect-w-1 aspect-h-1 border '  />
-                )}
+          <div className='flex shadow-lg rounded-xl xs:p-4 sm:p-6 justify-between'>
+            <Link to={'/profile/products/'+product._id} key={i}>
+              <div className='bg-white flex flex-row'>
+                <div className='relative xs:h-[125px] xs:w-[100px] sm:h-[190px] sm:w-[150px]'>
+                  {product.photos.length > 0 && (
+                  <img loading='lazy' src={'http://localhost:4000/uploads/'+product.photos[0]}
+                  className='object-cover rounded-lg shadow-lg w-full h-full aspect-w-1 aspect-h-1 border '  />
+                  )}
+                </div>
               </div>
-            </div>
             </Link>
-            <div className="pr-3 grow flex font-second">
-              <div className='px-10 flex-nowrap w-full'>
-                <h2 className="text-2xl">{product.title}</h2>
-                <p className='text-sm pt-4'>{product.description}</p>
+            <div className='flex justify-start w-full'>
+              <div className='xs:px-2 sm:px-10 flex-nowrap w-full'>
+                  <h2 className="text-2xl">{product.title}</h2>
+                  <p className='text-sm pt-4'>{product.description}</p>
               </div>
               <div className="text-xl">
                 <div className="gap-1 flex flex-col">
@@ -107,7 +106,7 @@ const MyStorePage = () => {
                   <span className="text-xs">
                     {t("Sizes")}: {product.size}
                   </span>
-                  <div className=' grid-cols-3 grid'>
+                  <div className=' grid-cols-2 gap-1 grid pr-4'>
                     <span className="text-sm text-[#7F8086]">
                       {t("type")}: <span className='text-[#FE8B8B]'>{product.type}</span> 
                     </span>
@@ -117,7 +116,9 @@ const MyStorePage = () => {
                   </div>
                 </div>
               </div>
-              <div className='relative flex justify-between flex-col '>
+            </div>
+            <div className="sm:pr-3 flex justify-end font-second">
+              <div className='relative flex justify-between xs:text-[12px] sm:text-md flex-col '>
                 <button className="icon-button shadow-lg">
                   <FontAwesomeIcon icon={faEdit} />
                 </button>

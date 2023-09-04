@@ -55,13 +55,14 @@ const ProductPage = () => {
     <div className=''>
       {owner && (
         <Link to={`/owner/${owner._id}`} className='flex ml-4 mt-2 font-main text-2xl leading-10'>
-        {owner && <img src={'http://localhost:4000/uploads/' + owner.photos[0]} className='w-20 h-20 rounded-full' />}
-        {owner && <p>{owner.title} {t("Shop")}</p>}
-      </Link>
+          {owner && <img src={'http://localhost:4000/uploads/' + owner.photos[0]} className='sm:w-20 sm:h-20 xs:w-14 xs:h-14 rounded-full shadow-lg' />}
+          {owner && <p className='ml-4 xs:text-[20px] pt-1 font-light' >{owner.title} {t("Shop")}</p>}
+        </Link>
       )}
-      <div className='flex '>
-        <div className="my-4 ml-4 gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-[80%] ">
-          {product.photos?.length && product.photos.map((photo, index) => (
+      <div className='flex'>
+        <div className="my-4 ml-4 gap-4 grid sm:grid-cols-2 lg:grid-cols-2 w-[80%] ">
+        <div className='xs:flex '>
+          {product.photos?.length && product.photos.slice(0, 1).map((photo, index) => (
             <div className="relative" key={index}>
               <img
                 src={'http://localhost:4000/uploads/' + photo}
@@ -70,6 +71,18 @@ const ProductPage = () => {
               />
             </div>
           ))}
+        </div>
+        <div className='xs:hidden sm:flex'>
+          {product.photos?.length > 0 && (
+            <div className="relative xm:hidden sm:block">
+              <img
+                src={'http://localhost:4000/uploads/' + product.photos[1]}
+                className="object-cover w-full h-full aspect-w-1 aspect-h-1 border border-gray-300"
+                alt={`Product Photo 3`}
+              />
+            </div>
+          )}
+        </div>
         </div>
         <div className='w-[25%] my-4 mx-10 relative p-4 rounded-xl '>
           <div className='flex justify-between mb-6 mt-4'>
@@ -93,11 +106,24 @@ const ProductPage = () => {
           <button className='bg-secondary py-2'>{t("Send a message to the seller")}</button>
         </div>
       </div>
-      <div className='px-6'>
-        <h1>{title}</h1>
-        <h2>{t("Descritop")}: <br/>{decription}</h2>
-        <h2>{t("Serial Number")}: {serialNumber}</h2>
-        <h2>{t("Composition")}: {material}</h2>
+      <div className=' w-[80%]'>
+        <div className='px-6'>
+          <h1>{title}</h1>
+          <h2>{t("Descritop")}: <br/>{decription}</h2>
+          <h2>{t("Serial Number")}: {serialNumber}</h2>
+          <h2>{t("Composition")}: {material}</h2>
+        </div>
+        <div className="my-4 ml-4 gap-4 grid sm:grid-cols-2 lg:grid-cols-2 ">
+            {product.photos?.length && product.photos.slice(2).map((photo, index) => (
+              <div className="relative" key={index}>
+                <img
+                  src={'http://localhost:4000/uploads/' + photo}
+                  className="object-cover w-full h-full aspect-w-1 aspect-h-1 border border-gray-300"
+                  alt={`Product Photo ${index + 1}`}
+                />
+              </div>
+            ))}
+        </div>
       </div>
       <div>
         <h1>{t("Products that you may like")}</h1>

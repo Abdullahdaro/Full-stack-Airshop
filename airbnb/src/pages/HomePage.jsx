@@ -151,7 +151,7 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
       <button>Geocode Address</button>
       <Map />
     </div> */}
-      <div className='xs:p-2 sm:m-7 gap-2 grid w-[95%] xs:grid-cols-2 md:grid-cols-3 lg:grid-col-4'>
+      <div className='xs:p-2 sm:m-7 gap-2 grid w-[95%] xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6'>
         {filteredProducts.length > 0 && filteredProducts.slice(0, visibleProducts).map(product => (
             <div className='shadow-lg ss:w-min-[250px] rounded-lg flex flex-col'>
               <Link to={'/product/'+product._id} >
