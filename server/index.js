@@ -37,7 +37,7 @@ app.use(session({
 app.use(
   cors({
     credentials: true,
-    origin:  'https://6500990a7c44430ed2cc825f--glowing-parfait-89f579.netlify.app', 
+    origin:  'https://65009db16a35d4185bb2425f--heroic-blancmange-569c19.netlify.app', 
     allowedHeaders: 'Content-Type, Authorization',
     methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   })
