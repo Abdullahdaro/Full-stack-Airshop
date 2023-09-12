@@ -37,7 +37,7 @@ app.use(session({
 app.use(
   cors({
     credentials: true,
-    origin:  'http://localhost:5173', 
+    origin:  'https://6500990a7c44430ed2cc825f--glowing-parfait-89f579.netlify.app', 
     allowedHeaders: 'Content-Type, Authorization',
     methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   })
@@ -90,7 +90,7 @@ try {
   await mongoose.connect(process.env.REACT_APP_CONNECTION_URL, {
     useNewUrlParser: true,
   });
-  console.log(`Server running on port: ${process.env.PORT || 5000}`);
+  console.log(`Server running on port: ${process.env.PORT || 4000}`);
 } catch (error) {
   console.log(error.message);
   res.status(500).json({ error: 'Internal Server Error' });
