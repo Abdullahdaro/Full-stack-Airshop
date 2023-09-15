@@ -37,7 +37,7 @@ app.use(session({
 app.use(
   cors({
     credentials: true,
-    origin:  'https://65009db16a35d4185bb2425f--heroic-blancmange-569c19.netlify.app', 
+    origin:  'http://localhost:5173', 
     allowedHeaders: 'Content-Type, Authorization',
     methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   })
@@ -177,7 +177,6 @@ class APIfeatures  {
             res.cookie('token', token, { httpOnly: true });
             res.redirect(`http://localhost:5173`)
           });}
-
       );
 
 // having a token in the cookie, we can get the user data

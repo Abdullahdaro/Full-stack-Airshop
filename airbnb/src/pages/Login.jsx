@@ -32,7 +32,7 @@ const login = () => {
   }
 
   const googleSuccess =  () => {
-    window.open("http://localhost:10000/googlelogin", "_self");
+    window.open("http://localhost:4000/googlelogin", "_self");
   };
 
   return (

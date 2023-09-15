@@ -19,7 +19,7 @@ function App() {
     <Suspense className="App" fallback={null}>
       <UserContextProvider>
         <BrowserRouter>
-        <div className='bg-[#FAFAFA]'>
+        <div className='bg-[#FAFAFA] main-content'>
         <Navbar />
             <Routes className=''>
                 <Route path='/' element={(<HomePage />)} />

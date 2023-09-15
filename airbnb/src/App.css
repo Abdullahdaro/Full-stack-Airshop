@@ -57,3 +57,14 @@ button.primary{
   background-color: #020c16;
   color: pink /* Darker blue on hover */
 }
+
+.main-content {
+  min-height: 100vh; /* Make sure the main content takes at least the full viewport height */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Add this style to make the footer sticky at the bottom */
+footer {
+  margin-top: auto;
+}

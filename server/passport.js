@@ -20,7 +20,7 @@ passport.use(
     {
       clientID: '720003670148-2rqupqrote7bc33kimqdq0a3lkq68ea3.apps.googleusercontent.com',
       clientSecret: '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',
-      callbackURL: '/auth/google/callback',
+      callbackURL: 'http://localhost:4000/auth/google/callback',
     },
      (accessToken, refreshToken, profile, done) => {
       UserModel.findOne({id: profile.id}).then((currentUser) => {
