@@ -37,7 +37,7 @@ app.use(session({
 app.use(
   cors({
     credentials: true,
-    origin:  'https://65103a615abffc5b76699e4d--heroic-blancmange-569c19.netlify.app', 
+    origin:  'https://air-top-tan.netlify.app', 
     allowedHeaders: 'Content-Type, Authorization',
     methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   })
@@ -175,7 +175,7 @@ class APIfeatures  {
             const jwtToken = `Bearer ${token}`;
 
             res.cookie('token', token, { httpOnly: true });
-            res.redirect(`https://65103a615abffc5b76699e4d--heroic-blancmange-569c19.netlify.app`)
+            res.redirect(`https://air-top-tan.netlify.app`)
           });}
       );
 
