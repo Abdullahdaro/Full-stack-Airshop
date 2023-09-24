@@ -9,7 +9,7 @@ i18n.use(Backend)
   .use(initReactI18next)
   .init({
     backend: {
-        loadPath: 'http://localhost:4000/locales/{{lng}}/{{ns}}.json',
+        loadPath: 'https://airshop-top-tan.onrender.com/locales/{{lng}}/{{ns}}.json',
     },
 
     fallbackLng: 'en',

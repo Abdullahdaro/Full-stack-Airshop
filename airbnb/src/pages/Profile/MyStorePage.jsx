@@ -87,7 +87,7 @@ const MyStorePage = () => {
               <div className='bg-white flex flex-row'>
                 <div className='relative xs:h-[125px] xs:w-[100px] sm:h-[190px] sm:w-[150px]'>
                   {product.photos.length > 0 && (
-                  <img loading='lazy' src={'http://localhost:4000/uploads/'+product.photos[0]}
+                  <img loading='lazy' src={'https://airshop-top-tan.onrender.com/uploads/'+product.photos[0]}
                   className='object-cover rounded-lg shadow-lg w-full h-full aspect-w-1 aspect-h-1 border '  />
                   )}
                 </div>

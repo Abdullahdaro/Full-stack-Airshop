@@ -55,7 +55,7 @@ const ProductPage = () => {
     <div className=''>
       {owner && (
         <Link to={`/owner/${owner._id}`} className='flex ml-4 mt-2 font-main text-2xl leading-10'>
-          {owner && <img src={'http://localhost:4000/uploads/' + owner.photos[0]} className='sm:w-20 sm:h-20 xs:w-14 xs:h-14 rounded-full shadow-lg' />}
+          {owner && <img src={'https://airshop-top-tan.onrender.com/uploads/' + owner.photos[0]} className='sm:w-20 sm:h-20 xs:w-14 xs:h-14 rounded-full shadow-lg' />}
           {owner && <p className='ml-4 xs:text-[20px] pt-1 font-light' >{owner.title} {t("Shop")}</p>}
         </Link>
       )}
@@ -65,7 +65,7 @@ const ProductPage = () => {
           {product.photos?.length && product.photos.slice(0, 1).map((photo, index) => (
             <div className="relative" key={index}>
               <img
-                src={'http://localhost:4000/uploads/' + photo}
+                src={'https://airshop-top-tan.onrender.com/uploads/' + photo}
                 className="object-cover w-full h-full aspect-w-1 aspect-h-1 border border-gray-300"
                 alt={`Product Photo ${index + 1}`}
               />
@@ -76,7 +76,7 @@ const ProductPage = () => {
           {product.photos?.length > 0 && (
             <div className="relative xm:hidden sm:block">
               <img
-                src={'http://localhost:4000/uploads/' + product.photos[1]}
+                src={'https://airshop-top-tan.onrender.com/uploads/' + product.photos[1]}
                 className="object-cover w-full h-full aspect-w-1 aspect-h-1 border border-gray-300"
                 alt={`Product Photo 3`}
               />
@@ -117,7 +117,7 @@ const ProductPage = () => {
             {product.photos?.length && product.photos.slice(2).map((photo, index) => (
               <div className="relative" key={index}>
                 <img
-                  src={'http://localhost:4000/uploads/' + photo}
+                  src={'https://airshop-top-tan.onrender.com/uploads/' + photo}
                   className="object-cover w-full h-full aspect-w-1 aspect-h-1 border border-gray-300"
                   alt={`Product Photo ${index + 1}`}
                 />

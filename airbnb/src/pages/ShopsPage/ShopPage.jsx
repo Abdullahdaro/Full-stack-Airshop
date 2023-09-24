@@ -147,7 +147,7 @@ if (!shop) {
               <div className=' flex flex-col bg-gray-200 rounded-xl'>
                 <div className="relative h-[625px] w-full ">
                   {product.photos?.[0] && (
-                    <img src={'http://localhost:4000/uploads/'+product.photos?.[0]} 
+                    <img src={'https://airshop-top-tan.onrender.com/uploads/'+product.photos?.[0]} 
                       className='object-cover w-full h-full aspect-w-1 aspect-h-1 rounded-xl' />
                   )}
                 </div>

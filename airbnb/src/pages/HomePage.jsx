@@ -157,7 +157,7 @@ const HomePage = ({selectedCountry, setSelectedCountry, selectedCity, setSelecte
               <Link to={'/product/'+product._id} >
                 <div className="relative w-full ">
                     {product.photos?.[0] && (
-                      <img loading='lazy' src={'http://localhost:4000/uploads/'+product.photos?.[0]} 
+                      <img loading='lazy' src={'https://airshop-top-tan.onrender.com/uploads/'+product.photos?.[0]} 
                         className='object-cover aspect-w-1 aspect-h-1 rounded-xl' />
                     )}
                 </div>

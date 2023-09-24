@@ -38,7 +38,7 @@ const RegisterPage = () => {
     }, []);
 
     const googleSuccess =  () => {
-      window.open("http://localhost:4000/googlelogin", "_self");
+      window.open("https://airshop-top-tan.onrender.com/googlelogin", "_self");
     };
 
     const googleFailure = (error) => {
